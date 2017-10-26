@@ -21,9 +21,11 @@ ______
 
 ______
 #### Race Results:
-<b> 2017 </b> : Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Nuthetal-Crosslauf: 16km, 2nd,
-59:44 | Der Gießener Stadtlauf: 10km, 2nd, 31:57 | Köln Half Marathon: 31st,
-1:12:21 | 
+<b> 2017 </b>: Ottosdal Draf en Trap: 10km, 5th, 34:06 | Om Die Dam:
+21.1km, 2nd, 1:14:28 | Two Oceans: 21.1km: 35th _ish_, 1:13:13 |
+Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
+2nd, 31:57 | Nuthetal-Crosslauf: 16km, 2nd, 59:44 | Finlandia 10km: 1st,
+32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |  
 
 ______
 #### Race Calender:
