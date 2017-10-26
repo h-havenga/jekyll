@@ -21,8 +21,8 @@ ______
 
 ______
 #### Race Results:
-<b> 2017 </b> : Biedenkopft Stadtlauft:10km, 2nd, 33:47 | Potsdam Crosslauf: 16km, 2nd,
-59:44 | Giessen Stadtluaft, 10km, 2nd, 31:57 | Koln Half Marathon, 31st,
+<b> 2017 </b> : Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Nuthetal-Crosslauf: 16km, 2nd,
+59:44 | Der Gießener Stadtlauf: 10km, 2nd, 31:57 | Köln Half Marathon: 31st,
 1:12:21 | 
 
 ______
