@@ -1,7 +1,8 @@
 #!/bin/bash
-echo "Press crtl-c when prompt "
+echo "This is a automated git push script for jekyll, use it at your own risk "
 
-bundle exec jekyll serve
+timeout 15 bundle exec jekyll serve
+
 git add .
 
 echo -n "What do you want to name your commit? [ENTER]: "
