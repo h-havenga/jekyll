@@ -4,7 +4,7 @@ title: Running
 permalink: /Running/
 ---
 
-Running has become a big part of my life, it has allowed me to see new
+I like running, it has allowed me to see new
 places and meet new people, many of who are now my close friends.  I
 currently have a [Garmin Forerunner
 630](https://buy.garmin.com/en-US/US/p/516105/pn/010-03717-00) that I use
