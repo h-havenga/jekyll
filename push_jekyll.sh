@@ -11,4 +11,4 @@ read name
 git commit -m "$name"
 git push origin master
 
-echo "Commit Successful!"
+echo "Push Successful!"

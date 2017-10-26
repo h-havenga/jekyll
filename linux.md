@@ -25,5 +25,21 @@ and despite the testing tag both have been very stable.
 Generic Mapping Tools (GMT) | youtube-dl | gdal | 
 
 ______
-### Usefull one liners
+### Useful one liners
 
+{% highlight bash %}
+#!/bin/bash
+echo "This is a automated git push script for Jekyll, use it at your own risk "
+
+timeout 15 bundle exec jekyll serve
+
+git add .
+
+echo -n "What do you want to name your commit? [ENTER]: "
+read name
+
+git commit -m "$name"
+git push origin master
+
+echo "Commit Successful!"
+{% endhighlight %}
