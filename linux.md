@@ -25,7 +25,7 @@ Generic Mapping Tools (GMT) | youtube-dl | gdal |
 ______
 ### Useful scripts and stuff
 
-Update my jekyll site and push to repository
+Compile Jekyll site locally and push to site repository
 {% highlight bash %}
 #!/bin/bash
 echo "This is a automated git push script for Jekyll, use it at your own risk "
