@@ -21,9 +21,11 @@
 	   {% include icon-mail.html %}
 	   </li>
            {% endif %}
+	   
+           <li>
+           <p class="rss-subscribe"><span class="icon icon--rss">{% include icon-rss.svg %}</span><a href="{{ "/feed.xml" | relative_url }}">RSS</a></p>
+	   </li>
 
-           <p class="rss-subscribe">Subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
-          
 	   </ul>
 
       </div>
