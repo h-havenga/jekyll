@@ -1,9 +1,9 @@
----
-layout: post
-title:  "Securing my parents browser"
-date:   2017-10-24 10:43:29 +0200
-categories: security browser
----
+   ---
+   layout: post
+   title:  "Securing my parents browser"
+   date:   2017-10-24 10:43:29 +0200
+   categories: security browser
+   ---
 You’ll find this post in your `_posts` directory. Go ahead and edit it and
 re-build the site to see your changes. You can rebuild the site in many
 different ways, but the most common way is to run `jekyll serve`, which
