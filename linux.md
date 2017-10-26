@@ -14,8 +14,8 @@ while, I probably reinstalled my system every week for about two months. I
 installed Debian somewhere there and after changing it to testing I was
 hooked. The system was more stable than any release I ever had. Currently
 have computers running Debian testing, a Dell E6220 with Gnome 3 and a
-small Acer Netbook with Mate I use when I travel. Both systems have not let
-me down and despite the testing tag both have been very stable.  
+small Acer Netbook with Mate I use when I travel. Despite the testing tag
+both systems have been very stable.  
 
 ![linux]({{ "/assets/images/random/linux.png" | absolute_url }})
 
