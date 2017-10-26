@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "This is a automated git push script for jekyll, use it at your own risk "
+echo "This is a automated git push script for Jekyll, use it at your own risk "
 
 timeout 15 bundle exec jekyll serve
 
@@ -10,3 +10,5 @@ read name
 
 git commit -m "$name"
 git push origin master
+
+echo "Commit Successful!"
