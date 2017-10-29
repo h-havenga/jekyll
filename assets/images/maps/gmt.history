@@ -1,9 +1,0 @@
-# GMT 5 Session common arguments shelf
-BEGIN GMT 5.4.2
-B	+tSouth Africa
-J	M
-JM	M20
-R	15/34/-35/-22
-X	5
-L	2
-END
