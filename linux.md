@@ -27,7 +27,7 @@ gdal_translate in_file.tiff out_file.tiff -b 1 -scale 6880 7641 0 65535
 {% endhighlight %}
 
 Convert a Panasonic Raw (from MAPIR Survey2 Camera) to a usable jpg and transfer exif
-info from the corropsonding JPG (weird setup, I know)
+info from the correpsonding JPG (weird setup, I know)
 {% highlight bash %}
 darktable-cli in_file.RAW out_file.jpg && exiftool -tagsfromfile in_file.JPG -x Orientation out_file.jpg
 {% endhighlight %}
