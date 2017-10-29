@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-29T13:36:52+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me.  
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-29T13:40:14+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me.  
 </subtitle><entry><title type="html">Using Generic Mapping Tools</title><link href="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html" rel="alternate" type="text/html" title="Using Generic Mapping Tools" /><published>2017-10-19T10:00:29+02:00</published><updated>2017-10-19T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html">&lt;p&gt;Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and
 spatial analysis. I say unknown because I only know one other person who
 actually uses it. Looking for resources online does however indicate that
@@ -65,33 +65,7 @@ gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quo
 
 &lt;p&gt;This breaks down the commands and when you need to you can just edit the
 script as you need to. Obviously this is the most basic of maps. I’ll try
-and get some more advanced maps as this blog evolves.&lt;/p&gt;</content><author><name></name></author><summary type="html">Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and spatial analysis. I say unknown because I only know one other person who actually uses it. Looking for resources online does however indicate that some universities have courses teaching GMT, no such luck for me, I had to learn it myself. I’d say the learning curve is quite steep, the only tool I can compare it with right now is GNUPLOT, another really cool command line tool for creating high quality graphics.</summary></entry><entry><title type="html">Working with IGRA data and GNUPLOT</title><link href="http://localhost:4000/gnuplot/radiosonde/climate/2017/10/10/igra-and-gnuplot.html" rel="alternate" type="text/html" title="Working with IGRA data and GNUPLOT" /><published>2017-10-10T12:43:29+02:00</published><updated>2017-10-10T12:43:29+02:00</updated><id>http://localhost:4000/gnuplot/radiosonde/climate/2017/10/10/igra-and-gnuplot</id><content type="html" xml:base="http://localhost:4000/gnuplot/radiosonde/climate/2017/10/10/igra-and-gnuplot.html">&lt;p&gt;The Integrated Radiosonde Archive is a great online database containing
-radiosonde data from around the world, even better is that there is a
-already derived dataset with some interesting variables like CAPE, CIN, LI,
-SI, TTI and more waiting for someone to use it in some fancy plot
-(hopefully for publication one day). All credit to the maintainers of this
-database. It’s really well kept up.&lt;/p&gt;
-
-&lt;p&gt;The data was pretty useful in evaluation of some trends associated with
-severe storms. Some interesting things stand out (maybe this is my
-contribution to science, I think most of it is already well known anyway).
-We were able to see that there is a increase to an atmosphere favoring
-convective storms over the last 40 years – do I hear the words “global
-warming” somewhere? The only index that did not indicate this was the
-Totals Totals (TT) index… Why, well I’m not sure yet… In due time, I’ll let
-you know. So yes, the environment seems to favor more convective storms
-(take note) over the highveld of South-Africa.&lt;/p&gt;
-
-&lt;p&gt;When I finish my thesis I’ll publish some figures here of my findings.&lt;/p&gt;
-
-&lt;p&gt;GNUPLOT, cool for plotting raw data… I actually wrote the original title
-long before I wrote this. I stopped using GNUPLOT and switched to R (I’m to
-stupid to do complicated stats with GNUPLOT). I did however find it useful
-to plot raw time series data quickly. The other tool that I started using
-and which I find really cool is GMT or Generic Mapping Tools, I use it to
-make nice maps, it’s pretty easy and the quality is great. The learning
-curve is quite steep but worth it. You can also do statistics with gnuplot
-if you’re smarter then me!&lt;/p&gt;</content><author><name></name></author><summary type="html">The Integrated Radiosonde Archive is a great online database containing radiosonde data from around the world, even better is that there is a already derived dataset with some interesting variables like CAPE, CIN, LI, SI, TTI and more waiting for someone to use it in some fancy plot (hopefully for publication one day). All credit to the maintainers of this database. It’s really well kept up.</summary></entry><entry><title type="html">Getting WRF to work with ERA-Interim data</title><link href="http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era.html" rel="alternate" type="text/html" title="Getting WRF to work with ERA-Interim data" /><published>2017-09-20T12:43:29+02:00</published><updated>2017-09-20T12:43:29+02:00</updated><id>http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era</id><content type="html" xml:base="http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">&lt;p&gt;I actually started a blog as part of another class, but lets pretend
+and get some more advanced maps as this blog evolves.&lt;/p&gt;</content><author><name></name></author><summary type="html">Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and spatial analysis. I say unknown because I only know one other person who actually uses it. Looking for resources online does however indicate that some universities have courses teaching GMT, no such luck for me, I had to learn it myself. I’d say the learning curve is quite steep, the only tool I can compare it with right now is GNUPLOT, another really cool command line tool for creating high quality graphics.</summary></entry><entry><title type="html">Getting WRF to work with ERA-Interim data</title><link href="http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era.html" rel="alternate" type="text/html" title="Getting WRF to work with ERA-Interim data" /><published>2017-09-20T12:43:29+02:00</published><updated>2017-09-20T12:43:29+02:00</updated><id>http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era</id><content type="html" xml:base="http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">&lt;p&gt;I actually started a blog as part of another class, but lets pretend
 that never happened and mark this as the official start.&lt;/p&gt;
 
 &lt;p&gt;I’m slowly going to start putting myself out there, I’m trying
