@@ -30,6 +30,8 @@ markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+disqus:
+  shortname: hh92
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
