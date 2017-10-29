@@ -17,28 +17,28 @@ have computers running Debian testing, a Dell E6220 with Gnome 3 and a
 small Acer Netbook with Mate I use when I travel. Despite the testing tag
 both systems have been very stable.  
 
-![linux]({{ "/assets/images/random/linux.png" | absolute_url }})
+![linux]({{ "/assets/images/random/debian_logo.png" | absolute_url }})
 
-### Command Line Tools
+### Most used command line tools
 Generic Mapping Tools (GMT) | youtube-dl | gdal | 
 
 ______
-### Useful scripts and stuff
+### Useful one liners
 
-Compile Jekyll site locally and push to site repository
+Convert a bunch of GoPro images for a time-laps 
 {% highlight bash %}
-#!/bin/bash
-echo "This is a automated git push script for Jekyll, use it at your own risk "
-
-timeout 15 bundle exec jekyll serve
-
-git add .
-
-echo -n "What do you want to name your commit? [ENTER]: "
-read name
-
-git commit -m "$name"
-git push origin master
-
-echo "Commit Successful!"
+ffmpeg -r 30 -y -pattern_type glob -i '*.JPG' -vf "crop=h=2250" -c:v libx264 -crf 20 -s 1280x720 output.avi'
 {% endhighlight %}
+
+Convert a 16bit tiff thermal image to something more viewable
+{% highlight bash %}
+gdal_translate in_file.tiff out_file.tiff -b 1 -scale 6880 7641 0 65535
+{% endhighlight %}
+
+Convert a Panasonic Raw (from MAPIR Survey2 Camera) to a usable jpg and transfer exif
+info from the corropsonding JPG (weird setup, I know)
+{% highlight bash %}
+darktable-cli in_file.RAW out_file.jpg && exiftool -tagsfromfile in_file.JPG -x Orientation out_file.jpg
+{% endhighlight %}
+
+

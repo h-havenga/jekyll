@@ -22,15 +22,11 @@ The Power of Habit, _Charles Duhigg_ |
 ______
 ### TV and film
 #### Sitcom:
-Friends | Seinfeld | The Big Bang Theory |  
+Friends | Seinfeld | The Big Bang Theory | The Middle 
 
 #### Series:
-Fargo | Midnight Sun | Night Of | Dexter | Breaking Bad
+Fargo | Midnight Sun | Night Of | Dexter | Breaking Bad | Sinner |
 
 #### Films:
 Saving Private Ryan | We Were Soldiers | Black Hawk Down | Into The Wild |   
-
-______
-### Music
-
 

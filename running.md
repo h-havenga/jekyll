@@ -4,13 +4,10 @@ title: Running
 permalink: /Running/
 ---
 
-I like running, it has allowed me to see new
-places and meet new people, many of who are now my close friends.  I
-currently have a [Garmin Forerunner
-630](https://buy.garmin.com/en-US/US/p/516105/pn/010-03717-00) that I use
-to track my runs, the watch itself is pretty cool, I post all my activities
-to [Strava](https://www.strava.com/athletes/3278392), there's a cool maps
-with details about altitude, pace, distance, etc.. 
+Running has allowed me to see new places and meet new people, many of who
+are now my close friends. You can view all my activities on
+[Strava](https://www.strava.com/athletes/3278392), there's cool maps with
+interesting statistics. 
   
 ______
 #### Strava Data*:
@@ -20,7 +17,7 @@ ______
 <sub> * Privacy Badger might block the widgets. </sub> 
 
 ______
-#### Race Results:
+#### Results:
 <b> 2017 </b>: Ottosdal Draf en Trap: 10km, 5th, 34:06 | Om Die Dam:
 21.1km, 2nd, 1:14:28 | Two Oceans: 21.1km: 35th _ish_, 1:13:13 |
 Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
@@ -28,11 +25,7 @@ Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
 32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |  
 
 ______
-#### Race Calender:
-10/12/2017: Malaga Marathon, Spain
-
-______
-#### Running Gallery:
+#### Gallery:
 ![Finland race]({{ "/assets/images/running/finland_10k.jpg" | absolute_url }})
 This was in Finland.  
 &copy;Finlandia Marathon 

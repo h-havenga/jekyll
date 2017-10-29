@@ -1,0 +1,54 @@
+---
+layout: post
+title:  "Genesis"
+date:   2017-10-29 12:43:29 +0200
+categories: jekyll blog
+---
+Starting a _serious_ blog was on my mind for some time before I finally got
+around to it. In 2015 as part of a communication class we had to create a
+blog where we would write our assignments, no one in the class had any
+experience with blogging so we all naturally started the blog on WordPress,
+something everyone was sort-of familiar with. It was kind of okay to be
+honest, no one actually read the blog outside class and after the semester
+ended the blog died a sudden death. 
+
+A year later the urge hit me again to create my own personal online space.
+This urge was initiated by observing the effectiveness of one particular
+blog and I was also getting deeper into GNU\Linux, modelling and coding,
+sometimes solving problems that I could not find solutions for on the web
+and I wanted to share all this. Revisiting my old blog was not
+exciting at all. I had a juvenile name for my blog and I was dreading
+the wordpress web interface. My enthusiasm was however stronger and I
+pushed forward and revamped the blog. After some initial posts and adding
+pictures it was kind of _okay_, but I was not happy with it. I however made
+piece with it.
+
+Enter Jekyll. Late 2017 I stumbled upon a Jekyll site, heaven knowns why it
+took me so long. I installed the Jekyll and did a Jekyll serve and there it
+was. I was impressed. I started tweaking the default minima theme from my
+command line and within a couple of hours I had a decent thing going, but
+most importantly I felt in control. As I gained momentum I decided to look
+for a real domain (.com/.co.za/.net). My name was not yet taken, it was
+pretty cheap and I reckoned that I might as well do it anyway to prevent
+someone from buying it and using it as a spam site and I just went for it.  
+
+In order to make this blog actually reflect me and to really accomplish
+my goals for starting this blog I decided to make a list here with some
+ToDo's, call them a new years resolution if you like.
+
+
+1. Be consistent, as with all things in life
+2. Share as much things useful as possible
+3. Keep it simple stupid
++ If it feels cluttered, it is.
++ Keep the static.
+
+That's all for now. 
+
+____
+
+Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
+
+[jekyll-docs]: https://jekyllrb.com/docs/home
+[jekyll-gh]:   https://github.com/jekyll/jekyll
+[jekyll-talk]: https://talk.jekyllrb.com/

@@ -110,30 +110,26 @@ have computers running Debian testing, a Dell E6220 with Gnome 3 and a
 small Acer Netbook with Mate I use when I travel. Despite the testing tag
 both systems have been very stable.</p>
 
-<p><img src="http://localhost:4000/assets/images/random/linux.png" alt="linux" /></p>
+<p><img src="http://localhost:4000/assets/images/random/debian_logo.png" alt="linux" /></p>
 
-<h3 id="command-line-tools">Command Line Tools</h3>
+<h3 id="most-used-command-line-tools">Most used command line tools</h3>
 <p>Generic Mapping Tools (GMT) | youtube-dl | gdal |</p>
 
 <hr />
-<h3 id="useful-scripts-and-stuff">Useful scripts and stuff</h3>
+<h3 id="useful-one-liners">Useful one liners</h3>
 
-<p>Compile Jekyll site locally and push to site repository</p>
+<p>Convert a bunch of GoPro images for a time-laps</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="nb">echo</span> <span class="s2">"This is a automated git push script for Jekyll, use it at your own risk "</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ffmpeg <span class="nt">-r</span> 30 <span class="nt">-y</span> <span class="nt">-pattern_type</span> glob <span class="nt">-i</span> <span class="s1">'*.JPG'</span> <span class="nt">-vf</span> <span class="s2">"crop=h=2250"</span> <span class="nt">-c</span>:v libx264 <span class="nt">-crf</span> 20 <span class="nt">-s</span> 1280x720 output.avi<span class="s1">'</span></code></pre></figure>
 
-timeout 15 bundle <span class="nb">exec </span>jekyll serve
+<p>Convert a 16bit tiff thermal image to something more viewable</p>
 
-git add <span class="nb">.</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gdal_translate in_file.tiff out_file.tiff <span class="nt">-b</span> 1 <span class="nt">-scale</span> 6880 7641 0 65535</code></pre></figure>
 
-<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"What do you want to name your commit? [ENTER]: "</span>
-<span class="nb">read </span>name
+<p>Convert a Panasonic Raw (from MAPIR Survey2 Camera) to a usable jpg and transfer exif
+info from the corropsonding JPG (weird setup, I know)</p>
 
-git commit <span class="nt">-m</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
-git push origin master
-
-<span class="nb">echo</span> <span class="s2">"Commit Successful!"</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">darktable-cli in_file.RAW out_file.jpg <span class="o">&amp;&amp;</span> exiftool <span class="nt">-tagsfromfile</span> in_file.JPG <span class="nt">-x</span> Orientation out_file.jpg</code></pre></figure>
 
 
   </div>

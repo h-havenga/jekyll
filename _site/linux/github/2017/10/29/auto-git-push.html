@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Running</title>
-  <meta name="description" content="Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover. I&#39;m navigating this strange new world of program...">
+  <title>Automatically push new Jekyll build</title>
+  <meta name="description" content="This is a very simple script I made that allows me to edit my website locally, build it locally and as soon as I am satisfied I can push it to my github acco...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/Running/">
+  <link rel="canonical" href="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html">
   <link rel="alternate" type="application/rss+xml" title="Henno Havenga" href="/feed.xml">
   
   
@@ -90,41 +90,42 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Running</h1>
+    <h1 class="post-title" itemprop="name headline">Automatically push new Jekyll build</h1>
+    <p class="post-meta">
+      <time datetime="2017-10-29T13:43:28+01:00" itemprop="datePublished">
+        
+        Oct 29, 2017
+      </time>
+      </p>
   </header>
 
-  <div class="post-content">
-    <p>Running has allowed me to see new places and meet new people, many of who
-are now my close friends. You can view all my activities on
-<a href="https://www.strava.com/athletes/3278392">Strava</a>, there’s cool maps with
-interesting statistics.</p>
+  <div class="post-content" itemprop="articleBody">
+    <p>This is a very simple script I made that allows me to edit my website
+locally, build it locally and as soon as I am satisfied I can push it to my
+github account.</p>
 
-<hr />
-<h4 id="strava-data">Strava Data*:</h4>
-<iframe height="160" width="365" frameborder="0" allowtransparency="true" scrolling="no" src="https://www.strava.com/athletes/3278392/activity-summary/72c1ae2566418275c79df4c59dc67839fd59b099"></iframe>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nb">echo</span> <span class="s2">"This is a automated git push script for Jekyll, use it at your own risk "</span>
 
-<iframe height="160" width="365" frameborder="0" allowtransparency="true" scrolling="yes" src="https://www.strava.com/athletes/3278392/latest-rides/72c1ae2566418275c79df4c59dc67839fd59b099"></iframe>
-<p><sub> * Privacy Badger might block the widgets. </sub></p>
+timeout 15 bundle <span class="nb">exec </span>jekyll serve
 
-<hr />
-<h4 id="results">Results:</h4>
-<p><b> 2017 </b>: Ottosdal Draf en Trap: 10km, 5th, 34:06 | Om Die Dam:
-21.1km, 2nd, 1:14:28 | Two Oceans: 21.1km: 35th <em>ish</em>, 1:13:13 |
-Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
-2nd, 31:57 | Nuthetal-Crosslauf: 16km, 2nd, 59:44 | Finlandia 10km: 1st,
-32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |</p>
+git add <span class="nb">.</span>
 
-<hr />
-<h4 id="gallery">Gallery:</h4>
-<p><img src="http://localhost:4000/assets/images/running/finland_10k.jpg" alt="Finland race" />
-This was in Finland.<br />
-©Finlandia Marathon</p>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"What do you want to name your commit? [ENTER]: "</span>
+<span class="nb">read </span>name
+
+git commit <span class="nt">-m</span> <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span>
+git push origin master
+
+<span class="nb">echo</span> <span class="s2">"Commit Successful!"</span></code></pre></figure>
+
 
   </div>
 
+  
 </article>
 
       </div>
