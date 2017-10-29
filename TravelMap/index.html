@@ -18,15 +18,15 @@ css: [../plugins/travelmap/css/custom.css']
     <div class="container">
 <table>
 <tbody>
-<tr class="color" bgcolor="#F8B2A3">  
+<tr class="color" bgcolor="#ffa500">  
   <td class="color-name">
-    <h4>Visited</h4>
+    <h5>Visited</h5>
   </td>
 </tr>
 
-<tr class="color" bgcolor="CFF7F9">
+<tr class="color" bgcolor="3cb371">
   <td class="color-name">
-    <h4>Not yet visited</h4>
+    <h5>Not yet visited</h5>
   </td>
 </tr>
 </tbody>
@@ -239,13 +239,13 @@ css: [../plugins/travelmap/css/custom.css']
 <!-- hover style -->
 <script>
     var map_config = {
-        'default':{'borderColor':'#9CA8B6','mapShadow':'#fff','shadowOpacity':'35','hoverShadow':'#666666','lakesColor':'#66CCFF','namesColor':'#919191',},
+        'default':{'borderColor':'#000000','mapShadow':'#fff','shadowOpacity':'15','hoverShadow':'#666666','lakesColor':'#0000ff','namesColor':'#919191',},
         {% for location in site.data.country_names %}
         '{{location.index}}':{
             {% if location.visited %}
-            'hover': '{{location.country_name}}','upColor':'#F8B2A3','overColor':'#ffcc5f','downColor':'#477cb2','enable':true,
+            'hover': '{{location.country_name}}','upColor':'#ffa500','overColor':'#ffcc5f','downColor':'#477cb2','enable':true,
             {% else %}
-            'hover': '{{location.country_name}}','upColor':'#CFF7F9','overColor':'#ffcc5f','downColor':'#477cb2','enable':true,
+            'hover': '{{location.country_name}}','upColor':'#3cb371','overColor':'#ffcc5f','downColor':'#477cb2','enable':true,
             {% endif %}
         },
         {% endfor %}
