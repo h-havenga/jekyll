@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Books, films, etc
+title: Books
 permalink: /books/
 ---
 ### Books
@@ -18,15 +18,3 @@ Metamorphosis and other short stories, _Franz Kafka_ |
 The Power of Habit, _Charles Duhigg_ |
  
 <sub> * Since I started this list, more or less </sub> 
-
-______
-### TV and film
-#### Sitcom:
-Friends | Seinfeld | The Big Bang Theory | The Middle 
-
-#### Series:
-Fargo | Midnight Sun | Night Of | Dexter | Breaking Bad | Sinner |
-
-#### Films:
-Saving Private Ryan | We Were Soldiers | Black Hawk Down | Into The Wild |   
-

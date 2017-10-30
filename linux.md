@@ -11,7 +11,8 @@ testing tag both systems have been very stable.
 ![linux]({{ "/assets/images/random/debian_logo.png" | absolute_url }})
 
 ### Useful command line tools
-Generic Mapping Tools (GMT) | youtube-dl | gdal | 
+gmt | youtube-dl | gdal | photorec | imagemagic |
+gnuplot | ncview | nco | cdo | pdftk | ranger
 
 ______
 ### Useful one liners
@@ -32,4 +33,12 @@ info from the correpsonding JPG (weird setup, I know)
 darktable-cli in_file.RAW out_file.jpg && exiftool -tagsfromfile in_file.JPG -x Orientation out_file.jpg
 {% endhighlight %}
 
+Split Netcdf files by level
+{% highlight bash %}
+cdo splitlevel,500 infile_with_various_levels.nc outfile_with_level_500.nc
+{% endhighlight %}
 
+Remove a page in a PDF file (remove first page of a 7 page pdf file)
+{% highlight bash %}
+pdftk infile.pdf cat 2-7 output outfile.pdf
+{% endhighlight %}

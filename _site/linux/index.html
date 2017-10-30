@@ -49,7 +49,7 @@
           
             
             
-            <a class="page-link" href="/books/">Books, films, etc</a>
+            <a class="page-link" href="/books/">Books</a>
             
           
             
@@ -104,7 +104,8 @@ testing tag both systems have been very stable.</p>
 <p><img src="http://localhost:4000/assets/images/random/debian_logo.png" alt="linux" /></p>
 
 <h3 id="useful-command-line-tools">Useful command line tools</h3>
-<p>Generic Mapping Tools (GMT) | youtube-dl | gdal |</p>
+<p>gmt | youtube-dl | gdal | photorec | imagemagic |
+gnuplot | ncview | nco | cdo | pdftk | ranger</p>
 
 <hr />
 <h3 id="useful-one-liners">Useful one liners</h3>
@@ -121,6 +122,14 @@ testing tag both systems have been very stable.</p>
 info from the correpsonding JPG (weird setup, I know)</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">darktable-cli in_file.RAW out_file.jpg <span class="o">&amp;&amp;</span> exiftool <span class="nt">-tagsfromfile</span> in_file.JPG <span class="nt">-x</span> Orientation out_file.jpg</code></pre></figure>
+
+<p>Split Netcdf files by level</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">cdo splitlevel,500 infile_with_various_levels.nc outfile_with_level_500.nc</code></pre></figure>
+
+<p>Remove a page in a PDF file (remove first page of a 7 page pdf file)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">pdftk infile.pdf <span class="nb">cat </span>2-7 output outfile.pdf</code></pre></figure>
 
 
   </div>
