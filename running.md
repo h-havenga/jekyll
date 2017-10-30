@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Running
-permalink: /Running/
+permalink: /running/
 ---
 
 Running has allowed me to see new places and meet new people, many of who
@@ -27,5 +27,4 @@ Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
 ______
 #### Gallery:
 ![Finland race]({{ "/assets/images/running/finland_10k.jpg" | absolute_url }})
-This was in Finland.  
-&copy;Finlandia Marathon 
+Finlandia 10km, Jyväskylä (&copy;Finlandia Marathon).
