@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "This is a automated git push script for Jekyll, use it at your own risk "
 
-timeout 15 bundle exec jekyll serve
+timeout 10 bundle exec jekyll serve
 
 git add .
 

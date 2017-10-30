@@ -38,10 +38,11 @@ ToDo's, call them a new years resolution if you like.
 
 
 1. Be consistent, as with all things in life
-2. Share as much things useful as possible
-3. Keep it simple stupid
++ More specifically, write regularly.
+2. Share as much things useful as possible.
+3. Keep it simple stupid:
 + If it feels cluttered, it is.
-+ Keep the static.
++ Keep the site static and fast.
 
 That's all for now. 
 
