@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-30T12:45:38+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-10-30T14:37:23+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Automatically push my updated site to Github</title><link href="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html" rel="alternate" type="text/html" title="Automatically push my updated site to Github" /><published>2017-10-29T13:43:28+01:00</published><updated>2017-10-29T13:43:28+01:00</updated><id>http://localhost:4000/linux/github/2017/10/29/auto-git-push</id><content type="html" xml:base="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html">&lt;p&gt;This is a very simple script I made that allows me to edit my website
 locally, build it locally and as soon as I am satisfied I can push it to my
 Github account. After this is completed it takes a couple of minutes for
@@ -23,33 +23,33 @@ git push origin master
 around to it. In 2015 as part of a communication class we had to create a
 blog where we would write our assignments, no one in the class had any
 experience with blogging so we all naturally started the blog on WordPress,
-something everyone was sort-of familiar with. It was kind of okay to be
-honest, no one actually read the blog outside class and after the semester
-ended the blog died a sudden death.&lt;/p&gt;
+something everyone was sort-of familiar with. It was kind of &lt;em&gt;okay&lt;/em&gt;, no one
+actually read the blog outside class and after the semester ended the blog
+died a sudden death.&lt;/p&gt;
 
 &lt;p&gt;A year later the urge hit me again to create my own personal online space.
 This urge was initiated by observing the effectiveness of one particular
-blog and I was also getting deeper into GNU\Linux, modelling and coding,
+blog. I was also getting deeper into GNU\Linux, modelling and coding,
 sometimes solving problems that I could not find solutions for on the web
-and I wanted to share all this. Revisiting my old blog was not
-exciting at all. I had a juvenile name for my blog and I was dreading
-the wordpress web interface. My enthusiasm was however stronger and I
-pushed forward and revamped the blog. After some initial posts and adding
-pictures it was kind of &lt;em&gt;okay&lt;/em&gt;, but I was not happy with it. I however made
-piece with it.&lt;/p&gt;
+and I wanted to share all this. I decided to revisit the old blog, which
+was not exciting at all. I had a juvenile name for my blog and I was
+dreading the web interface. My enthusiasm was however strong and I pushed
+forward and revamped the blog. After some initial posts and adding pictures
+it was kind of &lt;em&gt;okay&lt;/em&gt;, but I was not happy with it. I however made peace
+with it.&lt;/p&gt;
 
 &lt;p&gt;Enter Jekyll. Late 2017 I stumbled upon a Jekyll site, heaven knowns why it
-took me so long. I installed the Jekyll and did a Jekyll serve and there it
+took me so long. I installed the Jekyll and did a &lt;em&gt;Jekyll serve&lt;/em&gt; and there it
 was. I was impressed. I started tweaking the default minima theme from my
 command line and within a couple of hours I had a decent thing going, but
 most importantly I felt in control. As I gained momentum I decided to look
 for a real domain (.com/.co.za/.net). My name was not yet taken, it was
 pretty cheap and I reckoned that I might as well do it anyway to prevent
-someone from buying it and using it as a spam site and I just went for it.&lt;/p&gt;
+someone from buying it and using it as a spam site so I just went for it.&lt;/p&gt;
 
 &lt;p&gt;In order to make this blog actually reflect me and to really accomplish
 my goals for starting this blog I decided to make a list here with some
-ToDo’s, call them a new years resolution if you like.&lt;/p&gt;
+blogging resolutions:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Be consistent, as with all things in life
@@ -66,11 +66,12 @@ ToDo’s, call them a new years resolution if you like.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;That’s all for now.&lt;/p&gt;
+&lt;p&gt;As this blog evolves, it will hopefully become a more
+informative and interesting. That’s all for now.&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Starting a serious blog was on my mind for some time before I finally got around to it. In 2015 as part of a communication class we had to create a blog where we would write our assignments, no one in the class had any experience with blogging so we all naturally started the blog on WordPress, something everyone was sort-of familiar with. It was kind of okay to be honest, no one actually read the blog outside class and after the semester ended the blog died a sudden death.</summary></entry><entry><title type="html">Using Generic Mapping Tools</title><link href="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html" rel="alternate" type="text/html" title="Using Generic Mapping Tools" /><published>2017-10-19T10:00:29+02:00</published><updated>2017-10-19T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html">&lt;p&gt;Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Starting a serious blog was on my mind for some time before I finally got around to it. In 2015 as part of a communication class we had to create a blog where we would write our assignments, no one in the class had any experience with blogging so we all naturally started the blog on WordPress, something everyone was sort-of familiar with. It was kind of okay, no one actually read the blog outside class and after the semester ended the blog died a sudden death.</summary></entry><entry><title type="html">Using Generic Mapping Tools</title><link href="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html" rel="alternate" type="text/html" title="Using Generic Mapping Tools" /><published>2017-10-19T10:00:29+02:00</published><updated>2017-10-19T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html">&lt;p&gt;Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and
 spatial analysis. I say unknown because I only know one other person who
 actually uses it. Looking for resources online does however indicate that
 some universities have courses teaching GMT, no such luck for me, I had to
