@@ -3,7 +3,6 @@ layout: page
 title: Books
 permalink: /books/
 ---
-### Books
 #### To read: 
 We Have No Idea: A Guide to the Unknown Universe, _Jorge Cham and Daniel Whitesonk_ | 
 The Secret Agent, _Josef Conrad_ |
