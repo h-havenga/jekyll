@@ -6,7 +6,7 @@ permalink: /about/
 **More about me**  
 I am a geo and spatial science graduate student, Debian GNU\Linux user,
 open-source advocate, runner and dog lover. I did my undergraduate in
-Environmental Science with a focus in Geography and Zoology, I further
+environmental science with a focus in geography and zoology, I further
 specialized in Geography and I am currently busy with my master of science
 degree with a focus on severe weather forecasting. I'm navigating this
 strange new world of programming, blogging and sharing. Bare with me. 

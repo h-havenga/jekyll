@@ -4,11 +4,8 @@ title: GNU\Linux
 permalink: /linux/
 ---
 
-I currently have two computers running Debian testing, a Dell E6220 with
-Gnome 3 and a small Acer Netbook with Mate I use when I travel. Despite the
-testing tag both systems have been very stable.  
-
-![linux]({{ "/assets/images/random/debian_logo.png" | absolute_url }})
+I currently run Debian *Testing* with the Gnome 3 environment. VIM is my
+text editor of choice while I use Terminator as my default terminal.
 
 ### Useful command line tools
 gmt | youtube-dl | gdal | photorec | imagemagic |
