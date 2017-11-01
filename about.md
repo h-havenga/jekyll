@@ -41,6 +41,4 @@ Current Projects
 ______
 
 **Programming Languages & Software:**  
-Basic FORTRAN, Basic R, Python, NCL, GrADS, LaTeX, GIS (ARC and QGIS), WRF
-& COST733class   
-
+R, Python, NCL, GrADS, LaTeX, ArcGis, QGIS, WRF & COST733class   
