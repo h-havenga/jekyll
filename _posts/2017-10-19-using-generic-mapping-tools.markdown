@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Part 1: Basic Mapping with GMT"
+title:  "GMT Part 1: A basic map of South-Africa"
 date:   2017-10-19 10:00:29 +0200
 categories: maps data
 ---

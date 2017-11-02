@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Part 2: Topographical GMT Map"
+title:  "GMT Part 2: A topographical map of South-Africa"
 date:   2017-11-01 10:00:29 +0200
 categories: maps data
 ---
