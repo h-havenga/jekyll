@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Using Generic Mapping Tools"
+title:  "Part 1: Basic Mapping with GMT"
 date:   2017-10-19 10:00:29 +0200
 categories: maps data
 ---

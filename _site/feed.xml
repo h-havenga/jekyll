@@ -1,5 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-01T08:49:34+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Automatically push my updated site to Github</title><link href="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html" rel="alternate" type="text/html" title="Automatically push my updated site to Github" /><published>2017-10-29T13:43:28+01:00</published><updated>2017-10-29T13:43:28+01:00</updated><id>http://localhost:4000/linux/github/2017/10/29/auto-git-push</id><content type="html" xml:base="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html">&lt;p&gt;This is a very simple script I made that allows me to edit my website
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-02T22:51:54+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">Part 2: Topographical GMT Map</title><link href="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html" rel="alternate" type="text/html" title="Part 2: Topographical GMT Map" /><published>2017-11-01T09:00:29+01:00</published><updated>2017-11-01T09:00:29+01:00</updated><id>http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">&lt;p&gt;I hope this does not come across as a tutorial of some sort, I am mostly
+writing things down for myself. But I know someone might one day copy and
+paste this as I’ve done numerous times, but this mostly for me to master
+GMT. In the previous GMT related post I created this basic map of
+South-Africa. The map does not however have any cities, provincial
+boundaries or topology.&lt;/p&gt;
+
+&lt;p&gt;A basic map of South-Africa created with GMT:&lt;br /&gt;
+&lt;img src=&quot;http://localhost:4000/assets/images/maps/south_africa.png&quot; alt=&quot;gmtmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;sub&gt;Note that I converted is from postscript format to reduce size. &lt;/sub&gt;&lt;/p&gt;
+
+&lt;p&gt;So first we need to get some external topology and administrative data for
+South-Africa. In this case I’ll use ETOPO data from
+the &lt;a href=&quot;https://www.ngdc.noaa.gov/mgg/global/global.html&quot;&gt;National Center for Environmental Informatics&lt;/a&gt;.
+The cool thing about the Etopo data is that it is already availible in the
+GMT readable grd format.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;wget https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz 
+gunzip ETOPO1_Bed_g_gmt4.grd.gz &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The data can be inspected with ncdump or another GMT tool, grdinfo,&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ncdump &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; ETOPO1_Bed_g_gmt4.grd
+gmt grdinfo ETOPO1_Bed_g_gmt4.grd&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Next we need the administrative data for South-Africa. GMT only has the
+national boundaries for world countries and then also the data for US
+states. The admin data can be freely obtained from the &lt;a href=&quot;http://www.gadm.org/country&quot;&gt;GADM
+Database&lt;/a&gt;. We need to get the shapefiles for
+SA in this case.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;wget http://biogeo.ucdavis.edu/data/gadm2.8/shp/ZAF_adm_shp.zip
+unzip ZAF_adm_shp.zip&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The shapefile data needs to be converted for use in GMT. This is done with
+a GDAL tool, ogr2ogr. GDAL is a amazing resource and in my mind the
+most powerful Geospatial tool out there. If you already have GDAL installed
+correctly, we can prepare the admin data. I only wanted the SA provinces
+so we do,&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ogr2ogr &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt; GMT ZAF_adm.gmt ZAF_adm1.shp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Which converts the shapefile into a GMT readable format. So now we have
+topography data and provincial data to create a more detailed map. Lets create a
+bash script to plot the map.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# MAKE A MAP!&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Define the names of the input and output files&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;southafrica_topo.ps                           &lt;span class=&quot;c&quot;&gt;# This will be the name of&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;topo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ETOPO1_Bed_g_gmt4.grd                   &lt;span class=&quot;c&quot;&gt;# ETOPO1 topography grid&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ZAF_adm1.gmt			       &lt;span class=&quot;c&quot;&gt;# Provincial boundaries&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Define map characteristics&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Define your area 15/33.5/-35/-22 &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;north&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-22&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;south&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-35&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;east&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;34
+&lt;span class=&quot;nv&quot;&gt;west&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;15
+
+&lt;span class=&quot;c&quot;&gt;# Define tick intervals and projection&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;tick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-B2.5/2.5WSen'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;proj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-JM20'&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Call GMT, define basemap coordinates, make a color table and plot&lt;/span&gt;
+gmt psbasemap &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$west&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$east&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$south&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$north&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proj&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tick&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X6&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt makecpt &lt;span class=&quot;nt&quot;&gt;-Crelief&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T-7500&lt;/span&gt;/7500/200 &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; topo.cpt
+gmt grdimage &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.25 &lt;span class=&quot;nt&quot;&gt;-Df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt;+t&lt;span class=&quot;s2&quot;&gt;&quot;South Africa&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy &lt;span class=&quot;nv&quot;&gt;$admin&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+open &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is the map we should get,
+&lt;img src=&quot;http://localhost:4000/assets/images/maps/south_africa_topo.png&quot; alt=&quot;gmtmap&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Play around with the &lt;em&gt;-T-&lt;/em&gt; option to get the desired colors. This map looks
+a little cooler then the first basic map, however, there is no names of
+cities or anything, lets change that. So in GMT you need a list with the
+latitude and longitude of cities to plot in the map, something like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;28.05   &lt;span class=&quot;nt&quot;&gt;-26&lt;/span&gt;.21  14 0 1 LM Johannesburg
+28.23   &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.71  14 0 1 LM Pretoria
+29.45   &lt;span class=&quot;nt&quot;&gt;-23&lt;/span&gt;.89  14 0 1 LM Polokwane
+26.15   &lt;span class=&quot;nt&quot;&gt;-29&lt;/span&gt;.08  14 0 1 LM Bloemfontein
+18.42   &lt;span class=&quot;nt&quot;&gt;-33&lt;/span&gt;.92  14 0 1 LM Cape Town
+31.02   &lt;span class=&quot;nt&quot;&gt;-29&lt;/span&gt;.85  14 0 1 LM Durban
+25.52   &lt;span class=&quot;nt&quot;&gt;-33&lt;/span&gt;.71  14 0 1 LM Port Elizabeth
+22.45   &lt;span class=&quot;nt&quot;&gt;-33&lt;/span&gt;.99  14 0 1 LM George
+17.89   &lt;span class=&quot;nt&quot;&gt;-29&lt;/span&gt;.17  14 0 1 LM Springbok
+25.64   &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.85  14 0 1 LM Mahikeng
+30.97   &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.48  14 0 1 LM Nelspruit
+22.58   &lt;span class=&quot;nt&quot;&gt;-32&lt;/span&gt;.35  14 0 1 LM Beauford-We&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The first and second column tells us the lat/lon of the city we want on the
+map while the other columns is related to text size, marker and of course
+the name of the city. In GMT we’re calling the psxy function to plot the
+points&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# MAKE A MAP!&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Define the names of the input and output files&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;southafrica_topo.ps                  &lt;span class=&quot;c&quot;&gt;# This will be the name of&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;topo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ETOPO1_Bed_g_gmt4.grd             &lt;span class=&quot;c&quot;&gt;# ETOPO1 topography grid&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ZAF_adm1.gmt			         &lt;span class=&quot;c&quot;&gt;# Provincial boundaries&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;cities&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./towns.dat                       &lt;span class=&quot;c&quot;&gt;# Towns to plot on map&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Define map characteristics&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Define your area 15/33.5/-35/-22 &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;north&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-22&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;south&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-35&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;east&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;34
+&lt;span class=&quot;nv&quot;&gt;west&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;15
+
+&lt;span class=&quot;c&quot;&gt;# Define tick intervals and projection&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;tick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-B2.5/2.5WSen'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;proj&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'-JM20'&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Call GMT, define basemap coordinates, make a color table and plot&lt;/span&gt;
+gmt psbasemap &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$west&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$east&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$south&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$north&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$proj&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$tick&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X6&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt makecpt &lt;span class=&quot;nt&quot;&gt;-Crelief&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T-7500&lt;/span&gt;/7500/200 &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; topo.cpt
+gmt grdimage &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.25 &lt;span class=&quot;nt&quot;&gt;-Df&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt;+t&lt;span class=&quot;s2&quot;&gt;&quot;South Africa&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy &lt;span class=&quot;nv&quot;&gt;$cities&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-St0&lt;/span&gt;.25 &lt;span class=&quot;nt&quot;&gt;-G255&lt;/span&gt;/0/0 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy &lt;span class=&quot;nv&quot;&gt;$admin&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pstext &lt;span class=&quot;nv&quot;&gt;$cities&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X0&lt;/span&gt;.25 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+open &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And tada, a map with some cities in South-Africa
+&lt;img src=&quot;http://localhost:4000/assets/images/maps/south_africa_topo_towns.png&quot; alt=&quot;gmtmap&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I hope this does not come across as a tutorial of some sort, I am mostly writing things down for myself. But I know someone might one day copy and paste this as I’ve done numerous times, but this mostly for me to master GMT. In the previous GMT related post I created this basic map of South-Africa. The map does not however have any cities, provincial boundaries or topology.</summary></entry><entry><title type="html">Automatically push my updated site to Github</title><link href="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html" rel="alternate" type="text/html" title="Automatically push my updated site to Github" /><published>2017-10-29T13:43:28+01:00</published><updated>2017-10-29T13:43:28+01:00</updated><id>http://localhost:4000/linux/github/2017/10/29/auto-git-push</id><content type="html" xml:base="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html">&lt;p&gt;This is a very simple script I made that allows me to edit my website
 locally, build it locally and as soon as I am satisfied I can push it to my
 Github account. After this is completed it takes a couple of minutes for
 the site to be updated. For it to work you have to have a Github account
@@ -71,7 +202,7 @@ informative and interesting. That’s all for now.&lt;/p&gt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Starting a serious blog was on my mind for some time before I finally got around to it. In 2015 as part of a communication class we had to create a blog where we would write our assignments, no one in the class had any experience with blogging so we all naturally started the blog on WordPress, something everyone was sort-of familiar with. It was kind of okay, no one actually read the blog outside class and after the semester ended the blog died a sudden death.</summary></entry><entry><title type="html">Using Generic Mapping Tools</title><link href="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html" rel="alternate" type="text/html" title="Using Generic Mapping Tools" /><published>2017-10-19T10:00:29+02:00</published><updated>2017-10-19T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html">&lt;p&gt;Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">Starting a serious blog was on my mind for some time before I finally got around to it. In 2015 as part of a communication class we had to create a blog where we would write our assignments, no one in the class had any experience with blogging so we all naturally started the blog on WordPress, something everyone was sort-of familiar with. It was kind of okay, no one actually read the blog outside class and after the semester ended the blog died a sudden death.</summary></entry><entry><title type="html">Part 1: Basic Mapping with GMT</title><link href="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html" rel="alternate" type="text/html" title="Part 1: Basic Mapping with GMT" /><published>2017-10-19T10:00:29+02:00</published><updated>2017-10-19T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html">&lt;p&gt;Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and
 spatial analysis. I say unknown because I only know one other person who
 actually uses it. Looking for resources online does however indicate that
 some universities have courses teaching GMT, no such luck for me, I had to
