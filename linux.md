@@ -39,3 +39,8 @@ Remove a page in a PDF file (remove first page of a 7 page pdf file)
 {% highlight bash %}
 pdftk infile.pdf cat 2-7 output outfile.pdf
 {% endhighlight %}
+
+Compress a pdf file 
+{% highlight bash %}
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=output.pdf input.pdf
+{% endhighlight %}

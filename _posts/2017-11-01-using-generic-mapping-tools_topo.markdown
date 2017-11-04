@@ -10,14 +10,14 @@ writing things down for myself. But I know someone might one day copy and
 paste this as I've done numerous times, but this mostly for me to master
 GMT. In the previous GMT related post I created this basic map of
 South-Africa. The map does not however have any cities, provincial
-boundaries or topology.
+boundaries or topography.
 
 A basic map of South-Africa created with GMT:  
 ![gmtmap]({{ "/assets/images/maps/south_africa.png" | absolute_url }})
 
 <sub>Note that I converted is from postscript format to reduce size. </sub>  
 
-So first we need to get some external topology and administrative data for
+So first we need to get some external topographic and administrative data for
 South-Africa. In this case I'll use ETOPO data from
 the [National Center for Environmental Informatics](https://www.ngdc.noaa.gov/mgg/global/global.html).
 The cool thing about the Etopo data is that it is already availible in the
@@ -57,7 +57,9 @@ ogr2ogr -F GMT ZAF_adm.gmt ZAF_adm1.shp
 {% endhighlight %}
 
 Which converts the shapefile into a GMT readable format. So now we have
-topography data and provincial data to create a more detailed map. Lets create a
+topography data and provincial data to create a more detailed map. I have
+removed the colors specified by the -R and -S switch for the basic. The
+topography color table will create colors for the map. Lets create a
 bash script to plot the map.
 
 {% highlight bash %}
@@ -109,13 +111,14 @@ latitude and longitude of cities to plot in the map, something like this:
 17.89   -29.17  14 0 1 LM Springbok
 25.64   -25.85  14 0 1 LM Mahikeng
 30.97   -25.48  14 0 1 LM Nelspruit
-22.58   -32.35  14 0 1 LM Beauford-We
+22.58   -32.35  14 0 1 LM Beauford-Wes
 {% endhighlight %}
 
 The first and second column tells us the lat/lon of the city we want on the
 map while the other columns is related to text size, marker and of course
 the name of the city. In GMT we're calling the psxy function to plot the
-points 
+points. Now all that's required is to call the psxy and pstext to plot the
+location and names of the cities respectively.
 
 {% highlight bash %}
 #!/bin/bash
@@ -124,7 +127,7 @@ points
 # Define the names of the input and output files
 out=southafrica_topo.ps                  # This will be the name of
 topo=./ETOPO1_Bed_g_gmt4.grd             # ETOPO1 topography grid
-admin=./ZAF_adm1.gmt			         # Provincial boundaries
+admin=./ZAF_adm1.gmt			 # Provincial boundaries
 cities=./towns.dat                       # Towns to plot on map
 
 # Define map characteristics

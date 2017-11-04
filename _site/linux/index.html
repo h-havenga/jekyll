@@ -128,6 +128,10 @@ info from the correpsonding JPG (weird setup, I know)</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">pdftk infile.pdf <span class="nb">cat </span>2-7 output outfile.pdf</code></pre></figure>
 
+<p>Compress a pdf file</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gs <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-dCompatibilityLevel</span><span class="o">=</span>1.4 <span class="nt">-dPDFSETTINGS</span><span class="o">=</span>/printer <span class="nt">-dNOPAUSE</span> <span class="nt">-dBATCH</span> <span class="nt">-sOutputFile</span><span class="o">=</span>output.pdf input.pdf</code></pre></figure>
+
 
   </div>
 

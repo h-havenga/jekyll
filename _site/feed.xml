@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-02T23:16:19+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-04T18:55:25+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">GMT Part 2: A topographical map of South-Africa</title><link href="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html" rel="alternate" type="text/html" title="GMT Part 2: A topographical map of South-Africa" /><published>2017-11-01T09:00:29+01:00</published><updated>2017-11-01T09:00:29+01:00</updated><id>http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">&lt;p&gt;I hope this does not come across as a tutorial of some sort, I am mostly
 writing things down for myself. But I know someone might one day copy and
 paste this as I’ve done numerous times, but this mostly for me to master
 GMT. In the previous GMT related post I created this basic map of
 South-Africa. The map does not however have any cities, provincial
-boundaries or topology.&lt;/p&gt;
+boundaries or topography.&lt;/p&gt;
 
 &lt;p&gt;A basic map of South-Africa created with GMT:&lt;br /&gt;
 &lt;img src=&quot;http://localhost:4000/assets/images/maps/south_africa.png&quot; alt=&quot;gmtmap&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;sub&gt;Note that I converted is from postscript format to reduce size. &lt;/sub&gt;&lt;/p&gt;
 
-&lt;p&gt;So first we need to get some external topology and administrative data for
+&lt;p&gt;So first we need to get some external topographic and administrative data for
 South-Africa. In this case I’ll use ETOPO data from
 the &lt;a href=&quot;https://www.ngdc.noaa.gov/mgg/global/global.html&quot;&gt;National Center for Environmental Informatics&lt;/a&gt;.
 The cool thing about the Etopo data is that it is already availible in the
@@ -43,7 +43,9 @@ so we do,&lt;/p&gt;
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ogr2ogr &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt; GMT ZAF_adm.gmt ZAF_adm1.shp&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;Which converts the shapefile into a GMT readable format. So now we have
-topography data and provincial data to create a more detailed map. Lets create a
+topography data and provincial data to create a more detailed map. I have
+removed the colors specified by the -R and -S switch for the basic. The
+topography color table will create colors for the map. Lets create a
 bash script to plot the map.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
@@ -92,12 +94,13 @@ latitude and longitude of cities to plot in the map, something like this:&lt;/p&
 17.89   &lt;span class=&quot;nt&quot;&gt;-29&lt;/span&gt;.17  14 0 1 LM Springbok
 25.64   &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.85  14 0 1 LM Mahikeng
 30.97   &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.48  14 0 1 LM Nelspruit
-22.58   &lt;span class=&quot;nt&quot;&gt;-32&lt;/span&gt;.35  14 0 1 LM Beauford-We&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+22.58   &lt;span class=&quot;nt&quot;&gt;-32&lt;/span&gt;.35  14 0 1 LM Beauford-Wes&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;The first and second column tells us the lat/lon of the city we want on the
 map while the other columns is related to text size, marker and of course
 the name of the city. In GMT we’re calling the psxy function to plot the
-points&lt;/p&gt;
+points. Now all that’s required is to call the psxy and pstext to plot the
+location and names of the cities respectively.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 
@@ -105,7 +108,7 @@ points&lt;/p&gt;
 &lt;span class=&quot;c&quot;&gt;# Define the names of the input and output files&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;southafrica_topo.ps                  &lt;span class=&quot;c&quot;&gt;# This will be the name of&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;topo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ETOPO1_Bed_g_gmt4.grd             &lt;span class=&quot;c&quot;&gt;# ETOPO1 topography grid&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ZAF_adm1.gmt			         &lt;span class=&quot;c&quot;&gt;# Provincial boundaries&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;admin&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ZAF_adm1.gmt			 &lt;span class=&quot;c&quot;&gt;# Provincial boundaries&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;cities&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./towns.dat                       &lt;span class=&quot;c&quot;&gt;# Towns to plot on map&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;# Define map characteristics&lt;/span&gt;
@@ -130,7 +133,7 @@ gmt pstext &lt;span class=&quot;nv&quot;&gt;$cities&lt;/span&gt; &lt;span class=
 open &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;And tada, a map with some cities in South-Africa
-&lt;img src=&quot;http://localhost:4000/assets/images/maps/south_africa_topo_towns.png&quot; alt=&quot;gmtmap&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I hope this does not come across as a tutorial of some sort, I am mostly writing things down for myself. But I know someone might one day copy and paste this as I’ve done numerous times, but this mostly for me to master GMT. In the previous GMT related post I created this basic map of South-Africa. The map does not however have any cities, provincial boundaries or topology.</summary></entry><entry><title type="html">Automatically push my updated site to Github</title><link href="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html" rel="alternate" type="text/html" title="Automatically push my updated site to Github" /><published>2017-10-29T13:43:28+01:00</published><updated>2017-10-29T13:43:28+01:00</updated><id>http://localhost:4000/linux/github/2017/10/29/auto-git-push</id><content type="html" xml:base="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html">&lt;p&gt;This is a very simple script I made that allows me to edit my website
+&lt;img src=&quot;http://localhost:4000/assets/images/maps/south_africa_topo_towns.png&quot; alt=&quot;gmtmap&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I hope this does not come across as a tutorial of some sort, I am mostly writing things down for myself. But I know someone might one day copy and paste this as I’ve done numerous times, but this mostly for me to master GMT. In the previous GMT related post I created this basic map of South-Africa. The map does not however have any cities, provincial boundaries or topography.</summary></entry><entry><title type="html">Automatically push my updated site to Github</title><link href="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html" rel="alternate" type="text/html" title="Automatically push my updated site to Github" /><published>2017-10-29T13:43:28+01:00</published><updated>2017-10-29T13:43:28+01:00</updated><id>http://localhost:4000/linux/github/2017/10/29/auto-git-push</id><content type="html" xml:base="http://localhost:4000/linux/github/2017/10/29/auto-git-push.html">&lt;p&gt;This is a very simple script I made that allows me to edit my website
 locally, build it locally and as soon as I am satisfied I can push it to my
 Github account. After this is completed it takes a couple of minutes for
 the site to be updated. For it to work you have to have a Github account
