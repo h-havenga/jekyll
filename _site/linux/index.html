@@ -109,16 +109,16 @@ gnuplot | ncview | nco | cdo | pdftk | ranger</p>
 
 <p>Convert a bunch of GoPro images for a time-laps</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ffmpeg <span class="nt">-r</span> 30 <span class="nt">-y</span> <span class="nt">-pattern_type</span> glob <span class="nt">-i</span> <span class="s1">'*.JPG'</span> <span class="nt">-vf</span> <span class="s2">"crop=h=2250"</span> <span class="nt">-c</span>:v libx264 <span class="nt">-crf</span> 20 <span class="nt">-s</span> 1280x720 output.avi<span class="s1">'</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ffmpeg <span class="nt">-r</span> 30 <span class="nt">-y</span> <span class="nt">-pattern_type</span> glob <span class="nt">-i</span> <span class="s1">'*.JPG'</span> <span class="nt">-vf</span> <span class="s2">"crop=h=2250"</span> <span class="nt">-c</span>:v libx264 <span class="nt">-crf</span> 20 <span class="nt">-s</span> 1280x720 outfile.avi<span class="s1">'</span></code></pre></figure>
 
 <p>Convert a 16bit tiff thermal image to something more viewable</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gdal_translate in_file.tiff out_file.tiff <span class="nt">-b</span> 1 <span class="nt">-scale</span> 6880 7641 0 65535</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gdal_translate infile.tiff outfile.tiff <span class="nt">-b</span> 1 <span class="nt">-scale</span> 6880 7641 0 65535</code></pre></figure>
 
 <p>Convert a Panasonic Raw (from MAPIR Survey2 Camera) to a usable jpg and transfer exif
 info from the correpsonding JPG (weird setup, I know)</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">darktable-cli in_file.RAW out_file.jpg <span class="o">&amp;&amp;</span> exiftool <span class="nt">-tagsfromfile</span> in_file.JPG <span class="nt">-x</span> Orientation out_file.jpg</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">darktable-cli infile.RAW outfile.jpg <span class="o">&amp;&amp;</span> exiftool <span class="nt">-tagsfromfile</span> infile.JPG <span class="nt">-x</span> Orientation outfile.jpg</code></pre></figure>
 
 <p>Split Netcdf files by level</p>
 
@@ -130,7 +130,7 @@ info from the correpsonding JPG (weird setup, I know)</p>
 
 <p>Compress a pdf file</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gs <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-dCompatibilityLevel</span><span class="o">=</span>1.4 <span class="nt">-dPDFSETTINGS</span><span class="o">=</span>/printer <span class="nt">-dNOPAUSE</span> <span class="nt">-dBATCH</span> <span class="nt">-sOutputFile</span><span class="o">=</span>output.pdf input.pdf</code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gs <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-dCompatibilityLevel</span><span class="o">=</span>1.4 <span class="nt">-dPDFSETTINGS</span><span class="o">=</span>/printer <span class="nt">-dNOPAUSE</span> <span class="nt">-dBATCH</span> <span class="nt">-sOutputFile</span><span class="o">=</span>outfile.pdf infile.pdf</code></pre></figure>
 
 
   </div>

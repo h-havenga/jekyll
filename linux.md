@@ -16,18 +16,18 @@ ______
 
 Convert a bunch of GoPro images for a time-laps 
 {% highlight bash %}
-ffmpeg -r 30 -y -pattern_type glob -i '*.JPG' -vf "crop=h=2250" -c:v libx264 -crf 20 -s 1280x720 output.avi'
+ffmpeg -r 30 -y -pattern_type glob -i '*.JPG' -vf "crop=h=2250" -c:v libx264 -crf 20 -s 1280x720 outfile.avi'
 {% endhighlight %}
 
 Convert a 16bit tiff thermal image to something more viewable
 {% highlight bash %}
-gdal_translate in_file.tiff out_file.tiff -b 1 -scale 6880 7641 0 65535
+gdal_translate infile.tiff outfile.tiff -b 1 -scale 6880 7641 0 65535
 {% endhighlight %}
 
 Convert a Panasonic Raw (from MAPIR Survey2 Camera) to a usable jpg and transfer exif
 info from the correpsonding JPG (weird setup, I know)
 {% highlight bash %}
-darktable-cli in_file.RAW out_file.jpg && exiftool -tagsfromfile in_file.JPG -x Orientation out_file.jpg
+darktable-cli infile.RAW outfile.jpg && exiftool -tagsfromfile infile.JPG -x Orientation outfile.jpg
 {% endhighlight %}
 
 Split Netcdf files by level
@@ -42,5 +42,5 @@ pdftk infile.pdf cat 2-7 output outfile.pdf
 
 Compress a pdf file 
 {% highlight bash %}
-gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=output.pdf input.pdf
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=outfile.pdf infile.pdf
 {% endhighlight %}
