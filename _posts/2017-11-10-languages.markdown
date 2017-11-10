@@ -24,19 +24,19 @@ to, and apparently they show all the movies in English. My own English
 skills mainly developed from Cartoon Network (maybe my writing still
 reflect this).
 
-There is however some benefits of this mass translation for Germans, their language is
-exceptionally well evolved. I say this with envy. My own native
-tongue is Afrikaans and I am embarrassed when I hear myself speak. I
-often can't find words to describe common things. There's other
-reasons for that to, in the last three years I've lived outside
+There is however some benefits of this mass translation for Germans,
+their language is exceptionally well evolved. I say this with envy. My
+own native tongue is Afrikaans and I am embarrassed when I hear myself
+speak. I often can't find words to describe common things. There's
+other reasons for that to, in the last three years I've lived outside
 South-Africa mostly, subsequently I only speak Afrikaans once a week
 or so with my family. To be totally honest, my language in general is
 at a low point at this moment. I speak broken English to Germans, very
 broken German to Germans, and broken Afrikaans to my parents.
 
 So in that sense, would I encourage Germans to put in more effort into
-learning English? It really depends what you're doing I guess. But I
-think it's important for the language to continue to flourish and To
+learning English? Yeah, of course, why not... I
+think it's important for the language to continue to flourish and to
 do that they have to keep is as ingrained in their society as possible
 and they have to publish academic stuff in German. I don't think that
 showing all television shows in English is going kill a language like
@@ -52,5 +52,6 @@ it whenever you can, even if it's just for yourself like a note on the
 desk, just write it!
 
 So on that rant, I am going to challenge myself to improve my
-Afrikaans vocabulary again in my own personal time, by writing some
-stuff and also reading more books written in Afrikaans. 
+Afrikaans vocabulary again, by writing some stuff and also reading
+more books written in Afrikaans. My mom would be proud, she's been a
+language teacher at school for over 30 years. 

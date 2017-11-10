@@ -3,7 +3,7 @@
     <div class="footer-col-wrapper">
 
       <div class="footer-col footer-col-1">
-        <ul class="social-media-list">
+       <ul class="social-media-list">
            {% if site.github_username %}
            <li>
            {% include icon-github.html username=site.github_username %}
@@ -18,18 +18,22 @@
 
            {% if site.email %}
            <li>
-	   {% include icon-mail.html %}
-	   </li>
+	       {% include icon-mail.html %}
+	       </li>
            {% endif %}
-	   
            <li>
-	   <p class="rss-subscribe"><a href="{{ "/feed.xml" | relative_url
-	   }}"><span class="icon icon--rss">{% include icon-rss.svg
-	   %}</span>RSS</a></p> </li>
+	       <p class="rss-subscribe"><a href="{{ "/feed.xml" | relative_url
+	                }}"><span class="icon icon--rss">{% include icon-rss.svg
+	                %}</span>RSS</a></p> </li>
 	   </ul>
       </div>
 
       <div class="footer-col footer-col-2">
+      <p>Nagraadse student in geo en ruimtelike wetenskap. 
+      Advokaat vir die gebruik van GNU/Linux, en 'n meer vry en oop
+      gemeenskap in die wetenskap. Ek is nuut in hierdie wêreld van
+      blogging, wees geduldig met my. <a href="/about/" class="gray
+	  underline-none mrhalf">Meer..</a></p> 
       </div>
 
      <div class="footer-col footer-col-3">
@@ -40,3 +44,4 @@
     </div>
   </div>
 </footer>
+
