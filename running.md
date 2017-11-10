@@ -11,9 +11,9 @@ interesting statistics.
   
 ______
 #### Strava Data*:
-<iframe height='160' width='360.5' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/3278392/activity-summary/72c1ae2566418275c79df4c59dc67839fd59b099'></iframe>
+<iframe height='160' width='364.5' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/3278392/activity-summary/72c1ae2566418275c79df4c59dc67839fd59b099'></iframe>
 
-<iframe height='160' width='360.5' frameborder='0' allowtransparency='true' scrolling='yes' src='https://www.strava.com/athletes/3278392/latest-rides/72c1ae2566418275c79df4c59dc67839fd59b099'></iframe>
+<iframe height='160' width='364.5' frameborder='0' allowtransparency='true' scrolling='yes' src='https://www.strava.com/athletes/3278392/latest-rides/72c1ae2566418275c79df4c59dc67839fd59b099'></iframe>
 <sub> * Privacy Badger might block the widgets. </sub> 
 
 ______
