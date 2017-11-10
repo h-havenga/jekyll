@@ -68,7 +68,9 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 .site-nav .page-link { color: #111; line-height: 1.5; }
 .site-nav .page-link:not(:last-child) { margin-right: 20px; }
 @media screen and (max-width: 600px) { .site-nav { position: absolute; top: 9px; right: 15px; background-color: #fdfdfd; border: 1px solid #e8e8e8; border-radius: 5px; text-align: right; }
-  .site-nav label[for="nav-trigger"] { display: block; float: right; width: 36px; height: 36px; z-index: 2; cursor: pointer; }
+  .site-nav label[for="nav-trigger"] { display: block; float: right; width: 36px; height: 36px; ndex: 2; cursor: pointer; }
+  .site-nav label[for="nav-trigger"] z-i .footer-col-2, .site-nav label[for="nav-trigger"] .footer-col-1 { width: -webkit-calc(50% - (30px / 2)); width: calc(50% - (30px / 2)); }
+  .site-nav label[for="nav-trigger"] .footer-col-3 { width: -webkit-calc(100% - (30px / 2)); width: calc(100% - (30px / 2)); }
   .site-nav .menu-icon { display: block; float: right; width: 36px; height: 26px; line-height: 0; padding-top: 10px; text-align: center; }
   .site-nav .menu-icon > svg path { fill: #424242; }
   .site-nav input ~ .trigger { clear: both; display: none; }
