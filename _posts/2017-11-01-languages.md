@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Languages, there's more to it then English"
+title:  "Language, there's more to it then English"
 date:   2017-11-10 12:43:29 +0200
 categories: German language 
 ---
