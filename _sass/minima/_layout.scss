@@ -135,18 +135,18 @@
 }
 
 .footer-col-1 {
-  width: -webkit-calc(42.1% - (#{$spacing-unit} / 2));
-  width:         calc(42.1% - (#{$spacing-unit} / 2));
+  width: -webkit-calc(43% - (#{$spacing-unit} / 2));
+  width:         calc(43% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-2 {
-  width: -webkit-calc(15% - (#{$spacing-unit} / 2));
-  width:         calc(15% - (#{$spacing-unit} / 2));
+  width: -webkit-calc(14% - (#{$spacing-unit} / 2));
+  width:         calc(14% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-3 {
-  width: -webkit-calc(42.1% - (#{$spacing-unit} / 2));
-  width:         calc(42.1% - (#{$spacing-unit} / 2));
+  width: -webkit-calc(43% - (#{$spacing-unit} / 2));
+  width:         calc(43% - (#{$spacing-unit} / 2));
 }
 
 @include media-query($on-laptop) {

@@ -87,11 +87,11 @@ pre > code { border: 0; padding-right: 0; padding-left: 0; }
 
 .footer-col { float: left; margin-bottom: 15px; padding-left: 15px; }
 
-.footer-col-1 { width: -webkit-calc(42.1% - (30px / 2)); width: calc(42.1% - (30px / 2)); }
+.footer-col-1 { width: -webkit-calc(43% - (30px / 2)); width: calc(43% - (30px / 2)); }
 
-.footer-col-2 { width: -webkit-calc(15% - (30px / 2)); width: calc(15% - (30px / 2)); }
+.footer-col-2 { width: -webkit-calc(14% - (30px / 2)); width: calc(14% - (30px / 2)); }
 
-.footer-col-3 { width: -webkit-calc(42.1% - (30px / 2)); width: calc(42.1% - (30px / 2)); }
+.footer-col-3 { width: -webkit-calc(43% - (30px / 2)); width: calc(43% - (30px / 2)); }
 
 @media screen and (max-width: 800px) { .footer-col-1, .footer-col-2 { width: -webkit-calc(50% - (30px / 2)); width: calc(50% - (30px / 2)); }
   .footer-col-3 { width: -webkit-calc(100% - (30px / 2)); width: calc(100% - (30px / 2)); } }
