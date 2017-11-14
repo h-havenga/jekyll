@@ -1,4 +1,4 @@
-## Disclaimer This is a personal blog, all views are my own.
+## Disclaimer: This is a personal blog, all views are my own.
 The site was build with Jekyll and the minima theme with some slight
 configurations. No one is stopping you from publishing the theme as is
 on your own blog, but that would be pretty unoriginal. Be creative.
