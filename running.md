@@ -22,9 +22,14 @@ ______
 21.1km, 2nd, 1:14:28 | Two Oceans: 21.1km: 35th _ish_, 1:13:13 |
 Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
 2nd, 31:57 | Nuthetal-Crosslauf: 16km, 2nd, 59:44 | Finlandia 10km: 1st,
-32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |  
+32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |
+BoekelderCross 15km: 1st, 55:23 |
 
 ______
 #### Gallery:
 ![Finland race]({{ "/assets/images/running/finland_10k.jpg" | absolute_url }})
 Finlandia 10km, Jyväskylä (&copy;Finlandia Marathon).
+
+![BoekelderCross]({{ "/assets/images/running/boekeldercross.jpg" | absolute_url }})
+BoekelderCross 15km, Netherlands (&copy;Rob Jansen).
+
