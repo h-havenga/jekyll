@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>GMT Part 1: A basic map of South-Africa</title>
-  <meta name="description" content="Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and spatial analysis. I say unknown because I only know one other person who ac...">
+  <title>Assign a random MAC address to a restrictive network</title>
+  <meta name="description" content="Each computer has a mac address assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a network a...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/maps/data/2017/10/19/using-generic-mapping-tools.html">
+  <link rel="canonical" href="http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress.html">
   <link rel="alternate" type="application/rss+xml" title="Henno Havenga" href="/feed.xml">
   
   
@@ -93,83 +93,49 @@
         <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">GMT Part 1: A basic map of South-Africa</h1>
+    <h1 class="post-title" itemprop="name headline">Assign a random MAC address to a restrictive network</h1>
     <p class="post-meta">
-      <time datetime="2017-10-19T10:00:29+02:00" itemprop="datePublished">
+      <time datetime="2017-11-20T13:43:28+01:00" itemprop="datePublished">
         
-        Oct 19, 2017
+        Nov 20, 2017
       </time>
       </p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and
-spatial analysis. I say unknown because I only know one other person who
-actually uses it. Looking for resources online does however indicate that
-some universities have courses teaching GMT, no such luck for me, I had to
-learn it myself. I’d say the learning curve is quite steep, the only tool I
-can compare it with right now is GNUPLOT, another really cool command line
-tool for creating high quality graphics.</p>
-
-<p>To create your map is pretty easy, if you use a bash script it is even
-easier in my humble opinion. Let’s start off with a map of South-Africa
-directly from the command line:</p>
-
-<p>First install gmt:</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install gmt</code></pre></figure>
-
-<p>Now we can make a basic map directly from the command line:</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt pscoast <span class="nt">-R15</span>/34/-35/-22 <span class="nt">-JM20</span> <span class="nt">-Ba</span> <span class="nt">-B</span>+t<span class="s2">"South-Africa"</span> <span class="nt">-Na</span> <span class="nt">-W</span> <span class="nt">-Df</span> <span class="nt">-G100</span>/200/100 <span class="nt">-S0</span>/50/250 <span class="o">&gt;</span> south_africa.ps</code></pre></figure>
-
-<p>Breaking the commands down make the syntax a little more understandable in
-bash. Feel free to use whatever editor you like. Lets do:</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>vim southafrica.sh</code></pre></figure>
-
-<p>in your new .sh script</p>
+    <p>Each computer has a mac address assigned to it by which a network can
+identify you. It is a widely used way to restrict or
+monitor your access on a network and it could be useful in such cases
+to have a randomly assigned mac address to improve your privacy and
+anonymity. The script is just a bunch a of commands, you can run them
+separately if you want to, this just makes it easier to reuse instead
+of remembering every step.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"This script changes your WiFi mac address, it is useful to
+overcome restrictive networks that identify you using your hardware.
+Use this at your own risk and obey all local laws. By pressing enter
+you agree that you understand the risks you may face! Press ctrl-c to
+exit otherwise "</span>
 
-<span class="c"># MAKE A MAP!</span>
-<span class="c"># Define the names of the input, output and coordinates details: </span>
-<span class="nv">out</span><span class="o">=</span>south_africa.ps           <span class="c"># This will be the name of the map</span>
+<span class="nb">echo</span> <span class="s2">"Listing all connections. Connected devices are highlighted"</span>
+nmcli con show 
 
-<span class="c"># Lets do the boundaries</span>
-<span class="nv">north</span><span class="o">=</span><span class="nt">-22</span>
-<span class="nv">south</span><span class="o">=</span><span class="nt">-35</span>
-<span class="nv">east</span><span class="o">=</span>34
-<span class="nv">west</span><span class="o">=</span>15
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter the name of the network you wish to modify exactly as
+seen above and press enter "</span> name 
+nmcli con modify <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> wifi.cloned-mac-address random
 
-<span class="c"># Color intensities (RGB) g for ground and s for sea</span>
-<span class="nv">g_red</span><span class="o">=</span>100
-<span class="nv">g_green</span><span class="o">=</span>200
-<span class="nv">g_blue</span><span class="o">=</span>100
+<span class="nb">echo</span> <span class="s2">"Check that the cloned mac address is set to random"</span> 
+nmcli con show <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> | <span class="nb">grep</span> <span class="s2">"cloned-mac-address"</span>
 
-<span class="nv">s_red</span><span class="o">=</span>0
-<span class="nv">s_green</span><span class="o">=</span>50
-<span class="nv">s_blue</span><span class="o">=</span>250
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Your mac address has been changed and will randomly reassign
+each time you restart your connection. Press enter to exit "</span></code></pre></figure>
 
-<span class="c"># Define the border ticks and projection (mercator)</span>
-<span class="nv">tick</span><span class="o">=</span><span class="s1">'-B2.5/2.5WSen'</span>
-<span class="nv">proj</span><span class="o">=</span><span class="s1">'-JM20'</span>
+<p>To use this script save it as something, like
+machange.sh and then do;</p>
 
-<span class="c"># Lets make a base map by calling GMT  </span>
-gmt psbasemap <span class="nt">-R</span><span class="nv">$west</span>/<span class="nv">$east</span>/<span class="nv">$south</span>/<span class="nv">$north</span> <span class="nv">$proj</span> <span class="nv">$tick</span> <span class="nt">-X5</span> <span class="nt">-K</span> <span class="o">&gt;</span> <span class="nv">$out</span>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">bash machange.sh</code></pre></figure>
 
-<span class="c"># Lets start drawing some boundaries</span>
-<span class="c"># N = National Borders (Na = National Borders All)</span>
-gmt pscoast <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-W0</span>.25 <span class="nt">-Df</span> <span class="nt">-B</span>+t<span class="s2">"South Africa"</span> <span class="nt">-Na</span> <span class="nt">-W0</span>.05 <span class="nt">-G</span><span class="nv">$g_red</span>/<span class="nv">$g_green</span>/<span class="nv">$g_blue</span> <span class="nt">-S</span><span class="nv">$s_red</span>/<span class="nv">$s_green</span>/<span class="nv">$s_blue</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span> </code></pre></figure>
-
-<p>You should see this basic map of South-Africa:<br />
-<img src="http://localhost:4000/assets/images/maps/south_africa.png" alt="gmtmap" /></p>
-
-<p><sub>Note that I converted is from postscript format to reduce size. </sub></p>
-
-<p>This breaks down the commands and when you need to you can just edit the
-script as you need to. Obviously this is the most basic of maps. I’ll try
-and get some more advanced maps as this blog evolves.</p>
 
   </div>
 

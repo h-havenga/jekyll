@@ -1,5 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-14T22:50:46+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Language, there’s more to it than English</title><link href="http://localhost:4000/communication/language/2017/11/10/languages.html" rel="alternate" type="text/html" title="Language, there's more to it than English" /><published>2017-11-10T11:43:29+01:00</published><updated>2017-11-10T11:43:29+01:00</updated><id>http://localhost:4000/communication/language/2017/11/10/languages</id><content type="html" xml:base="http://localhost:4000/communication/language/2017/11/10/languages.html">&lt;p&gt;I’m always surprised about German’s English skills, on the one hand
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-22T10:12:28+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">Assign a random MAC address to a restrictive network</title><link href="http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress.html" rel="alternate" type="text/html" title="Assign a random MAC address to a restrictive network" /><published>2017-11-20T13:43:28+01:00</published><updated>2017-11-20T13:43:28+01:00</updated><id>http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress</id><content type="html" xml:base="http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress.html">&lt;p&gt;Each computer has a mac address assigned to it by which a network can
+identify you. It is a widely used way to restrict or
+monitor your access on a network and it could be useful in such cases
+to have a randomly assigned mac address to improve your privacy and
+anonymity. The script is just a bunch a of commands, you can run them
+separately if you want to, this just makes it easier to reuse instead
+of remembering every step.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;This script changes your WiFi mac address, it is useful to
+overcome restrictive networks that identify you using your hardware.
+Use this at your own risk and obey all local laws. By pressing enter
+you agree that you understand the risks you may face! Press ctrl-c to
+exit otherwise &quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Listing all connections. Connected devices are highlighted&quot;&lt;/span&gt;
+nmcli con show 
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter the name of the network you wish to modify exactly as
+seen above and press enter &quot;&lt;/span&gt; name 
+nmcli con modify &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; wifi.cloned-mac-address random
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Check that the cloned mac address is set to random&quot;&lt;/span&gt; 
+nmcli con show &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cloned-mac-address&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Your mac address has been changed and will randomly reassign
+each time you restart your connection. Press enter to exit &quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To use this script save it as something, like
+machange.sh and then do;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bash machange.sh&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Each computer has a mac address assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a network and it could be useful in such cases to have a randomly assigned mac address to improve your privacy and anonymity. The script is just a bunch a of commands, you can run them separately if you want to, this just makes it easier to reuse instead of remembering every step.</summary></entry><entry><title type="html">Language, there’s more to it than English</title><link href="http://localhost:4000/communication/language/2017/11/10/languages.html" rel="alternate" type="text/html" title="Language, there's more to it than English" /><published>2017-11-10T11:43:29+01:00</published><updated>2017-11-10T11:43:29+01:00</updated><id>http://localhost:4000/communication/language/2017/11/10/languages</id><content type="html" xml:base="http://localhost:4000/communication/language/2017/11/10/languages.html">&lt;p&gt;I’m always surprised about German’s English skills, on the one hand
 they are this open, well traveled, well educated, very &lt;em&gt;sofisticated&lt;/em&gt;
 society and they have Europe’s strongest economy, yet go to any mid
 size town and people are really scared to speak English. Apart from
@@ -23,7 +54,7 @@ their language is exceptionally well evolved. I say this with envy. My
 own native tongue is Afrikaans and I am embarrassed when I hear myself
 speak. I often can’t find words to describe common things. There’s
 other reasons for that to, in the last three years I’ve lived outside
-South-Africa mostly, subsequently I only speak Afrikaans once a week
+South-Africa mostly and subsequently I only speak Afrikaans once a week
 or so with my family. To be totally honest, my language in general is
 at a low point at this moment. I speak broken English to Germans, very
 broken German to Germans, and broken Afrikaans to my parents.&lt;/p&gt;
@@ -42,8 +73,7 @@ it’s important that we can communicate beyond borders, but we should
 never think that an language is useless beyond an airport! I think as
 future scientists we have a obligation to take one this challenge. So
 whatever your mother tongue is go out and write in it whenever you
-can, even if it’s just for yourself like a note on the desk, just
-write it!&lt;/p&gt;
+can, even if it’s just for yourself&lt;/p&gt;
 
 &lt;p&gt;So on that rant, I am going to challenge myself to improve my
 Afrikaans vocabulary again, by writing some stuff and also reading

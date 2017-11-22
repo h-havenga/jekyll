@@ -29,7 +29,7 @@ their language is exceptionally well evolved. I say this with envy. My
 own native tongue is Afrikaans and I am embarrassed when I hear myself
 speak. I often can't find words to describe common things. There's
 other reasons for that to, in the last three years I've lived outside
-South-Africa mostly, subsequently I only speak Afrikaans once a week
+South-Africa mostly and subsequently I only speak Afrikaans once a week
 or so with my family. To be totally honest, my language in general is
 at a low point at this moment. I speak broken English to Germans, very
 broken German to Germans, and broken Afrikaans to my parents.
@@ -48,8 +48,7 @@ it's important that we can communicate beyond borders, but we should
 never think that an language is useless beyond an airport! I think as
 future scientists we have a obligation to take one this challenge. So
 whatever your mother tongue is go out and write in it whenever you
-can, even if it's just for yourself like a note on the desk, just
-write it!
+can, even if it's just for yourself 
 
 So on that rant, I am going to challenge myself to improve my
 Afrikaans vocabulary again, by writing some stuff and also reading

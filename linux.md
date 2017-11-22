@@ -19,6 +19,11 @@ Convert a bunch of GoPro images for a time-laps
 ffmpeg -r 30 -y -pattern_type glob -i '*.JPG' -vf "crop=h=2250" -c:v libx264 -crf 20 -s 1280x720 outfile.avi'
 {% endhighlight %}
 
+Screencasting with ffmpeg
+{% highlight bash %}
+ffmpeg -f x11grab -s 1366x768 -i :0.0 -c:v libx264 -qp 0 out.mkv 
+{% endhighlight %}
+
 Convert a 16bit tiff thermal image to something more viewable
 {% highlight bash %}
 gdal_translate infile.tiff outfile.tiff -b 1 -scale 6880 7641 0 65535
@@ -43,4 +48,15 @@ pdftk infile.pdf cat 2-7 output outfile.pdf
 Compress a pdf file 
 {% highlight bash %}
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=outfile.pdf infile.pdf
+{% endhighlight %}
+
+LaTeX needs to be compiled twice, instead of running commands over and
+over do:
+{% highlight bash %}
+for i in `seq 2`; do makeglossaries texfile && bibtex texfile && lualatex texfile.tex ; done
+{% endhighlight %}
+
+To make LaTex compiling even more simple, use zsh and do:
+{% highlight zsh %}
+repeat 2 { makeglossaries texfile && bibtex texfile && lualatex texfile.tex }
 {% endhighlight %}
