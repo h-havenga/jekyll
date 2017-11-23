@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "GMT Part 3: Working with netCDF data by creating a synoptic weather map"
+title:  "GMT Part 3: Working with NetCDF data by creating a synoptic weather map"
 date:   2017-11-25 10:00:29 +0200
 categories: maps data
 ---
@@ -24,7 +24,7 @@ handling of NetCDF files. I used
 data in my thesis for WRF and also some objective clustering, the ERA
 dataset was thus the obvious choice. Using GMT to recreate these
 synoptic maps took me a couple of days, mostly the time consumption
-was related to handling the netCDF data.  GMT uses Reverse Polish
+was related to handling the NetCDF data.  GMT uses Reverse Polish
 Notation (RPN) for math functions which I needed to figure out as
 you'll see. It is also useful to have CDO, ncview and ncdump installed
 for data inspection and manipulating. A last point is that I compiled
