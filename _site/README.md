@@ -3,10 +3,6 @@ The site was build with Jekyll and the minima theme with some slight
 configurations. No one is stopping you from publishing the theme as is
 on your own blog, but that would be pretty unoriginal. Be creative.
 
-## Travel Map 
-See https://jekyll-themes.com/travel-map/ and
-https://github.com/jekyller/TravelMap
-
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at
 https://github.com/jekyll/minima. This project is intended to be a
