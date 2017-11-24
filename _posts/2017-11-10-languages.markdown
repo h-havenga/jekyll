@@ -1,13 +1,13 @@
 ---
 layout: post
-title:  "Language, there's more to it than English"
+title:  "German observations"
 date:   2017-11-10 12:43:29 +0200
 categories: communication language 
 ---
 
-I'm always surprised about German's English skills, on the one hand
+I'm always surprised about Germans English skills, on the one hand
 they are this open, well traveled, well educated, very *sofisticated*
-society and they have Europe's strongest economy, yet go to any mid
+society and they have Europe's strongest economy but yet go to any mid
 size town and people are really scared to speak English. Apart from
 the French (who apparently just dislike the language), I have yet to
 experience this so frequently. Don't get me wrong. I have absolutely
