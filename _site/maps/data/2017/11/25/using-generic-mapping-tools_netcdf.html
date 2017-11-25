@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>GMT Part 3: Working with NetCDF data by creating a synoptic weather map</title>
+  <meta name="description" content="For my thesis I had to examine synoptic scale circulation over South-Africa, I wanted to recreate a classic synoptic map that represented mean sea level pres...">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">
+  <link rel="alternate" type="application/rss+xml" title="Henno Havenga" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Henno Havenga</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/books/">Books</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/linux/">GNU\Linux</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/writings/">Writings</a>
+            
+          
+            
+            
+            <a class="page-link" href="/running/">Running</a>
+            
+          
+            
+            
+            <a class="page-link" href="/travelmap/">Travel Map</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</h1>
+    <p class="post-meta">
+      <time datetime="2017-11-25T09:00:29+01:00" itemprop="datePublished">
+        
+        Nov 25, 2017
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>For my thesis I had to examine synoptic scale circulation over
+South-Africa, I wanted to recreate a <em>classic</em> synoptic map that
+represented mean sea level pressure and also geopotentail at 500hPa.
+I knew the <a href="http://www.weathersa.co.za/">South-African Weather Service
+(SAWS)</a> has <a href="http://www.weathersa.co.za/observations/synoptic-charts">daily
+maps</a> they
+make publicly available, but the maps are not always the highest
+quality as they are hand drawn and I am not the biggest fan of the
+SAWS policies.</p>
+
+<p><img src="http://localhost:4000/assets/images/maps/synoptic_20121109.png" alt="sawsmap" />
+<sub>A SAWS synoptic map. </sub></p>
+
+<p>In addition to this I was also attempting to better understand GMT’s
+handling of NetCDF files. I used
+<a href="http://apps.ecmwf.int/datasets/data/interim-full-daily/levtype%3Dsfc/">ERA-Interim</a>
+data in my thesis for WRF and also some objective clustering, the ERA
+dataset was thus the obvious choice. Using GMT to recreate these
+synoptic maps took me a couple of days, mostly the time consumption
+was related to handling the NetCDF data.  GMT uses Reverse Polish
+Notation (RPN) for math functions which I needed to figure out as
+you’ll see. It is also useful to have CDO, ncview and ncdump installed
+for data inspection and manipulating. A last point is that I compiled
+it all in a bash script, this is useful for various reasons, so just
+learn to do it.</p>
+
+<p>First off a synoptic map is pretty simple, it consists of pressure
+levels and if you really want you can add some other variables such as
+CAPE, temperature, precipitate water, and so forth. Synoptic mainly
+refers to a scale in this context if you wondered, a 1975
+<a href="https://www.gfdl.noaa.gov/bibliography/related_files/io7501.pdf">paper</a>
+by Isidoro Orlanski explains this concept of scale related to weather
+and climate clearly.  You’ll notice is that the projection used in the
+SAWS map is not the Mercator projection I’ve used previously, but
+instead a <a href="https://en.wikipedia.org/wiki/Cylindrical_equal-area_projection">equal area
+projection</a>,
+namely <a href="https://en.wikipedia.org/wiki/Lambert_azimuthal_equal-area_projection">Lambert Azimuthal
+Equal-Area</a>.
+Coincidently someone already explained the projection using
+South-Africa   as an
+<a href="http://www-k12.atmos.washington.edu/~ovens/gmt/doc/html/GMT_Docs/node71.html">example</a>.</p>
+
+<p>A quick drawing of the basemap and we can see th projection is
+similar,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt psbasemap <span class="nt">-R-20</span>/-46/60/-12r <span class="nt">-JA25</span>/-30/25.5 <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B15a0g15</span> <span class="nt">-K</span> <span class="o">&gt;</span> lambert_base.ps</code></pre></figure>
+
+<p><img src="http://localhost:4000/assets/images/maps/lambert_base.png" alt="basemap" /></p>
+
+<p>This does not mean a lot without any land referance, the -K option
+tells us we want to add something later to the map. Using pscoast and
+-Df and -N1 options we can add coastlines and national borders to this
+map,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt pscoast <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-W</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> lambert_base.ps</code></pre></figure>
+
+<p><img src="http://localhost:4000/assets/images/maps/lambert_base_coast.png" alt="basemap_coast" /></p>
+
+<p>That was pretty straight forward, we can see that the map is more or
+less similar to the synoptic map we want to make. Now we need to add
+the pressure lines to the map, this gets a little more tricky. As
+mentioned, I used <a href="http://apps.ecmwf.int/datasets/data/interim-full-daily/levtype%3Dsfc/">ERA-Interim</a>
+data in my thesis, the data is maintained by the
+<a href="https://www.ecmwf.int/">ECMWF</a> and publicly available, you do however
+need to sign up to use the data. You can download the
+data directly from the website, it is however easier to use the <a href="https://software.ecmwf.int/wiki/display/WEBAPI/Access+ECMWF+Public+Datasets">ECMWF
+Python API</a>.
+Do this to use the script I wrote below, otherwise it will
+not work and you’ll think I’m stupid. So, once you’ve got that set up
+the rest will make a little more sense.</p>
+
+<p>I initially tried to just run gmt grdimage without any data conversion, this
+did not work. Inspecting the ordinal data with,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ncdump <span class="nt">-h</span> msl.nc </code></pre></figure>
+
+<p>Shows us the msl variable is is present,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">netcdf msl <span class="o">{</span>
+dimensions:
+	longitude <span class="o">=</span> 480 <span class="p">;</span>
+	latitude <span class="o">=</span> 241 <span class="p">;</span>
+	<span class="nb">time</span> <span class="o">=</span> UNLIMITED <span class="p">;</span> // <span class="o">(</span>1 currently<span class="o">)</span>
+variables:
+	float longitude<span class="o">(</span>longitude<span class="o">)</span> <span class="p">;</span>
+		longitude:units <span class="o">=</span> <span class="s2">"degrees_east"</span> <span class="p">;</span>
+		longitude:long_name <span class="o">=</span> <span class="s2">"longitude"</span> <span class="p">;</span>
+	float latitude<span class="o">(</span>latitude<span class="o">)</span> <span class="p">;</span>
+		latitude:units <span class="o">=</span> <span class="s2">"degrees_north"</span> <span class="p">;</span>
+		latitude:long_name <span class="o">=</span> <span class="s2">"latitude"</span> <span class="p">;</span>
+	int <span class="nb">time</span><span class="o">(</span><span class="nb">time</span><span class="o">)</span> <span class="p">;</span>
+		<span class="nb">time</span>:units <span class="o">=</span> <span class="s2">"hours since 1900-01-01 00:00:0.0"</span> <span class="p">;</span>
+		<span class="nb">time</span>:long_name <span class="o">=</span> <span class="s2">"time"</span> <span class="p">;</span>
+		<span class="nb">time</span>:calendar <span class="o">=</span> <span class="s2">"gregorian"</span> <span class="p">;</span>
+	short msl<span class="o">(</span><span class="nb">time</span>, latitude, longitude<span class="o">)</span> <span class="p">;</span>
+		msl:scale_factor <span class="o">=</span> 0.130510582454641 <span class="p">;</span>
+		msl:add_offset <span class="o">=</span> 99611.2472447088 <span class="p">;</span>
+		msl:_FillValue <span class="o">=</span> <span class="nt">-32767s</span> <span class="p">;</span>
+		msl:missing_value <span class="o">=</span> <span class="nt">-32767s</span> <span class="p">;</span>
+		msl:units <span class="o">=</span> <span class="s2">"Pa"</span> <span class="p">;</span>
+		msl:long_name <span class="o">=</span> <span class="s2">"Mean sea level pressure"</span> <span class="p">;</span>
+		msl:standard_name <span class="o">=</span> <span class="s2">"air_pressure_at_sea_level"</span> <span class="p">;</span></code></pre></figure>
+
+<p>I think the data needs to be in a 2-dimensional grid, explained
+<a href="http://gmt.soest.hawaii.edu/doc/latest/grdconvert.html#gmt-standard-netcdf-files">here</a>
+in more detail. To get a GMT compliant file we need to do,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt grdconvert <span class="s1">'msl.nc?msl'</span> <span class="nt">-Gmslp_org</span>.nc</code></pre></figure>
+
+<p>Inspecting the data shows us that z has replaced msl</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">netcdf mslp_org <span class="o">{</span>
+dimensions:
+	lon <span class="o">=</span> 480 <span class="p">;</span>
+	lat <span class="o">=</span> 241 <span class="p">;</span>
+variables:
+	double lon<span class="o">(</span>lon<span class="o">)</span> <span class="p">;</span>
+		lon:long_name <span class="o">=</span> <span class="s2">"longitude"</span> <span class="p">;</span>
+		lon:units <span class="o">=</span> <span class="s2">"degrees_east"</span> <span class="p">;</span>
+		lon:actual_range <span class="o">=</span> <span class="nt">-180</span>., 179.25 <span class="p">;</span>
+	double lat<span class="o">(</span>lat<span class="o">)</span> <span class="p">;</span>
+		lat:long_name <span class="o">=</span> <span class="s2">"latitude"</span> <span class="p">;</span>
+		lat:units <span class="o">=</span> <span class="s2">"degrees_north"</span> <span class="p">;</span>
+		lat:actual_range <span class="o">=</span> <span class="nt">-90</span>., 90. <span class="p">;</span>
+	float z<span class="o">(</span>lat, lon<span class="o">)</span> <span class="p">;</span>
+		z:long_name <span class="o">=</span> <span class="s2">"Mean sea level pressure"</span> <span class="p">;</span>
+		z:units <span class="o">=</span> <span class="s2">"Pa"</span> <span class="p">;</span>
+		z:_FillValue <span class="o">=</span> NaNf <span class="p">;</span>
+		z:actual_range <span class="o">=</span> 95334.9375, 103887.6875 <span class="p">;</span></code></pre></figure>
+
+<p>We can also see that 95334 is not a pressure value, we have to divide
+it by 100. It is possible to use CDO or NCO tools, but the powerful
+GMT has math functions in the form of <a href="https://en.wikipedia.org/wiki/Reverse_Polish_notation">Reverse Polish Notation
+(RPN)</a>. To
+convert new mslp value by a 100 we can do</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt grdmath mslp_org.nc 100 DIV <span class="o">=</span> mslp_nrm.nc</code></pre></figure>
+
+<p>Because the data covers the whole word we can make a quick plot
+without to much trouble using grdimage to see if everything seems
+realistic enough.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt grdimage mslp_nrm.nc <span class="nt">-JX25</span>/0d <span class="nt">-K</span> <span class="o">&gt;</span> mslp.ps
+gmt pscoast <span class="nt">-Rmslp_nrm</span>.nc <span class="nt">-JX</span> <span class="nt">-W0</span>.5 <span class="nt">-N3</span> <span class="nt">-O</span> <span class="nt">-Dc</span> <span class="o">&gt;&gt;</span> mslp.ps </code></pre></figure>
+
+<p>This gives us a image of the mslp scaled and covering the whole world. 
+<img src="http://localhost:4000/assets/images/maps/mslp.png" alt="gmtmslp" /></p>
+
+<p>We do however want a contoured mslp and also clip it to South-Africa.
+To do this we need to call the psbasemap and pscoast functions we used
+earlier and then use grdcontour to contour the data.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt psbasemap <span class="nt">-R-20</span>/-46/60/-12r <span class="nt">-JA25</span>/-30/25.5 <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B15a0g15</span> <span class="nt">-K</span> <span class="o">&gt;</span> synoptic_map.ps
+gmt pscoast <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-W</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> synoptic_map.ps 
+gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthinnest</span> mslp_nrm.nc <span class="nt">-C4</span> <span class="nt">-A4</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> synoptic_map.ps </code></pre></figure>
+
+<p>We get a nice map with the MSLP contoured over South-Africa, much like
+the original synoptic map.
+<img src="http://localhost:4000/assets/images/maps/synoptic_map.png" alt="gmtsynopticmap" /></p>
+
+<p>The script below does all these steps with the addition of the
+upper 500hPa geopotential, in the end we end up with a new and improved synoptic map
+as seen below.
+<img src="http://localhost:4000/assets/images/maps/southafrica_syn.png" alt="gmtsynopticmap" /></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c">####################################################</span>
+<span class="c"># This is to make a synotpic map                   #</span>
+<span class="c"># See below source for some more info              #</span>
+<span class="c"># http://gmt.soest.hawaii.edu/boards/1/topics/5997 #</span>
+<span class="c">####################################################</span>
+
+<span class="c">####################################################</span>
+<span class="c"># Step 1: Download the ERA-DATA with this script   #</span>
+<span class="c">####################################################</span>
+
+python <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="sh">
+from ecmwfapi import ECMWFDataServer
+server = ECMWFDataServer()
+server.retrieve({
+    "class": "ei",
+    "dataset": "interim",
+    "date": "2012-11-09/to/2012-11-09",
+    "expver": "1",
+    "grid": "0.75/0.75",
+    "levtype": "sfc",
+    "param": "151.128",
+    "step": "0",
+    "stream": "oper",
+    "time": "12:00:00",
+    "type": "an",
+    "format":"netcdf",
+    "target": "msl.nc",
+})
+
+server.retrieve({
+    "class": "ei",
+    "dataset": "interim",
+    "date": "2012-11-09/to/2012-11-09",
+    "expver": "1",
+    "grid": "0.75/0.75",
+    "levelist": "500",
+    "levtype": "pl",
+    "param": "129.128",
+    "step": "0",
+    "stream": "oper",
+    "time": "12:00:00",
+    "type": "an",
+    "format":"netcdf",
+    "target": "zg500.nc",
+})
+</span><span class="no">EOF
+
+</span><span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"ERA-Data downloaded. Press enter to continue and convert data for use in GMT "</span>
+
+<span class="c">#############################################################################</span>
+<span class="c"># The file is not compatible with GMT, to get it to work do ?msl           #</span>
+<span class="c"># selects the variable we want and writes it to mslp.nc. The '' is         #</span>
+<span class="c"># important otherwise bash looks for a wildcard.                           #</span>
+<span class="c"># The units are also wrong to correct them we need to use gmt grdmath      #</span>
+<span class="c">#############################################################################</span>
+
+gmt grdconvert <span class="s1">'msl.nc?msl'</span> <span class="nt">-Gmslp_org</span>.nc
+gmt grdedit mslp_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
+gmt grdmath mslp_org.nc 100 DIV <span class="o">=</span> mslp_nrm.nc
+
+gmt grdconvert <span class="s1">'zg500.nc?z'</span> <span class="nt">-Gzg500_org</span>.nc
+gmt grdedit zg500_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
+gmt grdmath zg500_org.nc 10 DIV <span class="o">=</span> zg500_nrm.nc
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Lets inspect the data with ncdump. Press enter to continue "</span>
+ncdump <span class="nt">-h</span> mslp_nrm.nc
+ncdump <span class="nt">-h</span> zg500_nrm.nc
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Lets inspect the data with grdinfo. Press enter to continue "</span>
+gmt grdinfo mslp_nrm.nc
+gmt grdinfo zg500_nrm.nc
+
+<span class="c">####################################################</span>
+<span class="c"># Here we create a very basic map to view our data #</span>
+<span class="c">####################################################</span>
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Lets create a world map. Press enter to continue "</span>
+
+<span class="nb">echo</span> <span class="s1">'MSLP map '</span>
+gmt grdimage mslp_nrm.nc <span class="nt">-JX25</span>/0d <span class="nt">-K</span> <span class="o">&gt;</span> mslp.ps
+gmt pscoast <span class="nt">-Rmslp_nrm</span>.nc <span class="nt">-JX</span> <span class="nt">-W0</span>.5 <span class="nt">-N3</span> <span class="nt">-O</span> <span class="nt">-Dc</span> <span class="o">&gt;&gt;</span> mslp.ps
+
+<span class="nb">echo</span> <span class="s1">'Geopotential map '</span>
+gmt grdimage zg500_nrm.nc <span class="nt">-JX25</span>/0d <span class="nt">-K</span> <span class="o">&gt;</span> zg500.ps
+gmt pscoast <span class="nt">-Rzg500_nrm</span>.nc <span class="nt">-JX</span> <span class="nt">-W0</span>.5 <span class="nt">-N3</span> <span class="nt">-O</span> <span class="nt">-Dc</span> <span class="o">&gt;&gt;</span> zg500.ps
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"World map created. We will now create a map of South-Africa. Press enter to continue "</span>
+
+<span class="c">#################################################################################</span>
+<span class="c"># Now we need to create a contoured map from the netcdf file for SA             #</span>
+<span class="c"># See https://www.soest.hawaii.edu/gmt/gmt/html/man/gmtcolors.html              #</span>
+<span class="c"># http://gmt.soest.hawaii.edu/doc/latest/GMT_Docs.html#specifying-pen-attributes#</span>
+<span class="c">#################################################################################</span>
+<span class="nv">out</span><span class="o">=</span>southafrica_syn.ps
+ 
+<span class="c">#Coordinates (actually lower left and upper right not E S W N) </span>
+<span class="nv">east</span><span class="o">=</span><span class="nt">-20</span>
+<span class="nv">south</span><span class="o">=</span><span class="nt">-46</span>
+<span class="nv">west</span><span class="o">=</span>60
+<span class="nv">north</span><span class="o">=</span><span class="nt">-12r</span>
+
+<span class="c">#Projection (Lambert Azimuthal Equal-Area)</span>
+<span class="nv">width</span><span class="o">=</span>25.5
+
+gmt psbasemap  <span class="nt">-R</span><span class="nv">$east</span>/<span class="nv">$south</span>/<span class="nv">$west</span>/<span class="nv">$north</span> <span class="nt">-JA25</span>/-30/<span class="nv">$width</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B15a0g15</span> <span class="nt">-K</span> <span class="o">&gt;</span> <span class="nv">$out</span>
+gmt pscoast    <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-W</span> <span class="nt">-Givory</span> <span class="nt">-B</span> <span class="nt">-Slightskyblue</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthinnest</span> mslp_nrm.nc <span class="nt">-C2</span> <span class="nt">-A2</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthick</span>,red zg500_nrm.nc <span class="nt">-C100</span> <span class="nt">-A100</span>+v <span class="nt">-P</span> <span class="nt">-Gn1</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Done. Press enter to continue "</span></code></pre></figure>
+
+
+  </div>
+
+</article>
+
+
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+
+     <div class="footer-col footer-col-1">
+       <p>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I&#39;m navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<a href="/about/" class="gray
+	       underline-none mrhalf">More..</a></p>
+     </div>
+     
+     <div class="footer-col footer-col-2">
+       <ul class="social-media-list">
+           
+           <li>
+           <a href="https://twitter.com/h_havenga"><span class="icon icon--twitter"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username"></span></a>
+
+           </li>
+           
+
+           
+           <li>
+           <a href="https://github.com/h-havenga"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username"></span></a>
+
+           </li>
+           
+
+           
+           <li>
+	       <a href="mailto:hennohavenga@outlook.com"><span class="icon icon--mail"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="15px" viewBox="0 0 16 15" enable-background="new 0 0 16 15" xml:space="preserve">  <image id="image0" width="16" height="15" x="0" y="0"
+    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAMAAADarb8dAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAB/lBMVEUAAABLS01LS01LS01L
+S01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01KSkxKSkxL
+S01LS01LS01LS01MTE5MTE5LS01LS01KSkxKSkxKSkxKSkxKSkxKSkxQUFFQUFFQUFJQUFJLS01L
+S01LS01LS01LS01LS01LS01LS01PT1FPT1FSUlNkZGZPT1FJSUtLS01LS01LS01PT1FkZGZSUlNL
+S01KSkxZWVtfX2FfX2FfX2FfX2FZWVtXV1jHx8je3t7d3d3d3d3c3N3f39/JyclWVlhZWVtLS01Z
+WVvc3N3o6Ojl5ebl5ebl5eXr6+vg4OBZWVtZWVt5eXp+foBwcHLe3t7n5+jl5eXl5eXl5eXq6urh
+4eJwcHJ+foB5eXpLS01dXV+CgoPOzs/n5+fp6enn5+fn5+fp6enp6erR0dKCgoNdXV9LS01KSkxK
+SkxcXF2UlJXZ2dn8/Pz8/PzZ2dmUlJVcXF1KSkxLS01LS01JSUtHR0lbW12MjI2NjY9cXF1HR0lK
+SkxJSUtVVVd0dHZpaWpISEpISEppaWp0dHZKSkxWVlh1dXeDg4Vra21QUFJLS01QUFJra22Dg4V1
+dXdWVlhzc3SDg4RpaWtPT1FJSUtLS01LS01PT1FpaWuDg4Rzc3T///8FnGv7AAAAPXRSTlMAAAAi
+t7kgNMD+/r0xAlHa2E4BCXLt63AIFpX4+JMVMrX+/rQx3Nz///39/f39/f39/v7o/v7+/v7+/v7o
+/IPpPgAAAAFiS0dEqScPBgQAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfhChoPASBN8Ztp
+AAAA9ElEQVQI12NgAAJGRmYWVjZGRgYoYGRk5+Dk4uaBijAx8vLx2wKBgKAQI1haWETUDgzExCWA
+ihglpaTtHRwdHZ2cXWRk5RgZ5BUUXd3cPTw9vbx9fJWUVRhU/fwDAoOCQ0JCw8Ij/CPVGNSjomNi
+4+ITEhKTklNS0zQYNNMzMrOyc3Lz8gsKi4rTtRi0S0rLyisqq6prauvqS0t0GHRtGxqbmlta29o7
+mhobbPUYdBs7u7p7evv6J0zs7ups1GcwmDR5ytRp02fMmDlr9py5kwwYDOfNX7Bw0eIlSxYvWrps
++QojBmMTUzNzC0sgsDA3s7K2AQA4xkXsVKsdPwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0xMC0y
+NlQxNTowMTozMiswMjowMCGRRPAAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTctMTAtMjZUMTU6MDE6
+MzIrMDI6MDBQzPxMAAAAAElFTkSuQmCC" />
+</svg>
+</span></span></a>
+
+	       </li>
+           
+           <li>
+	       <p class="rss-subscribe"><a href="/feed.xml"><span class="icon icon--rss"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">  <image id="image0" width="16" height="16" x="0" y="0"
+    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+RQfhChoPCB5dUj2LAAABBklEQVQoz4XRLUtDARTG8d9dEN+wCMpMrq+IfgaDYDXYF2TgwKaIwWZa
+EYwWta2IJkWrxdeJCgubiiJoUpi7m3AN23XT4jnlcJ4/58Dz8E8FHfOQMaMCFRde/oI9Ms7VRCI1
+l+b0/ZbXWmLcoXwnkhF6NW/JkeoPko3lYWcibzLSBs24bSFFI01g0qfIh13HtqSNKbZuTJNASjfe
+rZp1bUNg0Tu6pJpA/Gjbgk0Fy04cxOsE7oVoKBiwYkePtH00VJrAhTtU7Tk0JalkwpO6krP4zpxQ
+pOzJlyuPHhTV5No+9MoLfxnVsK6/08s+WdfqIpG6G7lYbocVSBqXEig79Sz6L+dWfQONdWWwayDE
+FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0xMC0yNlQxNTowODozMCswMjowMEobfhMAAAAldEVY
+dGRhdGU6bW9kaWZ5ADIwMTctMTAtMjZUMTU6MDg6MzArMDI6MDA7RsavAAAAGXRFWHRTb2Z0d2Fy
+ZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==" />
+</svg>
+</span></a></p> </li>
+	   </ul>
+     </div>
+
+     <div class="footer-col footer-col-3">
+       <p>Nagraadse student in geo en ruimtelike wetenskap. 
+       Advokaat vir die gebruik van GNU/Linux, en 'n meer vry en oop
+       gemeenskap in die wetenskap. Ek is nuut in hierdie wêreld van
+       blogging, wees geduldig met my. <a href="/about/" class="gray
+	   underline-none mrhalf">Meer..</a></p> 
+     </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+  </body>
+
+</html>
