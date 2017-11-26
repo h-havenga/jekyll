@@ -5,14 +5,14 @@ date:   2017-11-20 14:43:28 +0200
 categories: linux network bash
 ---
 
-A network card has a mac address assigned to it by which a network can
-identify you. It is a widely used way to restrict or
-monitor your access on a and it could be useful in such cases
-to have a randomly assigned mac address to improve your privacy and
-anonymity. The script is just a bunch a of commands, you can run them
-separately if you want to, this just makes it easier to reuse instead
-of remembering every step. The mac address should change with every
-reconnect. 
+Every network card has a mac address, a serial number of sorts,
+assigned to it by which a network can identify you. It is a widely
+used way to restrict or monitor your access on a network and it could
+be useful in such cases to have a randomly assigned mac address to
+improve your privacy and anonymity.  The script is just a bunch a of
+commands, you can run them separately if you want to, this just makes
+it easier to reuse instead of remembering every step. The mac address
+should change with every reconnect. 
 
 {% highlight bash %}
 #!/bin/bash
