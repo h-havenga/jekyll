@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Setting up a random mac address per network"
+title:  "Setting a random mac address for a specific network"
 date:   2017-11-20 14:43:28 +0200
 categories: linux network bash
 ---
