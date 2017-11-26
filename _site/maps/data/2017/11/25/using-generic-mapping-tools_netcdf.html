@@ -269,9 +269,34 @@ gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span clas
 the original synoptic map.
 <img src="http://localhost:4000/assets/images/maps/synoptic_map.png" alt="gmtsynopticmap" /></p>
 
-<p>The script below does all these steps with the addition of the
-upper 500hPa geopotential, in the end we end up with a new and improved synoptic map
-as seen below.
+<p>We can see below that the ERA created map captures similar features as
+the SAWS synoptic map; note the South-Indian Ocean High Pressure and
+the South-Atlantic High Pressure and the low pressure from the
+Easterly Wave over the Country. To add the L and H indicators I would
+use inkscape at this time, a script would be possible but that is
+beyond me right now. The weather stations indicators would also theoretically be
+possible and I’ll try to figure that out in the future.</p>
+
+<table width="750" border="0" cellpadding="5">
+<tr>
+
+<td align="center" valign="center">
+<img src="/assets/images/maps/synoptic_map.png" alt="GMT/ERA" width="400" high="420" />
+<br />
+</td>
+
+<td align="center" valign="center">
+<img src="/assets/images/maps/synoptic_20121109.png" alt="SAWS" width="350" high="350" />
+<br />
+</td>
+
+</tr>
+</table>
+
+<p>The below map is the final map I created, you can see The script below
+does all the above steps with the addition of the upper 500hPa
+geopotential. I also added some color. In the end we end up with a new
+and improved (in my subjective opinion) synoptic map as seen below.
 <img src="http://localhost:4000/assets/images/maps/southafrica_syn.png" alt="gmtsynopticmap" /></p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
