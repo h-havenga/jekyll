@@ -5,10 +5,18 @@ permalink: /writings/
 ---
 
 <ul>
-  {% for post in site.posts %}
-    <li>
-	 <span>{{ post.date | date:"%-d %b %Y" }} > </span>      
+{% for post in site.posts %}
+  {% assign currentdate = post.date | date: "%B %Y" %}
+  {% if currentdate != date %}
+    {% unless forloop.first %}</ul>{% endunless %}
+    <h1 id="y{{post.date | date: "%Y"}}">{{ currentdate }}</h1>
+    <ul>
+    {% assign date = currentdate %}
+  {% endif %}
+     <li>
+     <span>{{ post.date | date:"%-d %b %Y" }} > </span>      
 	 <a href="{{ post.url }}">{{ post.title }}</a>
-    </li>
-  {% endfor %}
+     </li>
+  {% if forloop.last %}</ul>{% endif %}
+{% endfor %}
 </ul>
