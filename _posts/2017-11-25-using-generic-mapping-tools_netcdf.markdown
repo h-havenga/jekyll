@@ -182,34 +182,18 @@ We get a nice map with the MSLP contoured over South-Africa, much like
 the original synoptic map.
 ![gmtsynopticmap]({{"/assets/images/maps/synoptic_map.png" | absolute_url }})
 
-We can see below that the ERA created map captures similar features as
+We can see that the ERA created map captures similar features as
 the SAWS synoptic map; note the South-Indian Ocean High Pressure and
 the South-Atlantic High Pressure and the low pressure from the
 Easterly Wave over the Country. To add the L and H indicators I would
 use inkscape at this time, a script would be possible but that is
 beyond me right now. The weather stations indicators would also theoretically be
 possible and I'll try to figure that out in the future. 
-
-<table width="750" border="0" cellpadding="5">
-<tr>
-
-<td align="center" valign="center">
-<img src="/assets/images/maps/synoptic_map.png"  alt="GMT/ERA" width="400" high="420" />
-<br />
-</td>
-
-<td align="center" valign="center">
-<img src="/assets/images/maps/synoptic_20121109.png" alt="SAWS" width="350" high="350" />
-<br />
-</td>
-
-</tr>
-</table>
-
 The below map is the final map I created, you can see The script below
 does all the above steps with the addition of the upper 500hPa
 geopotential. I also added some color. In the end we end up with a new
 and improved (in my subjective opinion) synoptic map as seen below.
+
 ![gmtsynopticmap]({{"/assets/images/maps/southafrica_syn.png" | absolute_url }})
 
 {% highlight bash %}

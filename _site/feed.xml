@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-26T14:53:08+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-26T15:16:04+01:00</updated><id>http://localhost:4000/</id><title type="html">Henno Havenga</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</title><link href="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html" rel="alternate" type="text/html" title="GMT Part 3: Working with NetCDF data by creating a synoptic weather map" /><published>2017-11-25T09:00:29+01:00</published><updated>2017-11-25T09:00:29+01:00</updated><id>http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">&lt;p&gt;For my thesis I had to examine synoptic scale circulation over
 South-Africa, I wanted to recreate a &lt;em&gt;classic&lt;/em&gt; synoptic map that
 represented mean sea level pressure and also geopotentail at 500hPa.
@@ -159,35 +159,19 @@ gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&
 the original synoptic map.
 &lt;img src=&quot;http://localhost:4000/assets/images/maps/synoptic_map.png&quot; alt=&quot;gmtsynopticmap&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;We can see below that the ERA created map captures similar features as
+&lt;p&gt;We can see that the ERA created map captures similar features as
 the SAWS synoptic map; note the South-Indian Ocean High Pressure and
 the South-Atlantic High Pressure and the low pressure from the
 Easterly Wave over the Country. To add the L and H indicators I would
 use inkscape at this time, a script would be possible but that is
 beyond me right now. The weather stations indicators would also theoretically be
-possible and I’ll try to figure that out in the future.&lt;/p&gt;
-
-&lt;table width=&quot;750&quot; border=&quot;0&quot; cellpadding=&quot;5&quot;&gt;
-&lt;tr&gt;
-
-&lt;td align=&quot;center&quot; valign=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/maps/synoptic_map.png&quot; alt=&quot;GMT/ERA&quot; width=&quot;400&quot; high=&quot;420&quot; /&gt;
-&lt;br /&gt;
-&lt;/td&gt;
-
-&lt;td align=&quot;center&quot; valign=&quot;center&quot;&gt;
-&lt;img src=&quot;/assets/images/maps/synoptic_20121109.png&quot; alt=&quot;SAWS&quot; width=&quot;350&quot; high=&quot;350&quot; /&gt;
-&lt;br /&gt;
-&lt;/td&gt;
-
-&lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;p&gt;The below map is the final map I created, you can see The script below
+possible and I’ll try to figure that out in the future. 
+The below map is the final map I created, you can see The script below
 does all the above steps with the addition of the upper 500hPa
 geopotential. I also added some color. In the end we end up with a new
-and improved (in my subjective opinion) synoptic map as seen below.
-&lt;img src=&quot;http://localhost:4000/assets/images/maps/southafrica_syn.png&quot; alt=&quot;gmtsynopticmap&quot; /&gt;&lt;/p&gt;
+and improved (in my subjective opinion) synoptic map as seen below.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/maps/southafrica_syn.png&quot; alt=&quot;gmtsynopticmap&quot; /&gt;&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 

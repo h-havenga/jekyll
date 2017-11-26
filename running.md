@@ -27,20 +27,9 @@ BoekelderCross 15km: 1st, 55:23 |
 
 ______
 #### Gallery:
-<table width="750" border="0" cellpadding="5">
-<tr>
-
-<td align="center" valign="center">
-<img src="/assets/images/running/finland_10k.jpg" alt="Finlandia 10km" width="375" high="375" />
-<br />
+![Finland race]({{ "/assets/images/running/finland_10k.jpg" | absolute_url }})
 Finlandia 10km, Jyväskylä (&copy;Finlandia Marathon).
-</td>
 
-<td align="center" valign="center">
-<img src="/assets/images/running/boekeldercross.jpg" alt="BoekelderCross 15km" width="375" high="375" />
-<br />
+![BoekelderCross]({{ "/assets/images/running/boekeldercross.jpg" | absolute_url }})
 BoekelderCross 15km, Netherlands (&copy;Rob Jansen).
-</td>
 
-</tr>
-</table>
