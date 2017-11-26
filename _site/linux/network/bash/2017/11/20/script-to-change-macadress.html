@@ -6,8 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Assign a random MAC address to a restrictive network</title>
-  <meta name="description" content="Each computer has a mac address assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a network a...">
+  <title>Setting up a random mac address per network</title>
+  <meta name="description" content="A network card has a mac address assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a and it c...">
 
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress.html">
@@ -99,7 +99,7 @@
         <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Assign a random MAC address to a restrictive network</h1>
+    <h1 class="post-title" itemprop="name headline">Setting up a random mac address per network</h1>
     <p class="post-meta">
       <time datetime="2017-11-20T13:43:28+01:00" itemprop="datePublished">
         
@@ -109,20 +109,19 @@
   </header>
 
   <div class="post-content" itemprop="articleBody">
-    <p>Each computer has a mac address assigned to it by which a network can
+    <p>A network card has a mac address assigned to it by which a network can
 identify you. It is a widely used way to restrict or
-monitor your access on a network and it could be useful in such cases
+monitor your access on a and it could be useful in such cases
 to have a randomly assigned mac address to improve your privacy and
 anonymity. The script is just a bunch a of commands, you can run them
 separately if you want to, this just makes it easier to reuse instead
-of remembering every step.</p>
+of remembering every step. The mac address should change with every
+reconnect.</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"This script changes your WiFi mac address, it is useful to
-overcome restrictive networks that identify you using your hardware.
-Use this at your own risk and obey all local laws. By pressing enter
-you agree that you understand the risks you may face! Press ctrl-c to
-exit otherwise "</span>
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"This script changes your WiFi mac address. Use this at your
+own risk and obey all local laws. By pressing enter you agree that you
+understand the risks you may face! Press ctrl-c to exit otherwise "</span>
 
 <span class="nb">echo</span> <span class="s2">"Listing all connections. Connected devices are highlighted"</span>
 nmcli con show 

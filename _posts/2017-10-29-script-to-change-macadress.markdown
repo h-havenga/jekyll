@@ -1,25 +1,24 @@
 ---
 layout: post
-title:  "Assign a random MAC address to a restrictive network"
+title:  "Setting up a random mac address per network"
 date:   2017-11-20 14:43:28 +0200
 categories: linux network bash
 ---
 
-Each computer has a mac address assigned to it by which a network can
+A network card has a mac address assigned to it by which a network can
 identify you. It is a widely used way to restrict or
-monitor your access on a network and it could be useful in such cases
+monitor your access on a and it could be useful in such cases
 to have a randomly assigned mac address to improve your privacy and
 anonymity. The script is just a bunch a of commands, you can run them
 separately if you want to, this just makes it easier to reuse instead
-of remembering every step. 
+of remembering every step. The mac address should change with every
+reconnect. 
 
 {% highlight bash %}
 #!/bin/bash
-read -p "This script changes your WiFi mac address, it is useful to
-overcome restrictive networks that identify you using your hardware.
-Use this at your own risk and obey all local laws. By pressing enter
-you agree that you understand the risks you may face! Press ctrl-c to
-exit otherwise "
+read -p "This script changes your WiFi mac address. Use this at your
+own risk and obey all local laws. By pressing enter you agree that you
+understand the risks you may face! Press ctrl-c to exit otherwise "
 
 echo "Listing all connections. Connected devices are highlighted"
 nmcli con show 
