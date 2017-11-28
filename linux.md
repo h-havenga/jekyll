@@ -4,12 +4,12 @@ title: GNU\Linux
 permalink: /linux/
 ---
 
-I currently run Debian *Testing* with the Gnome 3 environment. VIM is my
-text editor of choice while I use Terminator as my default terminal.
+I currently run Debian *Testing* and I use VIM. None of this matters
+of course, I just think it's cool. 
 
 ### Useful command line tools
 gmt | youtube-dl | gdal | photorec | imagemagic |
-gnuplot | ncview | nco | cdo | pdftk | ranger
+gnuplot | ffmpeg | ncview | nco | cdo | pdftk | ranger
 
 ______
 ### Useful one liners
@@ -59,4 +59,9 @@ for i in `seq 2`; do makeglossaries texfile && bibtex texfile && lualatex texfil
 To make LaTex compiling even more simple, use zsh and do:
 {% highlight zsh %}
 repeat 2 { makeglossaries texfile && bibtex texfile && lualatex texfile.tex }
+{% endhighlight %}
+
+Update all git repositories in a given directory
+{% highlight zsh %}
+for i in */.git; do ( echo $i; cd $i/..; git pull; ); done
 {% endhighlight %}

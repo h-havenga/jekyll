@@ -103,12 +103,12 @@
   </header>
 
   <div class="post-content">
-    <p>I currently run Debian <em>Testing</em> with the Gnome 3 environment. VIM is my
-text editor of choice while I use Terminator as my default terminal.</p>
+    <p>I currently run Debian <em>Testing</em> and I use VIM. None of this matters
+of course, I just think it’s cool.</p>
 
 <h3 id="useful-command-line-tools">Useful command line tools</h3>
 <p>gmt | youtube-dl | gdal | photorec | imagemagic |
-gnuplot | ncview | nco | cdo | pdftk | ranger</p>
+gnuplot | ffmpeg | ncview | nco | cdo | pdftk | ranger</p>
 
 <hr />
 <h3 id="useful-one-liners">Useful one liners</h3>
@@ -150,6 +150,10 @@ over do:</p>
 <p>To make LaTex compiling even more simple, use zsh and do:</p>
 
 <figure class="highlight"><pre><code class="language-zsh" data-lang="zsh">repeat 2 <span class="o">{</span> makeglossaries texfile <span class="o">&amp;&amp;</span> bibtex texfile <span class="o">&amp;&amp;</span> lualatex texfile.tex <span class="o">}</span></code></pre></figure>
+
+<p>Update all git repositories in a given directory</p>
+
+<figure class="highlight"><pre><code class="language-zsh" data-lang="zsh"><span class="k">for </span>i <span class="k">in</span> <span class="k">*</span>/.git<span class="p">;</span> <span class="k">do</span> <span class="o">(</span> <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span> <span class="nb">cd</span> <span class="nv">$i</span>/..<span class="p">;</span> git pull<span class="p">;</span> <span class="o">)</span><span class="p">;</span> <span class="k">done</span></code></pre></figure>
 
 
   </div>
