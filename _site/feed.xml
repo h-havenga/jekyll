@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-11-28T19:07:33+01:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-12-07T15:42:14+01:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</title><link href="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html" rel="alternate" type="text/html" title="GMT Part 3: Working with NetCDF data by creating a synoptic weather map" /><published>2017-11-25T09:00:29+01:00</published><updated>2017-11-25T09:00:29+01:00</updated><id>http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">&lt;p&gt;For my thesis I had to examine synoptic scale circulation over
 South-Africa, I wanted to recreate a &lt;em&gt;classic&lt;/em&gt; synoptic map that
 represented mean sea level pressure and also geopotentail at 500hPa.
@@ -337,54 +337,7 @@ each time you restart your connection. Press enter to exit &quot;&lt;/span&gt;&l
 &lt;p&gt;To use this script save it as something, like
 machange.sh and then do;&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bash machange.sh&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Every network card has a mac address, a serial number of sorts, assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a network and it could be useful in such cases to have a randomly assigned mac address to improve your privacy and anonymity. The script is just a bunch a of commands, you can run them separately if you want to, this just makes it easier to reuse instead of remembering every step. The mac address should change with every reconnect.</summary></entry><entry><title type="html">German observations</title><link href="http://localhost:4000/communication/language/2017/11/10/languages.html" rel="alternate" type="text/html" title="German observations" /><published>2017-11-10T11:43:29+01:00</published><updated>2017-11-10T11:43:29+01:00</updated><id>http://localhost:4000/communication/language/2017/11/10/languages</id><content type="html" xml:base="http://localhost:4000/communication/language/2017/11/10/languages.html">&lt;p&gt;I’m always surprised about Germans English skills, on the one hand
-they are this open, well traveled, well educated, very &lt;em&gt;sofisticated&lt;/em&gt;
-society and they have Europe’s strongest economy but yet go to any mid
-size town and people are really scared to speak English. Apart from
-the French (who apparently just dislike the language), I have yet to
-experience this so frequently. Don’t get me wrong. I have absolutely
-no problem with it. I love Germans, Germany and saying &lt;em&gt;Kann Ich nog
-eine bier haben&lt;/em&gt;, and my mother tongue is neither German nor English
-so I don’t have dog in this fight.&lt;/p&gt;
-
-&lt;p&gt;Anyway, one of the main reasons, and Germans will also tell you this,
-is that they translate everything for them, every major movie is also
-released in German. Compare that to Finland for instance, while
-there’s a much smaller population you can get away without knowing a
-word of it and I’ve heard that about the other Scandinavian countries
-to, and apparently they show all the movies in English. My own English
-skills mainly developed from Cartoon Network (maybe my writing still
-reflects this).&lt;/p&gt;
-
-&lt;p&gt;There is however some benefits of this mass translation for Germans,
-their language is exceptionally well evolved. I say this with envy. My
-own native tongue is Afrikaans and I am embarrassed when I hear myself
-speak. I often can’t find words to describe common things. There’s
-other reasons for that to, in the last three years I’ve lived outside
-South-Africa mostly and subsequently I only speak Afrikaans once a week
-or so with my family. To be totally honest, my language in general is
-at a low point at this moment. I speak broken English to Germans, very
-broken German to Germans, and broken Afrikaans to my parents.&lt;/p&gt;
-
-&lt;p&gt;So in that sense, would I encourage Germans to put in more effort into
-learning English? Yeah, of course, why not… But, I think it’s
-important for the language to continue to flourish and to do that they
-have to keep is as ingrained in their society as possible and they
-have to publish academic stuff in German. I don’t think that showing
-all television shows in English is suddenly going kill a language like
-German, but it’s the principle of preserving a language that I care
-about. We should strive to build every language up to a place where it
-can stand on it’s own in any academic field. We (I) should stop this
-tendency to use English neologisms when we don’t know a word.  Yes,
-it’s important that we can communicate beyond borders, but we should
-never think that an language is useless beyond an airport! I think as
-future scientists we have a obligation to take one this challenge. So
-whatever your mother tongue is go out and write in it whenever you
-can, even if it’s just for yourself&lt;/p&gt;
-
-&lt;p&gt;So on that rant, I am going to challenge myself to improve my
-Afrikaans vocabulary again, by writing some stuff and also reading
-more books written in Afrikaans.&lt;/p&gt;</content><author><name></name></author><summary type="html">I’m always surprised about Germans English skills, on the one hand they are this open, well traveled, well educated, very sofisticated society and they have Europe’s strongest economy but yet go to any mid size town and people are really scared to speak English. Apart from the French (who apparently just dislike the language), I have yet to experience this so frequently. Don’t get me wrong. I have absolutely no problem with it. I love Germans, Germany and saying Kann Ich nog eine bier haben, and my mother tongue is neither German nor English so I don’t have dog in this fight.</summary></entry><entry><title type="html">GMT Part 2: A topographical map of South-Africa</title><link href="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html" rel="alternate" type="text/html" title="GMT Part 2: A topographical map of South-Africa" /><published>2017-11-01T09:00:29+01:00</published><updated>2017-11-01T09:00:29+01:00</updated><id>http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">&lt;p&gt;I hope this does not come across as a tutorial of some sort, I am mostly
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bash machange.sh&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Every network card has a mac address, a serial number of sorts, assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a network and it could be useful in such cases to have a randomly assigned mac address to improve your privacy and anonymity. The script is just a bunch a of commands, you can run them separately if you want to, this just makes it easier to reuse instead of remembering every step. The mac address should change with every reconnect.</summary></entry><entry><title type="html">GMT Part 2: A topographical map of South-Africa</title><link href="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html" rel="alternate" type="text/html" title="GMT Part 2: A topographical map of South-Africa" /><published>2017-11-01T09:00:29+01:00</published><updated>2017-11-01T09:00:29+01:00</updated><id>http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">&lt;p&gt;I hope this does not come across as a tutorial of some sort, I am mostly
 writing things down for myself. But I know someone might one day copy and
 paste this as I’ve done numerous times, but this mostly for me to master
 GMT. In the previous GMT related post I created this basic map of
