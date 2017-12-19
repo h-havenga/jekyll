@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Writings</title>
-  <meta name="description" content="Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover. I&#39;m navigating this strange new world of program...">
+  <title>Usefull, useless things</title>
+  <meta name="description" content="Everyday I figure out small things that make life a little easier and don’t fit in my useful one liners post , I tend to forget them the moment I’m done usin...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/writings/">
+  <link rel="canonical" href="http://localhost:4000/things/linux/2017/12/19/useless-things-learn-during-the-day.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
   
   
@@ -96,112 +96,58 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Writings</h1>
+    <h1 class="post-title" itemprop="name headline">Usefull, useless things</h1>
+    <p class="post-meta">
+      <time datetime="2017-12-19T09:00:29+01:00" itemprop="datePublished">
+        
+        Dec 19, 2017
+      </time>
+      </p>
   </header>
 
-  <div class="post-content">
-    <ul>
+  <div class="post-content" itemprop="articleBody">
+    <p>Everyday I figure out small things that make life a little easier and don’t fit
+in my <em>useful one liners</em> post , I tend to forget them the moment I’m done
+using it or implementing whatever I need it for. This could be anything from
+latex to git to bash to vim and in most cases these are just little
+conveniences. So I’ll attempt to note these useless things here.</p>
 
-  
-  
-    
-    <h1 id="y2017">December 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>19 Dec 2017 &gt; </span>      
-	 <a href="/things/linux/2017/12/19/useless-things-learn-during-the-day.html">Usefull, useless things</a>
-     </li>
-  
+<h3 id="adding-metadata-to-latex-pdf">Adding Metadata to LaTeX pdf</h3>
+<p>This whole post was inspired by right clicking on my thesis and seeing that my
+metadata is empty, the fix was pretty easy. Add this to your preamble:</p>
 
-  
-  
-    </ul>
-    <h1 id="y2017">November 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>25 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="k">\usepackage</span><span class="p">{</span>hyperref<span class="p">}</span>
+<span class="k">\hypersetup</span><span class="p">{</span>
+    pdftitle=<span class="p">{</span>LaTeX is for cool kids<span class="p">}</span>,
+    pdfsubject=<span class="p">{</span>Not Computer Science<span class="p">}</span>,
+    pdfauthor=<span class="p">{</span>Henno Havenga<span class="p">}</span>,
+    pdfkeywords=<span class="p">{</span>LaTeX, VIM, Debian, GNU, Linux<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
 
-  
-  
-     <li>
-     <span>22 Nov 2017 &gt; </span>      
-	 <a href="/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html">How I made the travel maps in this site</a>
-     </li>
-  
+<h3 id="plotting-a-tif-file-with-gmt">Plotting a tif file with GMT</h3>
+<p>I needed to clip a <a href="https://visibleearth.nasa.gov/view_cat.php?categoryID=1484">NASA Blue
+Marble</a> tif file.
+I wanted to use <em>gdal_tanslate</em> but a not so quick search yield
+<a href="https://joeyklee.github.io/broc-cli-geo/guide/XX_raster_cropping_and_clipping.html"><em>gdalwarp</em></a>
+as a simpler option. Also note that the default NASA projection is Plate Carrée
+(JQ in GMT), this is useful to know if you want to draw borders over the NASA
+data using GMT without thinking to much about conversions. To clip the data
+I used gdalwarp and then GMT’s psimage module to overlay the image on a map:</p>
 
-  
-  
-     <li>
-     <span>20 Nov 2017 &gt; </span>      
-	 <a href="/linux/network/bash/2017/11/20/script-to-change-macadress.html">Setting a random mac address for a specific network</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gdalwarp <span class="nt">-te</span> 15 59 38 71 blue_marble_infile.tif clipped_blue_marble_outfile.tif</code></pre></figure>
 
-  
-  
-     <li>
-     <span>1 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">GMT Part 2: A topographical map of South-Africa</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt psbasemap <span class="nt">-R15</span>/38/59/71.5 <span class="nt">-JQ20</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B5a0</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;</span> image_map.ps
+gmt psimage clipped_blue_marble_outfile.tif <span class="nt">-DjCM</span>+w20/11.1 <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-V</span> <span class="o">&gt;&gt;</span> image_map.ps</code></pre></figure>
 
-  
-  
-    </ul>
-    <h1 id="y2017">October 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/linux/github/2017/10/29/auto-git-push.html">Automatically push my updated site to Github</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/jekyll/blog/2017/10/29/genesis.html">Genesis of this site</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>19 Oct 2017 &gt; </span>      
-	 <a href="/maps/data/2017/10/19/using-generic-mapping-tools.html">GMT Part 1: A basic map of South-Africa</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2017">September 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>20 Sep 2017 &gt; </span>      
-	 <a href="/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">Getting WRF to work with ERA-Interim data</a>
-     </li>
-  </ul>
-
-</ul>
 
   </div>
 
 </article>
+
+
 
       </div>
     </main>
