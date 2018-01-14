@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Writings</title>
-  <meta name="description" content="Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover. I&#39;m navigating this strange new world of program...">
+  <title>Automating some tasks with bash: coping photos from camera</title>
+  <meta name="description" content="I recently downloaded Ubuntu on a new pc for my family, in my quest to convince them of the usefulness of Linux, I wrote a little script for them to use when...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/writings/">
+  <link rel="canonical" href="http://localhost:4000/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
   
   
@@ -96,129 +96,76 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
-  <div class="post-content">
-    <ul>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Automating some tasks with bash: coping photos from camera</h1>
+    <p class="post-meta">
+      <time datetime="2018-01-14T12:43:29+02:00" itemprop="datePublished">
+        
+        Jan 14, 2018
+      </time>
+      </p>
+  </header>
 
-  
-  
-    
-    <h1 id="y2018">January 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>14 Jan 2018 &gt; </span>      
-	 <a href="/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html">Automating some tasks with bash: coping photos from camera</a>
-     </li>
-  
+  <div class="post-content" itemprop="articleBody">
+    <p>I recently downloaded Ubuntu on a new pc for my family, in my quest to convince
+them of the <em>usefulness</em> of Linux, I wrote a little script for them to use when
+downloading photos from their cameras instead of going through the tedious
+process of clicking a mouse 25 times. If my attempts to actually get them into
+the Linux system works is another question.</p>
 
-  
-  
-     <li>
-     <span>9 Jan 2018 &gt; </span>      
-	 <a href="/things/linux/2018/01/09/useless-things-learn-during-the-day.html">Usefull, useless things</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c">#Author: Henno Havenga</span>
+<span class="c">#This is a quick and dirty Canon EOS download script from the SD card reader</span>
 
-  
-  
-    </ul>
-    <h1 id="y2017">December 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>26 Dec 2017 &gt; </span>      
-	 <a href="/firefox/security/2017/12/26/browser-privacy.html">Browsing: attempting to balance useablity with privacy</a>
-     </li>
-  
+<span class="c">#Name of file = download date</span>
+<span class="nv">date</span><span class="o">=</span><span class="k">$(</span>date +%Y_%m_%d<span class="k">)</span>
 
-  
-  
-    </ul>
-    <h1 id="y2017">November 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>25 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</a>
-     </li>
-  
+cowsay <span class="nt">-f</span> gnu <span class="s2">"Welcome"</span>
 
-  
-  
-     <li>
-     <span>22 Nov 2017 &gt; </span>      
-	 <a href="/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html">How I made the travel maps in this site</a>
-     </li>
-  
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Photos will be saved under Pictures/</span><span class="nv">$date</span><span class="s2">/70D. Press ENTER to continue "</span>
 
-  
-  
-     <li>
-     <span>20 Nov 2017 &gt; </span>      
-	 <a href="/linux/network/bash/2017/11/20/script-to-change-macadress.html">Setting a random mac address for a specific network</a>
-     </li>
-  
+<span class="c">#Make directory</span>
+mkdir <span class="nt">-p</span> ~/Pictures/<span class="nv">$date</span>/70D
 
-  
-  
-     <li>
-     <span>1 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">GMT Part 2: A topographical map of South-Africa</a>
-     </li>
-  
+<span class="c">#Copy photos to new directory, when done open directory</span>
+cp <span class="nt">--verbose</span> /media/ubuntu/EOS_DIGITAL/DCIM/100CANON/<span class="k">*</span> ~/Pictures/<span class="nv">$date</span>/70D
 
-  
-  
-    </ul>
-    <h1 id="y2017">October 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/linux/github/2017/10/29/auto-git-push.html">Automatically push my updated site to Github</a>
-     </li>
-  
+cowsay <span class="nt">-f</span> gnu <span class="s2">"All Done"</span>
 
-  
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/jekyll/blog/2017/10/29/genesis.html">Genesis of this site</a>
-     </li>
-  
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Photos saved to /Pictures/</span><span class="nv">$date</span><span class="s2">/70D. Press ENTER to open the folder "</span>
 
-  
-  
-     <li>
-     <span>19 Oct 2017 &gt; </span>      
-	 <a href="/maps/data/2017/10/19/using-generic-mapping-tools.html">GMT Part 1: A basic map of South-Africa</a>
-     </li>
-  
+nautilus ~/Pictures/<span class="nv">$date</span>/70D <span class="o">&amp;&amp;</span>
 
-  
-  
-    </ul>
-    <h1 id="y2017">September 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>20 Sep 2017 &gt; </span>      
-	 <a href="/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">Getting WRF to work with ERA-Interim data</a>
-     </li>
-  </ul>
+<span class="nb">exit </span>0</code></pre></figure>
 
-</ul>
+<p>To make the file an desktop shortcut was actually more effort then I thought.
+You have to create the following in the Desktop directory under something like
+Canon_Downloads.desktop and add the following to its contents</p>
+
+<p>[Desktop Entry] <br />
+Name=70D_Photo_Download<br />
+Comment=Download RWFL photos from Canon 70D <br />
+Exec=bash -c ‘~/Programs/bash_scripts/GetPhotos70D.sh’<br />
+Icon=utilities-terminal<br />
+Terminal=true<br />
+Type=Application<br />
+Categories=Application<br />
+Name=70D_Photo_Download</p>
+
+<p>The last think is to make sure both the bash and the .desktop is executable. To
+make a executable just do</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">chmod +x inputfile</code></pre></figure>
+
+<p>And now it’s just a double click away</p>
 
   </div>
 
 </article>
+
+
 
       </div>
     </main>

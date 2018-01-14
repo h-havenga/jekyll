@@ -1,5 +1,55 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-14T19:05:48+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Usefull, useless things</title><link href="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html" rel="alternate" type="text/html" title="Usefull, useless things" /><published>2018-01-09T10:00:29+02:00</published><updated>2018-01-09T10:00:29+02:00</updated><id>http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day</id><content type="html" xml:base="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html">&lt;p&gt;Everyday I figure out small things that make life a little easier and don’t fit
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-14T19:35:18+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">Automating some tasks with bash: coping photos from camera</title><link href="http://localhost:4000/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html" rel="alternate" type="text/html" title="Automating some tasks with bash: coping photos from camera" /><published>2018-01-14T12:43:29+02:00</published><updated>2018-01-14T12:43:29+02:00</updated><id>http://localhost:4000/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera</id><content type="html" xml:base="http://localhost:4000/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html">&lt;p&gt;I recently downloaded Ubuntu on a new pc for my family, in my quest to convince
+them of the &lt;em&gt;usefulness&lt;/em&gt; of Linux, I wrote a little script for them to use when
+downloading photos from their cameras instead of going through the tedious
+process of clicking a mouse 25 times. If my attempts to actually get them into
+the Linux system works is another question.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#Author: Henno Havenga&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#This is a quick and dirty Canon EOS download script from the SD card reader&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#Name of file = download date&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;date +%Y_%m_%d&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+
+cowsay &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; gnu &lt;span class=&quot;s2&quot;&gt;&quot;Welcome&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Photos will be saved under Pictures/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$date&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/70D. Press ENTER to continue &quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#Make directory&lt;/span&gt;
+mkdir &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; ~/Pictures/&lt;span class=&quot;nv&quot;&gt;$date&lt;/span&gt;/70D
+
+&lt;span class=&quot;c&quot;&gt;#Copy photos to new directory, when done open directory&lt;/span&gt;
+cp &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt; /media/ubuntu/EOS_DIGITAL/DCIM/100CANON/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ~/Pictures/&lt;span class=&quot;nv&quot;&gt;$date&lt;/span&gt;/70D
+
+cowsay &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; gnu &lt;span class=&quot;s2&quot;&gt;&quot;All Done&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Photos saved to /Pictures/&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$date&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;/70D. Press ENTER to open the folder &quot;&lt;/span&gt;
+
+nautilus ~/Pictures/&lt;span class=&quot;nv&quot;&gt;$date&lt;/span&gt;/70D &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;To make the file an desktop shortcut was actually more effort then I thought.
+You have to create the following in the Desktop directory under something like
+Canon_Downloads.desktop and add the following to its contents&lt;/p&gt;
+
+&lt;p&gt;[Desktop Entry] &lt;br /&gt;
+Name=70D_Photo_Download&lt;br /&gt;
+Comment=Download RWFL photos from Canon 70D &lt;br /&gt;
+Exec=bash -c ‘~/Programs/bash_scripts/GetPhotos70D.sh’&lt;br /&gt;
+Icon=utilities-terminal&lt;br /&gt;
+Terminal=true&lt;br /&gt;
+Type=Application&lt;br /&gt;
+Categories=Application&lt;br /&gt;
+Name=70D_Photo_Download&lt;/p&gt;
+
+&lt;p&gt;The last think is to make sure both the bash and the .desktop is executable. To
+make a executable just do&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;chmod +x inputfile&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And now it’s just a double click away&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently downloaded Ubuntu on a new pc for my family, in my quest to convince them of the usefulness of Linux, I wrote a little script for them to use when downloading photos from their cameras instead of going through the tedious process of clicking a mouse 25 times. If my attempts to actually get them into the Linux system works is another question.</summary></entry><entry><title type="html">Usefull, useless things</title><link href="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html" rel="alternate" type="text/html" title="Usefull, useless things" /><published>2018-01-09T10:00:29+02:00</published><updated>2018-01-09T10:00:29+02:00</updated><id>http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day</id><content type="html" xml:base="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html">&lt;p&gt;Everyday I figure out small things that make life a little easier and don’t fit
 in my &lt;em&gt;useful one liners&lt;/em&gt; post , I tend to forget them the moment I’m done
 using it or implementing whatever I need it for. This could be anything from
 latex to git to bash to vim and in most cases these are just little
@@ -727,68 +777,4 @@ gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quo
 
 &lt;p&gt;This breaks down the commands and when you need to you can just edit the
 script as you need to. Obviously this is the most basic of maps. I’ll try
-and get some more advanced maps as this blog evolves.&lt;/p&gt;</content><author><name></name></author><summary type="html">Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and spatial analysis. I say unknown because I only know one other person who actually uses it. Looking for resources online does however indicate that some universities have courses teaching GMT, no such luck for me, I had to learn it myself. I’d say the learning curve is quite steep, the only tool I can compare it with right now is GNUPLOT, another really cool command line tool for creating high quality graphics.</summary></entry><entry><title type="html">Getting WRF to work with ERA-Interim data</title><link href="http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era.html" rel="alternate" type="text/html" title="Getting WRF to work with ERA-Interim data" /><published>2017-09-20T12:43:29+02:00</published><updated>2017-09-20T12:43:29+02:00</updated><id>http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era</id><content type="html" xml:base="http://localhost:4000/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">&lt;p&gt;I actually started a blog as part of another class, but lets pretend
-that never happened and mark this as the official start.&lt;/p&gt;
-
-&lt;p&gt;I’m slowly going to start putting myself out there, I’m trying
-not to be a hypocrite – I preach open-source but I keep myself closed.&lt;/p&gt;
-
-&lt;p&gt;I’m in the process of running WRF. It’s not been without challenges though,
-when running WRF locally compiling can be a major time consumer, you have
-to know some GNU/Linux basics, which is actually pretty cool. Okay, I’m all
-over the place, but let me write about my current problem and as the blog
-evolves hopefully I can get more ordered.&lt;/p&gt;
-
-&lt;p&gt;I’m currently running WRF on a convective scale over the South-Africa
-Highveld, the area is also home to Jo’burg and Pretoria, two of
-South-Africa major cities, I’m doing this to try to understand hailstorms
-better. WRF has various input datasets that can be used to initialize the
-model, I’m specifically using ERA-Interim data, but the ERA data requires
-some extra steps, I’m not going to try and give an in-depth explanation of
-all the steps, but instead I’m just doing them here in the order that was
-successful eventually. I also assume that you’ve already complied WRF
-successfully and was to lazy to RTFM (like me) and used Google (like me).&lt;/p&gt;
-
-&lt;p&gt;Last thing, I use vim, but replace that with whatever you want, on a remote
-machine nano and vi are good alternatives, Emacs is pretty cool (I’m super
-slowly learning that) but I don’t know about its availability on all remote
-computers.&lt;/p&gt;
-
-&lt;p&gt;First get the data ready in WPS:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;wps/
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./geogrid.exe
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ln &lt;span class=&quot;nt&quot;&gt;-sf&lt;/span&gt; ungrib/Variable_Tables/Vtable.ERA-interim.ml Vtable
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./link_grib.csh ~/ei.oper.an.ml/201311/ei.oper.an.ml.regn128&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ~/ei.oper.an.sfc/201311/ei.oper.an.sfc.regn128.sc.201311&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./ungrib.exe&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Create ecmwf_coeffs file:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;touch ecmwf_coeffs &lt;span class=&quot;c&quot;&gt;#NOTE: Google for the ecmwf_coeffs contents, its just a table.&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./util/calc_ecmwf_p.exe&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Look for PRES:2013-11-*&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;vim namelist.wps
-&amp;amp;metgrid
-  fg_name &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ‘FILE’ ‘PRES’
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./metgrid.exe&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Look for met_em.d0*&lt;/p&gt;
-
-&lt;p&gt;If this worked you will now go back and change directory to WRF:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../WRFV7/test/em_real/
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ln &lt;span class=&quot;nt&quot;&gt;-sf&lt;/span&gt; ../../../WPS3.7/met_em.d0&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./real.exe&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Look for wrfbdy_d01, wrfinput_do1, wrfinput_d02, …&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./wrf.exe&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Look for wrfout_do1_2013* until complete for the run time series&lt;/p&gt;
-
-&lt;p&gt;Again, Google around for ecmwf_coeffs table I’m assuming you check,
-double-check and triple check your namelist.wps and namelist.input. If
-using more than two domains, check fourth time, its easy to miss something
-when looking at to long.&lt;/p&gt;</content><author><name></name></author><summary type="html">I actually started a blog as part of another class, but lets pretend that never happened and mark this as the official start.</summary></entry></feed>
+and get some more advanced maps as this blog evolves.&lt;/p&gt;</content><author><name></name></author><summary type="html">Generic Mapping Tools (GMT) is a relatively unknown command line tool for geo and spatial analysis. I say unknown because I only know one other person who actually uses it. Looking for resources online does however indicate that some universities have courses teaching GMT, no such luck for me, I had to learn it myself. I’d say the learning curve is quite steep, the only tool I can compare it with right now is GNUPLOT, another really cool command line tool for creating high quality graphics.</summary></entry></feed>
