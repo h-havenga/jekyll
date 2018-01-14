@@ -10,7 +10,7 @@
   <meta name="description" content="Everyday I figure out small things that make life a little easier and don’t fit in my useful one liners post , I tend to forget them the moment I’m done usin...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/things/linux/2017/12/19/useless-things-learn-during-the-day.html">
+  <link rel="canonical" href="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
   
   
@@ -101,9 +101,9 @@
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">Usefull, useless things</h1>
     <p class="post-meta">
-      <time datetime="2017-12-19T10:00:29+02:00" itemprop="datePublished">
+      <time datetime="2018-01-09T10:00:29+02:00" itemprop="datePublished">
         
-        Dec 19, 2017
+        Jan 9, 2018
       </time>
       </p>
   </header>
@@ -141,6 +141,17 @@ I used gdalwarp and then GMT’s psimage module to overlay the image on a map:</
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt psbasemap <span class="nt">-R15</span>/38/59/71.5 <span class="nt">-JQ20</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B5a0</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;</span> image_map.ps
 gmt psimage clipped_blue_marble_outfile.tif <span class="nt">-DjCM</span>+w20/11.1 <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-V</span> <span class="o">&gt;&gt;</span> image_map.ps</code></pre></figure>
+
+<h3 id="creating-a-always-up-to-date-linking-to-eumetsat-products-using-markdown">Creating a always up to date linking to EUMETSAT products using markdown</h3>
+<p>In playing around with this site I thought about make a page dedicated weather
+stuff, it was pretty easy to link directly to EUMETSAT products with markdown
+by just copying the image link like this:</p>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">    <span class="nt">&lt;center&gt;</span> <span class="nt">&lt;td</span> <span class="na">align=</span><span class="s">"center"</span> <span class="na">valign=</span><span class="s">"center"</span><span class="nt">&gt;</span> &lt;img
+    SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
+    alt="description here" /&gt; <span class="nt">&lt;br</span> <span class="nt">/&gt;</span> EUMETSAT RGB Africa. <span class="nt">&lt;/td&gt;</span> <span class="nt">&lt;/tr&gt;</span> <span class="nt">&lt;/center&gt;</span></code></pre></figure>
+
+<center> <td align="center" valign="center"> <img src="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg" alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </center>
 
 
   </div>

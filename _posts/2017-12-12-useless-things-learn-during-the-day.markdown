@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Usefull, useless things"
-date:   2017-12-19 10:00:29 +0200
+date:   2018-01-09 10:00:29 +0200
 categories: things linux
 ---
 
@@ -43,3 +43,18 @@ gdalwarp -te 15 59 38 71 blue_marble_infile.tif clipped_blue_marble_outfile.tif
 gmt psbasemap -R15/38/59/71.5 -JQ20 -Xc -Yc -B5a0 -V -K > image_map.ps
 gmt psimage clipped_blue_marble_outfile.tif -DjCM+w20/11.1 -R -J -O -K -V >> image_map.ps
 {% endhighlight %}
+
+### Creating a always up to date linking to EUMETSAT products using markdown
+In playing around with this site I thought about make a page dedicated weather
+stuff, it was pretty easy to link directly to EUMETSAT products with markdown
+by just copying the image link like this:
+
+{% highlight markdown %}
+    <center> <td align="center" valign="center"> <img
+    SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
+    alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </tr> </center>
+{% endhighlight %}
+<center> <td align="center" valign="center"> <img
+SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
+alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </center>
+
