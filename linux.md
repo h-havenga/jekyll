@@ -50,6 +50,12 @@ Compress a pdf file
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer -dNOPAUSE -dBATCH -sOutputFile=outfile.pdf infile.pdf
 {% endhighlight %}
 
+Merge a pdf file - I had two LaTeX documents with different classes but with
+the same page setup, this was the easiest way.
+{% highlight bash %}
+pdfunite infile_1.pdf infile_2.pdf merged_output.pdf
+{% endhighlight %}
+
 LaTeX needs to be compiled twice, instead of running commands over and
 over do:
 {% highlight bash %}

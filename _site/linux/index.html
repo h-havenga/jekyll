@@ -138,6 +138,11 @@ info from the correpsonding JPG (weird setup, I know)</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">gs <span class="nt">-sDEVICE</span><span class="o">=</span>pdfwrite <span class="nt">-dCompatibilityLevel</span><span class="o">=</span>1.4 <span class="nt">-dPDFSETTINGS</span><span class="o">=</span>/printer <span class="nt">-dNOPAUSE</span> <span class="nt">-dBATCH</span> <span class="nt">-sOutputFile</span><span class="o">=</span>outfile.pdf infile.pdf</code></pre></figure>
 
+<p>Merge a pdf file - I had two LaTeX documents with different classes but with
+the same page setup, this was the easiest way.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">pdfunite infile_1.pdf infile_2.pdf merged_output.pdf</code></pre></figure>
+
 <p>LaTeX needs to be compiled twice, instead of running commands over and
 over do:</p>
 
