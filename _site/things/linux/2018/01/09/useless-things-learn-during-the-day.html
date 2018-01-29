@@ -142,7 +142,7 @@ I used gdalwarp and then GMT’s psimage module to overlay the image on a map:</
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt psbasemap <span class="nt">-R15</span>/38/59/71.5 <span class="nt">-JQ20</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B5a0</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;</span> image_map.ps
 gmt psimage clipped_blue_marble_outfile.tif <span class="nt">-DjCM</span>+w20/11.1 <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-V</span> <span class="o">&gt;&gt;</span> image_map.ps</code></pre></figure>
 
-<h3 id="creating-a-always-up-to-date-linking-to-eumetsat-products-using-markdown">Creating a always up to date linking to EUMETSAT products using markdown</h3>
+<h3 id="linking-to-most-recent-eumetsat-products-in-markdown">Linking to most recent EUMETSAT products in markdown</h3>
 <p>In playing around with this site I thought about make a page dedicated weather
 stuff, it was pretty easy to link directly to EUMETSAT products with markdown
 by just copying the image link like this:</p>
@@ -152,6 +152,18 @@ by just copying the image link like this:</p>
     alt="description here" /&gt; <span class="nt">&lt;br</span> <span class="nt">/&gt;</span> EUMETSAT RGB Africa. <span class="nt">&lt;/td&gt;</span> <span class="nt">&lt;/tr&gt;</span> <span class="nt">&lt;/center&gt;</span></code></pre></figure>
 
 <center> <td align="center" valign="center"> <img src="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg" alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </center>
+
+<h3 id="array-in-bash">Array in bash</h3>
+
+<p>To work with arrays in bash you must call the array variable 
+“${array[@]}”</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">array</span><span class="o">=(</span>12 18 24 30 36 42 48<span class="o">)</span>
+
+<span class="k">for </span>count <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">array</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do 
+    </span><span class="nb">echo</span> <span class="nv">$i</span> 
+<span class="k">done</span></code></pre></figure>
 
 
   </div>

@@ -44,7 +44,7 @@ gmt psbasemap -R15/38/59/71.5 -JQ20 -Xc -Yc -B5a0 -V -K > image_map.ps
 gmt psimage clipped_blue_marble_outfile.tif -DjCM+w20/11.1 -R -J -O -K -V >> image_map.ps
 {% endhighlight %}
 
-### Creating a always up to date linking to EUMETSAT products using markdown
+### Linking to most recent EUMETSAT products in markdown
 In playing around with this site I thought about make a page dedicated weather
 stuff, it was pretty easy to link directly to EUMETSAT products with markdown
 by just copying the image link like this:
@@ -57,4 +57,18 @@ by just copying the image link like this:
 <center> <td align="center" valign="center"> <img
 SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
 alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </center>
+
+### Array in bash
+
+To work with arrays in bash you must call the array variable 
+"${array[@]}"
+
+{% highlight bash %}
+array=(12 18 24 30 36 42 48)
+
+for count in "${array[@]}" 
+do 
+    echo $i 
+done
+{% endhighlight %}
 

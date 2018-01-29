@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>A weather forecast with bash and other command line tools</title>
+  <meta name="description" content="I’ll let the script speak for itself, there is also a copy on github.">
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html">
+  <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
+  
+  
+</head>
+
+
+  <body>
+
+    <header class="site-header" role="banner">
+
+  <div class="wrapper">
+    
+    
+    <a class="site-title" href="/">Howzit, I&#39;m Henno</a>
+  
+    
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger">
+          
+            
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/books/">Books</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/linux/">GNU\Linux</a>
+            
+          
+            
+            
+          
+            
+            
+            <a class="page-link" href="/writings/">Writings</a>
+            
+          
+            
+            
+            <a class="page-link" href="/running/">Running</a>
+            
+          
+            
+            
+            <a class="page-link" href="/travelmap/">Travel Map</a>
+            
+          
+            
+            
+          
+            
+            
+          
+            
+            
+          
+        </div>
+      </nav>
+    
+  </div>
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">A weather forecast with bash and other command line tools</h1>
+    <p class="post-meta">
+      <time datetime="2018-01-28T12:43:29+02:00" itemprop="datePublished">
+        
+        Jan 28, 2018
+      </time>
+      </p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>I’ll let the script speak for itself, there is also a copy on
+<a href="https://github.com/h-havenga/GMT-Maps/blob/master/gfsmaps/gfs_forecast.sh">github</a>.</p>
+
+<p>To install the packages needed do:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install gmt gmt-gshhg-full cdo wget</code></pre></figure>
+
+<p>Here are some examples of the possible outputs:</p>
+
+<p><img src="http://localhost:4000/assets/images/maps/cloud_20180113.gif" alt="cloud_map" />
+<sub>A gfs synoptic map with cloud forecast. </sub></p>
+
+<p><img src="http://localhost:4000/assets/images/maps/aptmp_20180113.gif" alt="cloud_map" />
+<sub>A gfs synoptic map with temperature forecast. </sub></p>
+
+<p><img src="http://localhost:4000/assets/images/maps/cape_20180113.gif" alt="cloud_map" />
+<sub>A gfs synoptic map with cape forecast. </sub></p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+             <span class="c">###################################</span>
+             <span class="c">#          Henno Havenga          #           </span>
+             <span class="c">#           GMT 5.4.3             #</span>
+             <span class="c">#          wget 1.19.2            #</span>
+             <span class="c">#           CDO 1.9.2             #</span>
+             <span class="c"># NCEP/NOAA https://goo.gl/xP3X4L #</span>
+             <span class="c">#   SA Shapefile: Natural Earth   #</span>
+             <span class="c">#          MIT Licence            #</span>
+             <span class="c">###################################</span>
+
+<span class="c">########################################################################</span>
+<span class="c"># DISCLAIMER:                                                          #</span>
+<span class="c"># This a simple program to make your own weather forecast using        #</span>
+<span class="c"># publicly available Global Forecasting (GFS) data. The main programs  # </span>
+<span class="c"># used include WGET to grab gfs data from the NCEP/NOAA server,        #</span>
+<span class="c"># Climate Data Operators (CDO) to convert and modify the data where    #</span>
+<span class="c"># needed and the main program used here is Generic Mapping Tools (GMT).#</span>
+<span class="c"># GMT is used to perform mathematical functions on the datasets and to # </span>
+<span class="c"># draw and plot the data over the desired area. All data and code is   #</span>
+<span class="c"># free to use and share, however, however, respect the license terms   #</span>
+<span class="c"># and conditions.                                                      #</span>
+<span class="c">#                                                                      #</span>
+<span class="c"># Please be aware that this is NOT an official weather forecast.       #</span>
+<span class="c"># The products created here should not be used in anyway or            #</span>
+<span class="c"># form to issue any kind of weather alerts as the South-African Weather#</span>
+<span class="c"># Service (SAWS) is the only recognized authority in South-Africa      #</span>
+<span class="c"># allowed to do so. It is not the authors job to argue the law. Instead#</span>
+<span class="c"># users are encouraged to use the products for education purposes.     #</span>
+<span class="c">########################################################################</span>
+
+<span class="c"># The script downloads the data for the current day</span>
+<span class="c"># Specify the forecast intervals in the forecast variable</span>
+<span class="c"># You can pull a forecast 6 days in advance, that would be 384 hours</span>
+<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date +<span class="s2">"%Y%m%d00"</span><span class="k">)</span>
+<span class="nv">gfs</span><span class="o">=</span>http://www.ftp.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs
+<span class="nv">forecast</span><span class="o">=(</span>06 12 18 24 30 36 42 48<span class="o">)</span>
+
+<span class="c"># Loop through the specified forecast times wanted and grab GFS data</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do 
+    </span>wget <span class="nv">$gfs</span>.<span class="nv">$today</span>/gfs.t00z.pgrb2.0p25.f0<span class="nv">$i</span> 
+<span class="k">done</span>
+
+<span class="c"># For archive purposes we clip the data to South-Africa with cdo</span>
+<span class="c"># and convert GFS files to workable netcdf files</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span>  
+<span class="k">do 
+    </span>cdo <span class="nt">-sellonlatbox</span>,-35,85,-85,0 gfs.t00z.pgrb2.0p25.f0<span class="nv">$i</span> gfs.<span class="nv">$today</span>.<span class="nv">$i</span> 
+    cdo <span class="nt">-f</span> nc copy gfs.<span class="nv">$today</span>.<span class="nv">$i</span> ncfile<span class="nv">$i</span>.nc 
+<span class="k">done</span>
+
+<span class="c"># Move clipped GFS files to an archive directory </span>
+rm gfs.t00z.pgrb2.0p25.f<span class="k">*</span>
+mkdir <span class="nt">-p</span> <span class="s2">"gfs_archive/gfs_</span><span class="nv">$today</span><span class="s2">"</span>
+mv gfs.<span class="k">*</span> gfs_archive/gfs_<span class="nv">$today</span>
+
+<span class="c"># Extract variables from the NC files for easy use in GMT</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>cdo selname,gh ncfile<span class="nv">$i</span>.nc geopotential<span class="nv">$i</span>.nc 
+    cdo splitlevel geopotential<span class="nv">$i</span>.nc geopotential<span class="nv">$i</span>- 
+    mv geopotential<span class="nv">$i</span><span class="nt">-050000</span><span class="k">*</span> zg500<span class="nv">$i</span>.nc 
+    rm geopotential<span class="nv">$i</span><span class="k">*</span>
+<span class="k">done</span>
+
+<span class="c"># To plot the files in GMT we need to get the variables from the newly </span>
+<span class="c"># created netcdf files by extracting only the variable we want.</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>prmsl <span class="nt">-Gmslp_nrm</span><span class="nv">$i</span>.nc
+    gmt grdconvert zg500<span class="nv">$i</span>.nc<span class="se">\?</span>gh     <span class="nt">-Gzg500_nrm</span><span class="nv">$i</span>.nc
+    gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>tcc   <span class="nt">-Gcloudcover</span><span class="nv">$i</span>.nc
+    gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>cape  <span class="nt">-Gcape</span><span class="nv">$i</span>.nc
+    gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>aptmp <span class="nt">-Gaptmp</span><span class="nv">$i</span>.nc
+<span class="k">done</span>
+
+<span class="c"># Do some math</span>
+<span class="c"># We standardize the pressure and convert Kelvin to Celsius</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt grdmath mslp_nrm<span class="nv">$i</span>.nc 100 DIV <span class="o">=</span> mslp_nrm<span class="nv">$i</span>.nc    
+    gmt grdmath zg500_nrm<span class="nv">$i</span>.nc 10 DIV <span class="o">=</span> zg500_nrm<span class="nv">$i</span>.nc    
+    gmt grdmath cloudcover<span class="nv">$i</span>.nc 0 NAN <span class="o">=</span> cloudcover<span class="nv">$i</span>.nc
+    gmt grdmath aptmp<span class="nv">$i</span>.nc 273.15 SUB <span class="o">=</span> aptmp<span class="nv">$i</span>.nc
+<span class="k">done</span>
+
+<span class="c"># Make CAPE values below 250 NAN</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span>
+<span class="k">do
+    for </span>number <span class="k">in</span> <span class="o">{</span>0..200<span class="o">}</span>
+    <span class="k">do
+        </span>gmt grdmath cape<span class="nv">$i</span>.nc <span class="nv">$number</span> NAN <span class="o">=</span> cape<span class="nv">$i</span>.nc
+    <span class="k">done
+done</span>
+
+            <span class="c">######################################</span>
+            <span class="c">#               Plot                 #</span>
+            <span class="c">######################################</span>
+
+<span class="c"># Coordinates (actually lower left and upper right not E S W N) </span>
+<span class="c"># Projection (Lambert Azimuthal Equal-Area)</span>
+<span class="nv">coord</span><span class="o">=(</span><span class="nt">-20</span>/-46/60/-12r<span class="o">)</span>
+<span class="nv">width</span><span class="o">=</span>25.5
+
+<span class="c"># First a map with Cloudcover, zg500 and mslp</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt psbasemap  <span class="nt">-R</span><span class="nv">$coord</span> <span class="nt">-JA25</span>/-30/<span class="nv">$width</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-Ba0</span> <span class="nt">-B</span>+t<span class="s2">"Cloud Cover Forecast </span><span class="k">$(</span>date +<span class="s2">"%Y-%m-%d-00:00"</span><span class="k">)</span><span class="s2"> + </span><span class="nv">$i</span><span class="s2"> Hours"</span> <span class="nt">-K</span> <span class="o">&gt;</span> cloud_map<span class="nv">$i</span>.ps
+    gmt makecpt    <span class="nt">-Cgebco</span> <span class="nt">-T1</span>/100/5 <span class="nt">-Z</span> <span class="nt">-I</span> <span class="o">&gt;</span> cloud.cpt
+    gmt pscoast    <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-G200</span> <span class="nt">-W</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cloud_map<span class="nv">$i</span>.ps
+    gmt grdimage   <span class="nt">-R</span> cloudcover<span class="nv">$i</span>.nc <span class="nt">-Ccloud</span>.cpt <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-Q</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cloud_map<span class="nv">$i</span>.ps  
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthinnest</span>,-- mslp_nrm<span class="nv">$i</span>.nc <span class="nt">-C2</span> <span class="nt">-A2</span>+f10 <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cloud_map<span class="nv">$i</span>.ps
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthick</span>,black zg500_nrm<span class="nv">$i</span>.nc <span class="nt">-S150</span> <span class="nt">-C10</span> <span class="nt">-A20</span>+f14 <span class="nt">-Gn1</span> <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cloud_map<span class="nv">$i</span>.ps
+    gmt psxy        ZAF_adm1.gmt <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-O</span> <span class="nt">-Wfaint</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cloud_map<span class="nv">$i</span>.ps
+    gmt psscale    <span class="nt">-Ccloud</span>.cpt <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-Dx12</span>.25c/-1c+w12c/0.5c+jTC+h <span class="nt">-Bx10</span>+l<span class="s2">"Cloud Cover"</span> <span class="nt">-By</span>+l% <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cloud_map<span class="nv">$i</span>.ps
+<span class="k">done</span>
+
+<span class="c"># Make a animation</span>
+convert <span class="nt">-bordercolor</span> white <span class="nt">-border</span> 0 <span class="nt">-layers</span> OptimizePlus <span class="nt">-density</span> 300 <span class="nt">-delay</span> 2x1 cloud<span class="k">*</span>.ps <span class="nt">-loop</span> 0 cloud_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+convert cloud_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif <span class="nt">-rotate</span> 90  cloud_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+
+<span class="c"># Second a map with CAPE, zg500 and mslp</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt psbasemap  <span class="nt">-R</span><span class="nv">$coord</span> <span class="nt">-JA25</span>/-30/<span class="nv">$width</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-Ba0</span> <span class="nt">-B</span>+t<span class="s2">"CAPE Forecast </span><span class="k">$(</span>date +<span class="s2">"%Y-%m-%d-00:00"</span><span class="k">)</span><span class="s2"> + </span><span class="nv">$i</span><span class="s2"> Hours"</span> <span class="nt">-K</span> <span class="o">&gt;</span> cape_map<span class="nv">$i</span>.ps
+    gmt makecpt    <span class="nt">-Chot</span> <span class="nt">-T250</span>/2000/50 <span class="nt">-Z</span> <span class="nt">-I</span> <span class="o">&gt;</span> cape.cpt
+    gmt pscoast    <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-G200</span> <span class="nt">-W</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cape_map<span class="nv">$i</span>.ps
+    gmt grdimage   <span class="nt">-R</span> cape<span class="nv">$i</span>.nc <span class="nt">-Ccape</span>.cpt <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-Q</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cape_map<span class="nv">$i</span>.ps  
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthinnest</span>,-- mslp_nrm<span class="nv">$i</span>.nc <span class="nt">-C2</span> <span class="nt">-A2</span>+f10 <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cape_map<span class="nv">$i</span>.ps
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthick</span>,black zg500_nrm<span class="nv">$i</span>.nc <span class="nt">-S150</span> <span class="nt">-C10</span> <span class="nt">-A20</span>+f14 <span class="nt">-Gn1</span> <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cape_map<span class="nv">$i</span>.ps
+    gmt psxy        ZAF_adm1.gmt <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-O</span> <span class="nt">-Wfaint</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cape_map<span class="nv">$i</span>.ps
+    gmt psscale    <span class="nt">-Ccape</span>.cpt <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-Dx12</span>.25c/-1c+w12c/0.5c+jTC+h <span class="nt">-Bx150</span>+l<span class="s2">"CAPE J/Kg"</span> <span class="nt">-By</span>+lJ/kg <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> cape_map<span class="nv">$i</span>.ps
+<span class="k">done</span>
+
+<span class="c"># Make a animation</span>
+convert <span class="nt">-bordercolor</span> white <span class="nt">-border</span> 0 <span class="nt">-layers</span> OptimizePlus <span class="nt">-density</span> 300 <span class="nt">-delay</span> 2x1 cape<span class="k">*</span>.ps <span class="nt">-loop</span> 0 cape_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+convert cape_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif <span class="nt">-rotate</span> 90 cape_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+
+<span class="c"># Third a map with temperature, zg500 and mslp</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt psbasemap  <span class="nt">-R</span><span class="nv">$coord</span> <span class="nt">-JA25</span>/-30/<span class="nv">$width</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-Ba0</span> <span class="nt">-B</span>+t<span class="s2">"Apparent Temperature </span><span class="k">$(</span>date +<span class="s2">"%Y-%m-%d-00:00"</span><span class="k">)</span><span class="s2"> + </span><span class="nv">$i</span><span class="s2"> Hours"</span> <span class="nt">-K</span> <span class="o">&gt;</span> aptmp_map<span class="nv">$i</span>.ps
+    gmt makecpt    <span class="nt">-Cjet</span> <span class="nt">-T-8</span>/43/1 <span class="nt">-Z</span> <span class="o">&gt;</span> aptmp.cpt
+    gmt grdimage   <span class="nt">-R</span> aptmp<span class="nv">$i</span>.nc <span class="nt">-Captmp</span>.cpt <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-Q</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> aptmp_map<span class="nv">$i</span>.ps  
+    gmt pscoast    <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-W</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> aptmp_map<span class="nv">$i</span>.ps
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthinnest</span>,-- mslp_nrm<span class="nv">$i</span>.nc <span class="nt">-C2</span> <span class="nt">-A2</span>+f10 <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> aptmp_map<span class="nv">$i</span>.ps
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthick</span>,black zg500_nrm<span class="nv">$i</span>.nc <span class="nt">-S150</span> <span class="nt">-C10</span> <span class="nt">-A20</span>+f14 <span class="nt">-Gn1</span> <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> aptmp_map<span class="nv">$i</span>.ps
+    gmt psxy        ZAF_adm1.gmt <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-O</span> <span class="nt">-Wfaint</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> aptmp_map<span class="nv">$i</span>.ps
+    gmt psscale    <span class="nt">-Captmp</span>.cpt <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-Dx12</span>.25c/-1c+w12c/0.5c+jTC+h <span class="nt">-Bx5</span>+l<span class="s2">"Temperature"</span> <span class="nt">-By</span>+lCelcuis <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> aptmp_map<span class="nv">$i</span>.ps
+<span class="k">done</span>
+
+<span class="c"># Make a animation</span>
+convert <span class="nt">-bordercolor</span> white <span class="nt">-border</span> 0 <span class="nt">-layers</span> OptimizePlus <span class="nt">-density</span> 300 <span class="nt">-delay</span> 2x1 aptmp<span class="k">*</span>.ps <span class="nt">-loop</span> 0 aptmp_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+convert aptmp_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif <span class="nt">-rotate</span> 90  aptmp_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+
+<span class="c"># Last map zg500 and mslp</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt psbasemap  <span class="nt">-R</span><span class="nv">$coord</span> <span class="nt">-JA25</span>/-30/<span class="nv">$width</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-Ba0</span> <span class="nt">-B</span>+t<span class="s2">"Synoptic Weather Map </span><span class="k">$(</span>date +<span class="s2">"%Y-%m-%d-00:00"</span><span class="k">)</span><span class="s2"> + </span><span class="nv">$i</span><span class="s2"> Hours"</span> <span class="nt">-K</span> <span class="o">&gt;</span> synoptic<span class="nv">$i</span>.ps
+    gmt pscoast    <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Df</span> <span class="nt">-N1</span> <span class="nt">-G200</span> <span class="nt">-W</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> synoptic<span class="nv">$i</span>.ps
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthinnest</span>,-- mslp_nrm<span class="nv">$i</span>.nc <span class="nt">-C2</span> <span class="nt">-A2</span>+f10 <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> synoptic<span class="nv">$i</span>.ps
+    gmt grdcontour <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-Wthick</span>,black zg500_nrm<span class="nv">$i</span>.nc <span class="nt">-S150</span> <span class="nt">-C10</span> <span class="nt">-A20</span>+f14 <span class="nt">-Gn1</span> <span class="nt">-T</span>+lLH <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> synoptic<span class="nv">$i</span>.ps
+    gmt psxy        ZAF_adm1.gmt <span class="nt">-R</span> <span class="nt">-JA</span> <span class="nt">-O</span> <span class="nt">-Wfaint</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> synoptic<span class="nv">$i</span>.ps
+<span class="k">done</span>
+
+<span class="c"># Make a animation</span>
+convert <span class="nt">-bordercolor</span> white <span class="nt">-border</span> 0 <span class="nt">-layers</span> OptimizePlus <span class="nt">-density</span> 300 <span class="nt">-delay</span> 2x1 synoptic<span class="k">*</span>.ps <span class="nt">-loop</span> 0 synoptic_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+convert synoptic_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif <span class="nt">-rotate</span> 90 synoptic_<span class="k">$(</span>date <span class="s2">"+%Y%m%d"</span><span class="k">)</span>.gif
+
+<span class="c"># Move eps and gif </span>
+mkdir <span class="nt">-p</span> <span class="s2">"ps/</span><span class="nv">$today</span><span class="s2">"</span>
+mkdir <span class="nt">-p</span> <span class="s2">"gif/</span><span class="nv">$today</span><span class="s2">"</span>
+mv <span class="k">*</span>ps ps/<span class="nv">$today</span>
+mv <span class="k">*</span>gif gif/<span class="nv">$today</span>
+
+<span class="c"># The data is quite big, because the netcdf files are a product of the</span>
+<span class="c"># gfs files you can remove all netcdf files and compress the gfs</span>
+<span class="c"># file for archive purposes.</span>
+rm <span class="k">*</span>.nc
+
+<span class="nb">exit </span>0</code></pre></figure>
+
+
+  </div>
+
+</article>
+
+
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+
+     <div class="footer-col footer-col-1">
+       <p>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I&#39;m navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<a href="/about/" class="gray
+	       underline-none mrhalf">More..</a></p>
+     </div>
+     
+     <div class="footer-col footer-col-2">
+       <ul class="social-media-list">
+           
+           <li>
+           <a href="https://twitter.com/h_havenga"><span class="icon icon--twitter"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/></svg>
+</span><span class="username"></span></a>
+
+           </li>
+           
+
+           
+           <li>
+           <a href="https://github.com/h-havenga"><span class="icon icon--github"><svg viewBox="0 0 16 16" width="16px" height="16px"><path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/></svg>
+</span><span class="username"></span></a>
+
+           </li>
+           
+
+           
+           <li>
+	       <a href="mailto:hennohavenga@outlook.com"><span class="icon icon--mail"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="15px" viewBox="0 0 16 15" enable-background="new 0 0 16 15" xml:space="preserve">  <image id="image0" width="16" height="15" x="0" y="0"
+    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAPCAMAAADarb8dAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAB/lBMVEUAAABLS01LS01LS01L
+S01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01LS01KSkxKSkxL
+S01LS01LS01LS01MTE5MTE5LS01LS01KSkxKSkxKSkxKSkxKSkxKSkxQUFFQUFFQUFJQUFJLS01L
+S01LS01LS01LS01LS01LS01LS01PT1FPT1FSUlNkZGZPT1FJSUtLS01LS01LS01PT1FkZGZSUlNL
+S01KSkxZWVtfX2FfX2FfX2FfX2FZWVtXV1jHx8je3t7d3d3d3d3c3N3f39/JyclWVlhZWVtLS01Z
+WVvc3N3o6Ojl5ebl5ebl5eXr6+vg4OBZWVtZWVt5eXp+foBwcHLe3t7n5+jl5eXl5eXl5eXq6urh
+4eJwcHJ+foB5eXpLS01dXV+CgoPOzs/n5+fp6enn5+fn5+fp6enp6erR0dKCgoNdXV9LS01KSkxK
+SkxcXF2UlJXZ2dn8/Pz8/PzZ2dmUlJVcXF1KSkxLS01LS01JSUtHR0lbW12MjI2NjY9cXF1HR0lK
+SkxJSUtVVVd0dHZpaWpISEpISEppaWp0dHZKSkxWVlh1dXeDg4Vra21QUFJLS01QUFJra22Dg4V1
+dXdWVlhzc3SDg4RpaWtPT1FJSUtLS01LS01PT1FpaWuDg4Rzc3T///8FnGv7AAAAPXRSTlMAAAAi
+t7kgNMD+/r0xAlHa2E4BCXLt63AIFpX4+JMVMrX+/rQx3Nz///39/f39/f39/v7o/v7+/v7+/v7o
+/IPpPgAAAAFiS0dEqScPBgQAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfhChoPASBN8Ztp
+AAAA9ElEQVQI12NgAAJGRmYWVjZGRgYoYGRk5+Dk4uaBijAx8vLx2wKBgKAQI1haWETUDgzExCWA
+ihglpaTtHRwdHZ2cXWRk5RgZ5BUUXd3cPTw9vbx9fJWUVRhU/fwDAoOCQ0JCw8Ij/CPVGNSjomNi
+4+ITEhKTklNS0zQYNNMzMrOyc3Lz8gsKi4rTtRi0S0rLyisqq6prauvqS0t0GHRtGxqbmlta29o7
+mhobbPUYdBs7u7p7evv6J0zs7ups1GcwmDR5ytRp02fMmDlr9py5kwwYDOfNX7Bw0eIlSxYvWrps
++QojBmMTUzNzC0sgsDA3s7K2AQA4xkXsVKsdPwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0xMC0y
+NlQxNTowMTozMiswMjowMCGRRPAAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTctMTAtMjZUMTU6MDE6
+MzIrMDI6MDBQzPxMAAAAAElFTkSuQmCC" />
+</svg>
+</span></span></a>
+
+	       </li>
+           
+           <li>
+	       <p class="rss-subscribe"><a href="/feed.xml"><span class="icon icon--rss"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">  <image id="image0" width="16" height="16" x="0" y="0"
+    xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAALGPC/xhBQAAACBjSFJN
+AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QA/4ePzL8AAAAHdElN
+RQfhChoPCB5dUj2LAAABBklEQVQoz4XRLUtDARTG8d9dEN+wCMpMrq+IfgaDYDXYF2TgwKaIwWZa
+EYwWta2IJkWrxdeJCgubiiJoUpi7m3AN23XT4jnlcJ4/58Dz8E8FHfOQMaMCFRde/oI9Ms7VRCI1
+l+b0/ZbXWmLcoXwnkhF6NW/JkeoPko3lYWcibzLSBs24bSFFI01g0qfIh13HtqSNKbZuTJNASjfe
+rZp1bUNg0Tu6pJpA/Gjbgk0Fy04cxOsE7oVoKBiwYkePtH00VJrAhTtU7Tk0JalkwpO6krP4zpxQ
+pOzJlyuPHhTV5No+9MoLfxnVsK6/08s+WdfqIpG6G7lYbocVSBqXEig79Sz6L+dWfQONdWWwayDE
+FQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxNy0xMC0yNlQxNTowODozMCswMjowMEobfhMAAAAldEVY
+dGRhdGU6bW9kaWZ5ADIwMTctMTAtMjZUMTU6MDg6MzArMDI6MDA7RsavAAAAGXRFWHRTb2Z0d2Fy
+ZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg==" />
+</svg>
+</span></a></p> </li>
+	   </ul>
+     </div>
+
+     <div class="footer-col footer-col-3">
+       <p>Nagraadse student in geo en ruimtelike wetenskap. 
+       Advokaat vir die gebruik van GNU/Linux, en 'n meer vry en oop
+       gemeenskap in die wetenskap. Ek is nuut in hierdie wêreld van
+       blogging, wees geduldig met my. <a href="/about/" class="gray
+	   underline-none mrhalf">Meer..</a></p> 
+     </div>
+      
+    </div>
+  </div>
+</footer>
+
+
+
+  </body>
+
+</html>
