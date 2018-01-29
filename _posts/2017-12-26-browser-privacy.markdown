@@ -38,14 +38,12 @@ Some more obscure add-ons I've added, which may be overkill, include:
 + [Popup Blocker](https://add0n.com/popup-blocker.html)
 + [CanvasBlocker](https://github.com/kkapsner/CanvasBlocker/) 
 
-Along with this you my I set my browser to never remember passwords or autofill
-forms (I use a password manager for this), to only accept cookies from sites
-I visited, Tracking Prevention and Do Not Track Request is on. Firefox can
-further be customized by entering the *about:config*, I recommend reading
-trough [Privacy Tools](https://www.privacytools.io/#) before configuring
-settings here, some settings make the browsing experience a little less
-convenient or break websites.
-
-Of course you can use [TOR](https://www.torproject.org/) if you're really
-paranoid, but from my experience simple things start getting annoying if you
-reach this level.
+Along with this I set my browser to never remember passwords or autofill forms
+(I use a password manager for this), to only accept cookies from sites
+I visited, and I also enable Tracking Prevention while Do Not Track Request is
+on. Firefox can be further customized by entering the *about:config*,
+I recommend reading trough [Privacy Tools](https://www.privacytools.io/#)
+before configuring settings here, some settings make the browsing experience
+a little less convenient or break websites. Of course you can use
+[TOR](https://www.torproject.org/) if you're really paranoid, but this
+post is probably not for you if you reach that level.

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-29T10:43:04+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-29T11:01:20+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">A weather forecast with bash and other command line tools</title><link href="http://localhost:4000/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html" rel="alternate" type="text/html" title="A weather forecast with bash and other command line tools" /><published>2018-01-28T12:43:29+02:00</published><updated>2018-01-28T12:43:29+02:00</updated><id>http://localhost:4000/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools</id><content type="html" xml:base="http://localhost:4000/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html">&lt;p&gt;I’ll let the script speak for itself, there is also a copy on
 &lt;a href=&quot;https://github.com/h-havenga/GMT-Maps/blob/master/gfsmaps/gfs_forecast.sh&quot;&gt;github&lt;/a&gt;.&lt;/p&gt;
 
@@ -348,17 +348,15 @@ it:&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/kkapsner/CanvasBlocker/&quot;&gt;CanvasBlocker&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Along with this you my I set my browser to never remember passwords or autofill
-forms (I use a password manager for this), to only accept cookies from sites
-I visited, Tracking Prevention and Do Not Track Request is on. Firefox can
-further be customized by entering the &lt;em&gt;about:config&lt;/em&gt;, I recommend reading
-trough &lt;a href=&quot;https://www.privacytools.io/#&quot;&gt;Privacy Tools&lt;/a&gt; before configuring
-settings here, some settings make the browsing experience a little less
-convenient or break websites.&lt;/p&gt;
-
-&lt;p&gt;Of course you can use &lt;a href=&quot;https://www.torproject.org/&quot;&gt;TOR&lt;/a&gt; if you’re really
-paranoid, but from my experience simple things start getting annoying if you
-reach this level.&lt;/p&gt;</content><author><name></name></author><summary type="html">I am of the opinion that most of what we do on a computer occurs in our browser these days, anything from banking, shopping, connecting, reading and learning all occurs within this one box.</summary></entry><entry><title type="html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</title><link href="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html" rel="alternate" type="text/html" title="GMT Part 3: Working with NetCDF data by creating a synoptic weather map" /><published>2017-11-25T10:00:29+02:00</published><updated>2017-11-25T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">&lt;p&gt;For my thesis I had to examine synoptic scale circulation over
+&lt;p&gt;Along with this I set my browser to never remember passwords or autofill forms
+(I use a password manager for this), to only accept cookies from sites
+I visited, and I also enable Tracking Prevention while Do Not Track Request is
+on. Firefox can be further customized by entering the &lt;em&gt;about:config&lt;/em&gt;,
+I recommend reading trough &lt;a href=&quot;https://www.privacytools.io/#&quot;&gt;Privacy Tools&lt;/a&gt;
+before configuring settings here, some settings make the browsing experience
+a little less convenient or break websites. Of course you can use
+&lt;a href=&quot;https://www.torproject.org/&quot;&gt;TOR&lt;/a&gt; if you’re really paranoid, but this
+post is probably not for you if you reach that level.&lt;/p&gt;</content><author><name></name></author><summary type="html">I am of the opinion that most of what we do on a computer occurs in our browser these days, anything from banking, shopping, connecting, reading and learning all occurs within this one box.</summary></entry><entry><title type="html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</title><link href="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html" rel="alternate" type="text/html" title="GMT Part 3: Working with NetCDF data by creating a synoptic weather map" /><published>2017-11-25T10:00:29+02:00</published><updated>2017-11-25T10:00:29+02:00</updated><id>http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf</id><content type="html" xml:base="http://localhost:4000/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">&lt;p&gt;For my thesis I had to examine synoptic scale circulation over
 South-Africa, I wanted to recreate a &lt;em&gt;classic&lt;/em&gt; synoptic map that
 represented mean sea level pressure and also geopotentail at 500hPa.
 I knew the &lt;a href=&quot;http://www.weathersa.co.za/&quot;&gt;South-African Weather Service
