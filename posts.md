@@ -4,6 +4,8 @@ title: Writings
 permalink: /writings/
 ---
 
+<center> Assume TL;DR for some posts </center>
+
 <ul>
 {% for post in site.posts %}
   {% assign currentdate = post.date | date: "%B %Y" %}
