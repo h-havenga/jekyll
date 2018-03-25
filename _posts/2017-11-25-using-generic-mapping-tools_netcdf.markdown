@@ -12,8 +12,7 @@ I knew the [South-African Weather Service
 (SAWS)](http://www.weathersa.co.za/) has [daily
 maps](http://www.weathersa.co.za/observations/synoptic-charts) they
 make publicly available, but the maps are not always the highest
-quality as they are hand drawn and I am not the biggest fan of the
-SAWS policies. 
+quality as they are hand drawn - a tedious process I would imagine. 
 
 ![sawsmap]({{ "/assets/images/maps/synoptic_20121109.png" | absolute_url }})
 <sub>A SAWS synoptic map. </sub>
