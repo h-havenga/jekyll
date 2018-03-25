@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Some convient things to make a LaTex posters"
+title:  "Making a poster with LaTex"
 date:   2018-02-22 12:43:29 +0200
 categories: latex poster 
 ---
