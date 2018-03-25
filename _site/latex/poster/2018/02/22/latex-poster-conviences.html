@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Writings</title>
-  <meta name="description" content="Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover. I&#39;m navigating this strange new world of program...">
+  <title>Some convient things to make a LaTex posters</title>
+  <meta name="description" content="LaTex is one of those cool things that suck you into the metaphorical rabbit hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out ...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/writings/">
+  <link rel="canonical" href="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
   
   
@@ -96,152 +96,132 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
-  <div class="post-content">
-    <center> Assume TL;DR for some posts </center>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Some convient things to make a LaTex posters</h1>
+    <p class="post-meta">
+      <time datetime="2018-02-22T12:43:29+02:00" itemprop="datePublished">
+        
+        Feb 22, 2018
+      </time>
+      </p>
+  </header>
 
-<ul>
+  <div class="post-content" itemprop="articleBody">
+    <p>LaTex is one of those cool things that suck you into the metaphorical rabbit
+hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out
+of my own initiative, my supervisor was using it but he recommended everyone
+against it and I would do the same, it’s just not that efficient and you can’t
+hide behind Microsoft Office’s fancy spelling/grammar checks and it lacks some
+support, our University’s writing department did not even know what LaTex is,
+this might be the case at other institutions to.</p>
 
-  
-  
-    
-    <h1 id="y2018">February 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>22 Feb 2018 &gt; </span>      
-	 <a href="/latex/poster/2018/02/22/latex-poster-conviences.html">Some convient things to make a LaTex posters</a>
-     </li>
-  
+<p>Making a poster in LaTeX was an surprisingly enjoyable exercise. After finding
+the the right combination of packages and experimenting with the layout the
+setup below best suited me. I’ll start off with the packages in the preamble.</p>
 
-  
-  
-    </ul>
-    <h1 id="y2018">January 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>28 Jan 2018 &gt; </span>      
-	 <a href="/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html">A weather forecast with bash and other command line tools</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="k">\documentclass</span><span class="na">[a1,final]</span><span class="p">{</span>a0poster<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>graphicx<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[absolute,overlay]</span><span class="p">{</span>textpos<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[colorgrid,texcoord]</span><span class="p">{</span>eso-pic<span class="p">}</span>
+<span class="k">\setlength</span><span class="p">{</span><span class="k">\TPHorizModule</span><span class="p">}{</span>1cm<span class="p">}</span>
+<span class="k">\setlength</span><span class="p">{</span><span class="k">\TPVertModule</span><span class="p">}{</span>1cm<span class="p">}</span></code></pre></figure>
 
-  
-  
-     <li>
-     <span>14 Jan 2018 &gt; </span>      
-	 <a href="/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html">Automating some tasks with bash: coping photos from camera</a>
-     </li>
-  
+<p><a href="www.ctan.org/pkg/a0poster"><em>documentclass{a0poster}</em></a> conveniently sorts out
+the formatting problems related to the poster size, things like fonts and
+formulas. The <a href="www.ctan.org/pkg/textpos"><em>textpos</em></a> allows you to specify the
+exact position of text boxes, or figures, in the posters as an x,y point and we
+can see this x,y grid by using the <a href="www.ctan.org/pkg/eso-pic"><em>eso-pic</em></a> package.
+The textpos documentation tells us that both <em>TPHoriz</em> and <em>TPVert</em> refer to
+the x,y size parameters of the of the text block environment. You can also
+change the layout to portrait (default is landscape) by doing
+<em>/documentclass[portrait,a0,final]</em> and change the aX to 0 or 1 depending on
+your desired size</p>
 
-  
-  
-     <li>
-     <span>9 Jan 2018 &gt; </span>      
-	 <a href="/things/linux/2018/01/09/useless-things-learn-during-the-day.html">Usefull, useless things</a>
-     </li>
-  
+<p>Try this out to get a feel:</p>
 
-  
-  
-    </ul>
-    <h1 id="y2017">December 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>26 Dec 2017 &gt; </span>      
-	 <a href="/firefox/security/2017/12/26/browser-privacy.html">Browsing: attempting to balance useablity with privacy</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="c">% The preamble </span>
+<span class="k">\documentclass</span><span class="na">[a1,final]</span><span class="p">{</span>a0poster<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>graphicx<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[absolute,overlay]</span><span class="p">{</span>textpos<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[colorgrid,texcoord]</span><span class="p">{</span>eso-pic<span class="p">}</span>
+<span class="k">\setlength</span><span class="p">{</span><span class="k">\TPHorizModule</span><span class="p">}{</span>10mm<span class="p">}</span>
+<span class="k">\setlength</span><span class="p">{</span><span class="k">\TPVertModule</span><span class="p">}{</span>10mm<span class="p">}</span>
 
-  
-  
-    </ul>
-    <h1 id="y2017">November 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>25 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</a>
-     </li>
-  
+<span class="c">% Begin</span>
+<span class="nt">\begin{document}</span>
 
-  
-  
-     <li>
-     <span>22 Nov 2017 &gt; </span>      
-	 <a href="/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html">How I made the travel maps in this site</a>
-     </li>
-  
+<span class="c">% Title</span>
+<span class="nt">\begin{textblock}</span><span class="p">{</span>26<span class="p">}</span>(2, 2)
+<span class="k">\VeryHuge</span> Poster Making 101
+<span class="nt">\end{textblock}</span>
 
-  
-  
-     <li>
-     <span>20 Nov 2017 &gt; </span>      
-	 <a href="/linux/network/bash/2017/11/20/script-to-change-macadress.html">Setting a random mac address for a specific network</a>
-     </li>
-  
+<span class="nt">\end{document}</span></code></pre></figure>
 
-  
-  
-     <li>
-     <span>1 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">GMT Part 2: A topographical map of South-Africa</a>
-     </li>
-  
+<p>You should get this output:
+<img src="http://localhost:4000/assets/images/random/poster_basic.png" alt="basic_poster" /></p>
 
-  
-  
-    </ul>
-    <h1 id="y2017">October 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/linux/github/2017/10/29/auto-git-push.html">Automatically push my updated site to Github</a>
-     </li>
-  
+<p>Adding and positioning blocks of text is pretty easy. I’m going to use the
+<em>\lipsum</em> package to avoid writing my own stuff :).</p>
 
-  
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/jekyll/blog/2017/10/29/genesis.html">Genesis of this site</a>
-     </li>
-  
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="c">% The preamble </span>
+<span class="k">\documentclass</span><span class="na">[a1,final]</span><span class="p">{</span>a0poster<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>graphicx<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[absolute,overlay]</span><span class="p">{</span>textpos<span class="p">}</span>
+<span class="k">\usepackage</span><span class="na">[colorgrid,texcoord]</span><span class="p">{</span>eso-pic<span class="p">}</span>
+<span class="k">\setlength</span><span class="p">{</span><span class="k">\TPHorizModule</span><span class="p">}{</span>10mm<span class="p">}</span>
+<span class="k">\setlength</span><span class="p">{</span><span class="k">\TPVertModule</span><span class="p">}{</span>10mm<span class="p">}</span>
+<span class="k">\usepackage</span><span class="p">{</span>lipsum<span class="p">}</span>
 
-  
-  
-     <li>
-     <span>19 Oct 2017 &gt; </span>      
-	 <a href="/maps/data/2017/10/19/using-generic-mapping-tools.html">GMT Part 1: A basic map of South-Africa</a>
-     </li>
-  
+<span class="c">% Begin</span>
+<span class="nt">\begin{document}</span>
 
-  
-  
-    </ul>
-    <h1 id="y2017">September 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>20 Sep 2017 &gt; </span>      
-	 <a href="/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">Getting WRF to work with ERA-Interim data</a>
-     </li>
-  </ul>
+<span class="c">% Title</span>
+<span class="nt">\begin{textblock}</span><span class="p">{</span>26<span class="p">}</span>(2, 2)
+<span class="k">\VeryHuge</span> Poster Making 101 
+<span class="nt">\end{textblock}</span>
 
-</ul>
+<span class="c">% Text Box 1</span>
+<span class="nt">\begin{textblock}</span><span class="p">{</span>50<span class="p">}</span>(2, 6)
+<span class="k">\large</span> <span class="k">\lipsum</span><span class="na">[60]</span> 
+<span class="nt">\end{textblock}</span>
+
+<span class="c">% Text Box 2</span>
+<span class="nt">\begin{textblock}</span><span class="p">{</span>30<span class="p">}</span>(53, 6)
+<span class="k">\large</span> <span class="k">\lipsum</span><span class="na">[80]</span> 
+<span class="nt">\end{textblock}</span>
+
+<span class="c">% Text Box 3</span>
+<span class="nt">\begin{textblock}</span><span class="p">{</span>15<span class="p">}</span>(68, 27)
+<span class="k">\large</span> <span class="k">\lipsum</span><span class="na">[40]</span> 
+<span class="nt">\end{textblock}</span>
+
+<span class="c">% A Fancy Picture made with GMT of course</span>
+<span class="nt">\begin{textblock}</span><span class="p">{</span>0<span class="p">}</span>(0, 10)
+<span class="nt">\begin{figure}</span>
+<span class="k">\includegraphics</span><span class="p">{</span>hail<span class="p">_</span>composite<span class="p">_</span>globe.pdf<span class="p">}</span>
+<span class="nt">\end{figure}</span>
+<span class="nt">\end{textblock}</span>
+
+<span class="nt">\end{document}</span></code></pre></figure>
+
+<p>And then you a very nice layout a1, landscape poster.</p>
+
+<p><img src="http://localhost:4000/assets/images/random/poster_not_so_basic.png" alt="basic_final" /></p>
+
+<p>To remove the grids, uncomment \usepackage[colorgrid,texcoord]{eso-pic} and to
+remove the boxes around the text (altough it might be good to keep them) remove
+<em>showboxes</em> in the <em>eso-pic</em> package.</p>
+
+<p><img src="http://localhost:4000/assets/images/random/poster_no_grid.png" alt="basic_final" /></p>
+
 
   </div>
 
 </article>
+
+
 
       </div>
     </main>
