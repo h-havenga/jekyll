@@ -15,14 +15,11 @@ sudo apt install gmt gmt-gshhg-full cdo wget
 
 Here are some examples of the possible outputs:
 
-![cloud_map]({{ "/assets/images/maps/cloud_20180113.gif" | absolute_url }})
-<sub>A gfs synoptic map with cloud forecast. </sub>
+![cloud_map]({{ "https://crggithub.github.io/assets/images/synoptic_maps/synoptic.gif" | absolute_url }})
+<sub>A gfs synoptic map. </sub>
 
-![cloud_map]({{ "/assets/images/maps/aptmp_20180113.gif" | absolute_url }})
+![atmp_map]({{ "https://crggithub.github.io/assets/images/synoptic_maps/aptmp.gif" | absolute_url }})
 <sub>A gfs synoptic map with temperature forecast. </sub>
-
-![cloud_map]({{ "/assets/images/maps/cape_20180113.gif" | absolute_url }})
-<sub>A gfs synoptic map with cape forecast. </sub>
 
 {% highlight bash %}
 

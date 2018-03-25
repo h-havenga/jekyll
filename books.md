@@ -11,7 +11,7 @@ _Jorge Cham and Daniel Whitesonk_
 
 #### Read * : 
 How to Stop Living and Start Worrying: Conversations with Carl Cederstrm,
-_Simon Critchley and Carl Cederstrom_ |The Purity Myth: How America's Obsession
+_Simon Critchley and Carl Cederstrom_ | The Purity Myth: How America's Obsession
 with Virginity Is Hurting Young Women, _Jessica Valenti_ | Freakonomics,
 _Steven D. Levitt and Stephen J. Dubner_ | The Writer's Home Companion: An
 Anthology of the World's Best Writing Advice, From Keats to Kunitz, _Joan
