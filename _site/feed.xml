@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-03-26T10:48:31+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-03-26T10:52:20+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Luanching the NWU-Lekwena radar</title><link href="http://localhost:4000/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar.html" rel="alternate" type="text/html" title="Luanching the NWU-Lekwena radar" /><published>2018-03-25T12:43:29+02:00</published><updated>2018-03-25T12:43:29+02:00</updated><id>http://localhost:4000/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar</id><content type="html" xml:base="http://localhost:4000/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar.html">&lt;p&gt;The &lt;a href=&quot;www.nwu.ac.za&quot;&gt;North West University Potchefstroom&lt;/a&gt; has a pretty cool
 C-band radar currently under development. The radar, a WSR74-C radar, was
 previously located in Texas and after three decades it was redeployed to
@@ -35,15 +35,14 @@ maps&lt;/a&gt;
 I set up a crontab that goes through all the downloading processes and then it
 pushes it automatically to the radar site every morning.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://143.160.8.22/cappi.gif&quot; alt=&quot;radar_real&quot; /&gt; &lt;sub&gt;NWU
-Lekwena Radar, almost realtime if running correctly &lt;/sub&gt;&lt;/p&gt;
-
+&lt;h1 id=&quot;how-to-interpret-the-radar-image&quot;&gt;How to interpret the radar image&lt;/h1&gt;
 &lt;p&gt;Because we give a very raw product and also the fact that the radar is not
 meant used as a severe weather alert system I wrote a short description of how
 users should view the image above. I wrote this for the website and I’ll copy
-it here.&lt;/p&gt;
+it here. Below is a real-time image of the radar if it’s running smoothly.&lt;/p&gt;
 
-&lt;h1 id=&quot;how-to-interpret-the-radar-image&quot;&gt;How to interpret the radar image&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&quot;http://143.160.8.22/cappi.gif&quot; alt=&quot;radar_real&quot; /&gt; &lt;sub&gt;NWU
+Lekwena Radar, almost realtime if running correctly &lt;/sub&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;time-the-radar-is-set-to-coordinated-universal-time-utc-and-not-south&quot;&gt;Time The radar is set to Coordinated Universal Time (UTC) and not South&lt;/h3&gt;
 &lt;p&gt;African Standard Time (SAST). To correct for this you need to add two hours to

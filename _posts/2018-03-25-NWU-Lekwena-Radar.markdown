@@ -41,15 +41,14 @@ maps](https://www.hennohavenga.com/weather/bash/gmt/2018/01/28/forecasting-weath
 I set up a crontab that goes through all the downloading processes and then it
 pushes it automatically to the radar site every morning.
 
-![radar_real]({{ "http://143.160.8.22/cappi.gif" | absolute_url }}) <sub>NWU
-Lekwena Radar, almost realtime if running correctly </sub>
-
+# How to interpret the radar image
 Because we give a very raw product and also the fact that the radar is not
 meant used as a severe weather alert system I wrote a short description of how
 users should view the image above. I wrote this for the website and I'll copy
-it here. 
+it here. Below is a real-time image of the radar if it's running smoothly.
 
-# How to interpret the radar image
+![radar_real]({{ "http://143.160.8.22/cappi.gif" | absolute_url }}) <sub>NWU
+Lekwena Radar, almost realtime if running correctly </sub>
 
 ### Time The radar is set to Coordinated Universal Time (UTC) and not South
 African Standard Time (SAST). To correct for this you need to add two hours to
