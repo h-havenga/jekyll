@@ -24,14 +24,15 @@ Here are some examples of the possible outputs:
 {% highlight bash %}
 
 #!/bin/bash
+
              ###################################
-             #          Henno Havenga          #           
+             #    Written By Henno Havenga     #
              #           GMT 5.4.3             #
              #          wget 1.19.2            #
              #           CDO 1.9.2             #
              # NCEP/NOAA https://goo.gl/xP3X4L #
              #   SA Shapefile: Natural Earth   #
-             #          MIT Licence            #
+             #          GPL Licence            #
              ###################################
 
 ########################################################################
@@ -43,8 +44,9 @@ Here are some examples of the possible outputs:
 # needed and the main program used here is Generic Mapping Tools (GMT).#
 # GMT is used to perform mathematical functions on the datasets and to # 
 # draw and plot the data over the desired area. All data and code is   #
-# free to use and share, however, however, respect the license terms   #
-# and conditions.                                                      #
+# free to use and share, however, absolutely no part of this script    #
+# may be commercialized. If you ask someone money for this you are     #
+# breaking my terms for reusing this script.                           #
 #                                                                      #
 # Please be aware that this is NOT an official weather forecast.       #
 # The products created here should not be used in anyway or            #
@@ -143,7 +145,7 @@ done
 
 # Make a animation
 convert -bordercolor white -border 0 -layers OptimizePlus -density 300 -delay 2x1 cloud*.ps -loop 0 cloud_$(date "+%Y%m%d").gif
-convert cloud_$(date "+%Y%m%d").gif -rotate 90  cloud_$(date "+%Y%m%d").gif
+convert cloud_$(date "+%Y%m%d").gif -rotate 90  cloud.gif
 
 # Second a map with CAPE, zg500 and mslp
 for i in "${forecast[@]}" 
@@ -160,7 +162,7 @@ done
 
 # Make a animation
 convert -bordercolor white -border 0 -layers OptimizePlus -density 300 -delay 2x1 cape*.ps -loop 0 cape_$(date "+%Y%m%d").gif
-convert cape_$(date "+%Y%m%d").gif -rotate 90 cape_$(date "+%Y%m%d").gif
+convert cape_$(date "+%Y%m%d").gif -rotate 90 cape.gif
 
 # Third a map with temperature, zg500 and mslp
 for i in "${forecast[@]}" 
@@ -177,7 +179,7 @@ done
 
 # Make a animation
 convert -bordercolor white -border 0 -layers OptimizePlus -density 300 -delay 2x1 aptmp*.ps -loop 0 aptmp_$(date "+%Y%m%d").gif
-convert aptmp_$(date "+%Y%m%d").gif -rotate 90  aptmp_$(date "+%Y%m%d").gif
+convert aptmp_$(date "+%Y%m%d").gif -rotate 90  aptmp.gif
 
 # Last map zg500 and mslp
 for i in "${forecast[@]}" 
@@ -191,12 +193,13 @@ done
 
 # Make a animation
 convert -bordercolor white -border 0 -layers OptimizePlus -density 300 -delay 2x1 synoptic*.ps -loop 0 synoptic_$(date "+%Y%m%d").gif
-convert synoptic_$(date "+%Y%m%d").gif -rotate 90 synoptic_$(date "+%Y%m%d").gif
+convert synoptic_$(date "+%Y%m%d").gif -rotate 90 synoptic.gif
 
 # Move eps and gif 
 mkdir -p "ps/$today"
 mkdir -p "gif/$today"
 mv *ps ps/$today
+rm *$(date "+%Y%m%d").gif
 mv *gif gif/$today
 
 # The data is quite big, because the netcdf files are a product of the
@@ -205,5 +208,4 @@ mv *gif gif/$today
 rm *.nc
 
 exit 0
-
 {% endhighlight %}
