@@ -34,9 +34,8 @@ a custom [Cayman theme](https://github.com/lorepirri/cayman-blog). This allowed
 for hamburger menu on a mobile phone. We also added some other sites to make
 a more interactive weather website. This was mostly from the [European
 Organisation for the Exploitation of Meteorological Satellites
-(EUMETSAT)](https://www.eumetsat.int/website/home/index.html).
-
-To add [my own synoptic
+(EUMETSAT)](https://www.eumetsat.int/website/home/index.html). To add [my own
+synoptic
 maps](https://www.hennohavenga.com/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html)
 I set up a crontab that goes through all the downloading processes and then it
 pushes it automatically to the radar site every morning.
