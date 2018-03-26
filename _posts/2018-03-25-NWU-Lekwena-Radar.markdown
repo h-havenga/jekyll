@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Luanching the NWU-Lekwena radar"
+title:  "Launching the NWU-Lekwena radar"
 date:   2018-03-25 12:43:29 +0200
 categories: radar weather jekyll 
 ---
@@ -16,7 +16,7 @@ transfer from the radar site to the university 30km away, we continue to have
 some troubles with interference on the radar frequency and unreliable power.
 Considering all this we managed to get the radar operational and running on
 a more permanent bases. We also designed a simple website using Jekyll which
-you can view on [www.lekwenaradar.co.za](www.lekwenaradar.co.za).
+you can view on [www.lekwenaradar.co.za](http://www.lekwenaradar.co.za).
 
 It is worth noting that the software used for signal processing is RDAS while
 the [Thunderstorm Identification, Tracking, Analysis and Nowcasting
@@ -26,7 +26,7 @@ starts in South-Africa (*can I say proudly South-African?*) and is quite
 [interesting](http://www.ral.ucar.edu/projects/titan/home/history.php).
 
 # The Website
-The development of [www.lekwenaradar.co.za](www.lekwenaradar.co.za) happened
+The development of [www.lekwenaradar.co.za](http://www.lekwenaradar.co.za) happened
 pretty rapidly. Having some experience with Jekyll I advocated for deploying
 a static site and the convince of using GitHub to host it as two major
 advantages and it worked. Due to the rush to get something online I worked off
