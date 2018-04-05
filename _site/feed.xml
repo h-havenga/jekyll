@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-03-26T11:21:39+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-05T08:53:37+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Launching the NWU-Lekwena radar</title><link href="http://localhost:4000/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar.html" rel="alternate" type="text/html" title="Launching the NWU-Lekwena radar" /><published>2018-03-25T12:43:29+02:00</published><updated>2018-03-25T12:43:29+02:00</updated><id>http://localhost:4000/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar</id><content type="html" xml:base="http://localhost:4000/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar.html">&lt;p&gt;The &lt;a href=&quot;www.nwu.ac.za&quot;&gt;North West University Potchefstroom&lt;/a&gt; has a pretty cool
 C-band radar currently under development. The radar, a WSR74-C radar, was
 previously located in Texas and after three decades it was redeployed to
@@ -43,44 +43,45 @@ it here. Below is a real-time image of the radar if it’s running smoothly.&lt;
 &lt;p&gt;&lt;img src=&quot;http://143.160.8.22/cappi.gif&quot; alt=&quot;radar_real&quot; /&gt; &lt;sub&gt;NWU
 Lekwena Radar, almost realtime if running correctly &lt;/sub&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;time-the-radar-is-set-to-coordinated-universal-time-utc-and-not-south&quot;&gt;Time The radar is set to Coordinated Universal Time (UTC) and not South&lt;/h3&gt;
-&lt;p&gt;African Standard Time (SAST). To correct for this you need to add two hours to
-the time as indicated below, for example 12:04 UTC + 2 Hours = 14:04 SAST. To
-check if the radar is currently running the time should match within +-10
-minutes of the actual time, if it doesn’t it’s safe to assume the radar or
-webserver is down.&lt;/p&gt;
+&lt;h1 id=&quot;how-to-interpret-the-radar-image-1&quot;&gt;How to interpret the radar image&lt;/h1&gt;
+
+&lt;h3 id=&quot;time&quot;&gt;Time&lt;/h3&gt;
+&lt;p&gt;The radar is set to Coordinated Universal Time (UTC) and not South African
+Standard Time (SAST). To correct for this you need to add two hours to the time
+as indicated below, for example 12:04 UTC + 2 Hours = 14:04 SAST. To check if
+the radar is currently running the time should match within +-10 minutes of the actual time,
+if it doesn’t it’s safe to assume the radar or webserver is down.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarTime.png&quot; alt=&quot;radar_time&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;reflectivity-dbz-in-the-most-basic-terms-a-radars-operation-consists-of&quot;&gt;Reflectivity (dBZ) In the most basic terms a radar’s operation consists of&lt;/h3&gt;
-&lt;p&gt;a high frequency signal pulse that’s generated from the site, the signal echo’s
-when it interacts with large particles such as hail or raindrops and a receiver
-that converts the echo into something human interpretable. This echo is
-represented as &lt;em&gt;decibel relative to Z&lt;/em&gt; or dBZ. Strong dBZ means there are large
-particles producing a strong echo, this would be large rain, hail or ice
-particles in clouds.&lt;/p&gt;
+&lt;h3 id=&quot;reflectivity-dbz&quot;&gt;Reflectivity (dBZ)&lt;/h3&gt;
+&lt;p&gt;In the most basic terms a radar’s operation consists of a high frequency signal
+pulse that’s generated from the site, this signal echo’s when it interacts with
+large particles such as hail or raindrops and a receiver converts
+the echo into something human interpretable. This echo is represented as
+&lt;em&gt;decibel relative to Z&lt;/em&gt; or dBZ. Strong dBZ means there are large particles producing
+a strong echo, this would be large rain, hail or ice particles in clouds.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarDBZ.png&quot; alt=&quot;radar_bdz&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;interference-the-nwu-lekwena-radar-has-an-license-to-operate-on-a-certain&quot;&gt;Interference The NWU Lekwena Radar has an license to operate on a certain&lt;/h3&gt;
-&lt;p&gt;spectrum, any other networks that are on this spectrum unknowingly cause the
-interference seen on the image, impacting the quality of data. The radar
-operates on the 5.6 gHz bandwidth and any WiFi or communication network between
-5.55 gHz and 5.67 gHz causes problems and hampers research. The public is also
-encouraged not to use this bandwidth in the Potchefstroom area and the NWU-CRG
-is willing to help service providers mitigate these risks by advising on the
-installation of Dynamic Frequency Selection (DFS) devices as required by law.
-Users can also contact their service providers to learn more about the
-frequency of their devices and how to avoid interference with the NWU Lekwena
+&lt;h3 id=&quot;interference&quot;&gt;Interference&lt;/h3&gt;
+&lt;p&gt;The NWU Lekwena Radar has an license to operate on the 5.62 gHz bandwidth and
+any WiFi or communication network between 5.55 to 5.67 gHz causes problems and
+hampers data quality. The public is encouraged not to use these bandwidths in
+the Potchefstroom area and the NWU-CRG is willing to help users mitigate
+interference by advising on the installation of Dynamic Frequency Selection
+(DFS) devices. Users can also contact their service providers to learn more
+about the frequency of their devices and how to avoid interference with the
 Radar.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarInterf.png&quot; alt=&quot;radar_interference&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;places-indicators-the-radar-indicates-towns-with-abbreviations-and-also&quot;&gt;Places Indicators The radar indicates towns with abbreviations and also&lt;/h3&gt;
-&lt;p&gt;some regional airports in the Gauteng Area with the Airplane sign. The little
-cloud sign indicates the location of the SAWS Irene Weather station. The
-circular lines indicate the distance of from the radar site, which is a maximum
-of 200km due to various factors such as the curvature of the earth&lt;/p&gt;
+&lt;h3 id=&quot;places-indicators&quot;&gt;Places Indicators&lt;/h3&gt;
+&lt;p&gt;The radar indicates towns with abbreviations and also some regional airports in
+the Gauteng Area with the Airplane sign. The little cloud sign indicates
+the location of the SAWS Irene Weather station. The circular lines indicate the distance
+of from the radar site, which is a maximum of 200km due to various factors such as the
+curvature of the earth&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarAirports.png&quot; alt=&quot;radar_interference&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The North West University Potchefstroom has a pretty cool C-band radar currently under development. The radar, a WSR74-C radar, was previously located in Texas and after three decades it was redeployed to South-Africa for research purposes. The project was initiated before I started my graduate studies, but since 2016 we have slowly worked to get the radar operational. The site location and deployment of the radar was already completed in 2015 and since then most problems have been related to data transfer from the radar site to the university 30km away, we continue to have some troubles with interference on the radar frequency and unreliable power. Considering all this we managed to get the radar operational and running on a more permanent bases. We also designed a simple website using Jekyll which you can view on www.lekwenaradar.co.za.</summary></entry><entry><title type="html">Making a poster with LaTeX</title><link href="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html" rel="alternate" type="text/html" title="Making a poster with LaTeX" /><published>2018-02-22T12:43:29+02:00</published><updated>2018-02-22T12:43:29+02:00</updated><id>http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences</id><content type="html" xml:base="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html">&lt;p&gt;LaTex is one of those cool things that suck you into the metaphorical rabbit
 hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out

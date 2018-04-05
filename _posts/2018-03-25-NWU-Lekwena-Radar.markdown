@@ -49,44 +49,45 @@ it here. Below is a real-time image of the radar if it's running smoothly.
 ![radar_real]({{ "http://143.160.8.22/cappi.gif" | absolute_url }}) <sub>NWU
 Lekwena Radar, almost realtime if running correctly </sub>
 
-### Time The radar is set to Coordinated Universal Time (UTC) and not South
-African Standard Time (SAST). To correct for this you need to add two hours to
-the time as indicated below, for example 12:04 UTC + 2 Hours = 14:04 SAST. To
-check if the radar is currently running the time should match within +-10
-minutes of the actual time, if it doesn't it's safe to assume the radar or
-webserver is down.
+# How to interpret the radar image
+
+### Time
+The radar is set to Coordinated Universal Time (UTC) and not South African
+Standard Time (SAST). To correct for this you need to add two hours to the time
+as indicated below, for example 12:04 UTC + 2 Hours = 14:04 SAST. To check if
+the radar is currently running the time should match within +-10 minutes of the actual time,
+if it doesn't it's safe to assume the radar or webserver is down.
 
 ![radar_time](/assets/images/radar/RadarTime.png)
 
-### Reflectivity (dBZ) In the most basic terms a radar's operation consists of
-a high frequency signal pulse that's generated from the site, the signal echo's
-when it interacts with large particles such as hail or raindrops and a receiver
-that converts the echo into something human interpretable. This echo is
-represented as *decibel relative to Z* or dBZ. Strong dBZ means there are large
-particles producing a strong echo, this would be large rain, hail or ice
-particles in clouds.
+### Reflectivity (dBZ)
+In the most basic terms a radar's operation consists of a high frequency signal
+pulse that's generated from the site, this signal echo's when it interacts with
+large particles such as hail or raindrops and a receiver converts
+the echo into something human interpretable. This echo is represented as
+*decibel relative to Z* or dBZ. Strong dBZ means there are large particles producing
+a strong echo, this would be large rain, hail or ice particles in clouds.
 
 ![radar_bdz](/assets/images/radar/RadarDBZ.png)
 
-### Interference The NWU Lekwena Radar has an license to operate on a certain
-spectrum, any other networks that are on this spectrum unknowingly cause the
-interference seen on the image, impacting the quality of data. The radar
-operates on the 5.6 gHz bandwidth and any WiFi or communication network between
-5.55 gHz and 5.67 gHz causes problems and hampers research. The public is also
-encouraged not to use this bandwidth in the Potchefstroom area and the NWU-CRG
-is willing to help service providers mitigate these risks by advising on the
-installation of Dynamic Frequency Selection (DFS) devices as required by law.
-Users can also contact their service providers to learn more about the
-frequency of their devices and how to avoid interference with the NWU Lekwena
+### Interference 
+The NWU Lekwena Radar has an license to operate on the 5.62 gHz bandwidth and
+any WiFi or communication network between 5.55 to 5.67 gHz causes problems and
+hampers data quality. The public is encouraged not to use these bandwidths in
+the Potchefstroom area and the NWU-CRG is willing to help users mitigate
+interference by advising on the installation of Dynamic Frequency Selection
+(DFS) devices. Users can also contact their service providers to learn more
+about the frequency of their devices and how to avoid interference with the
 Radar.
 
 ![radar_interference](/assets/images/radar/RadarInterf.png)
 
-### Places Indicators The radar indicates towns with abbreviations and also
-some regional airports in the Gauteng Area with the Airplane sign. The little
-cloud sign indicates the location of the SAWS Irene Weather station. The
-circular lines indicate the distance of from the radar site, which is a maximum
-of 200km due to various factors such as the curvature of the earth
+### Places Indicators
+The radar indicates towns with abbreviations and also some regional airports in
+the Gauteng Area with the Airplane sign. The little cloud sign indicates
+the location of the SAWS Irene Weather station. The circular lines indicate the distance
+of from the radar site, which is a maximum of 200km due to various factors such as the
+curvature of the earth
 
 ![radar_interference](/assets/images/radar/RadarAirports.png)
 
