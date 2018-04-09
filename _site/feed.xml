@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-09T21:59:15+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-09T22:04:49+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Making an interactive radar map with GDAL</title><link href="http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html" rel="alternate" type="text/html" title="Making an interactive radar map with GDAL" /><published>2018-04-08T12:43:29+02:00</published><updated>2018-04-08T12:43:29+02:00</updated><id>http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal</id><content type="html" xml:base="http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html">&lt;p&gt;This post builds on the previous post. As you’ve seen the image from Titan is
 a static map of the radar coverage. To improve the map we wanted something
 interactive where you can zoom and all that fancy stuff. I made a map with my
@@ -63,7 +63,7 @@ interactive map without the need to register some place.&lt;/p&gt;
 &lt;p&gt;and now we have a really cool map, which we are currently experimenting with before we put
 it on the lekwenaradar website&lt;/p&gt;
 
-&lt;iframe height=&quot;750&quot; width=&quot;750&quot; src=&quot;/assets/images/radar/outfile/openlayers.html&quot;&gt;&lt;/iframe&gt;
+&lt;iframe height=&quot;750&quot; width=&quot;750&quot; src=&quot;/assets/images/radar/outfile/leaflet.html&quot;&gt;&lt;/iframe&gt;
 
 &lt;p&gt;Now our chain gets a bit more links which means more places for possible
 failure, but we have a way cooler map.&lt;/p&gt;

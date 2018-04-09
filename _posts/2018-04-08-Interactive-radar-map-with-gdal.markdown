@@ -74,7 +74,7 @@ gdal2tiles.py -z 5-10 outfile.tiff
 and now we have a really cool map, which we are currently experimenting with before we put
 it on the lekwenaradar website
 
-<iframe height="750" width="750" src="/assets/images/radar/outfile/openlayers.html"></iframe>
+<iframe height="750" width="750" src="/assets/images/radar/outfile/leaflet.html"></iframe>
 
 Now our chain gets a bit more links which means more places for possible
 failure, but we have a way cooler map.
