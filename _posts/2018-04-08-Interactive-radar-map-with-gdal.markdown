@@ -15,7 +15,7 @@ Webserver process to underline how not so easy it is to get workable data, and
 by workable data I mean netCDF files and if you think netCDF is an easy file
 format to work with, think again.
 
-Without going into to detail about the radar itself the process of getting the
+Without going into to detail about the radar itself, the process of getting the
 current static image is something like this:
 
 *Magnetron Generates Pulse -> Radar
@@ -45,7 +45,7 @@ and this gave me a very gray image
 Although not ideal, the tif image can be imported into Mapbox and it works, but
 a gray radar image makes no sense and it's hard to distinguish dBz. Using
 **gdalinfo** you can inspect the tif or original netcdf file and you'll see it
-only has one band representing dBz. To actually make a color map with something
+only has one band representing dBz. To actually make a color map of dBz
 I figured out you have to use **gdaldem**. First you have to make a color palette
 and according to gdal's website *"Since GDAL 1.8.0, GMT .cpt palette files are
 also supported (COLOR_MODEL = RGB only)."*. Anyway I didn't use a cpt but it's nice to
@@ -62,24 +62,26 @@ still static
 
 ![gray_radar](/assets/images/radar/outfile.jpg)
 
-With this overflow of gdal I discovered **gdal2tiles**, it was possibly the best
-discovery yet. Now I did not need mapbox anymore, I figured I can create my own
-interactive map without the need to register some place.
+With this overflow of gdal knowledge in me I discovered **gdal2tiles**. 
+Possibly the best discovery yet. Now I did not need Mapbox anymore, I figured
+I can create my own interactive map without the need to register some place.
 
 Using **gdal2tiles** is as easy as
 {% highlight bash %}
 gdal2tiles.py -z 5-10 outfile.tiff
 {% endhighlight %}
 
-and now we have a really cool map, which we are currently experimenting with before we put
-it on the lekwenaradar website
+and now we have a really cool map (click on the layer tab in the map), which we are currently experimenting with before we put
+it on the lekwenaradar website hosted on github. Best of all it seems to work :)
 
 <iframe height="750" width="750" src="/assets/images/radar/outfile/leaflet.html"></iframe>
 
 Now our chain gets a bit more links which means more places for possible
-failure, but we have a way cooler map (click on the layer tab in the map).
+failure, but we have a way cooler map. To revisit the process:
 
 *Magnetron Generates Pulse -> Radar Echos -> Receiver Converts -> Titan
 Processes -> P2P 1 -> P2P 2 -> P2P 3 -> Local Server -> Mdv2netcdf ->
 gdal_translate -> gdaldem -> gdal2tiles -> Webserver -> Lekwena Website* 
+
+All in a day's work
 
