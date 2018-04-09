@@ -77,7 +77,7 @@ it on the lekwenaradar website
 <iframe height="750" width="750" src="/assets/images/radar/outfile/leaflet.html"></iframe>
 
 Now our chain gets a bit more links which means more places for possible
-failure, but we have a way cooler map.
+failure, but we have a way cooler map (click on the layer tab in the map).
 
 *Magnetron Generates Pulse -> Radar Echos -> Receiver Converts -> Titan
 Processes -> P2P 1 -> P2P 2 -> P2P 3 -> Local Server -> Mdv2netcdf ->
