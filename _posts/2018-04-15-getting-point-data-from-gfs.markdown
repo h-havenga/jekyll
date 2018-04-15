@@ -27,7 +27,7 @@ people values they can understand more accurately and not rely on interpreting
 a scale, by value I mean a number. The map themselves are made with the same
 script as the other maps, well more or less the same, and you can read on that
 [here](https://www.hennohavenga.com/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html).
-This post details how to get a value of a LAT/LON point from GFS data, and in this case minimum and maximum temperature.
+This post details how to get a value of a Lat/Lon point from GFS data, and in this case minimum and maximum temperature.
 
 First we need to grap the GFS data, this pretty simple with wget. I assumed two
 things here, rightly or wrongly so, (1) that 0600 gfs product will be an
@@ -116,11 +116,12 @@ echo -n "27.09 -25.34 12 0 1 LM Sun-City" >> $nw
 echo -n "$(cdo outputtab,value,nohead -remapnn,$suncity tmin06.nc)" >> $nw ; echo "$(cdo outputtab,value,nohead -remapnn,$suncity tmax12.nc)" >> $nw 
 
 #sed -i 's/\.[0-9]*//g' $nw 
+
 {% endhighlight %}
 
-So GMT reads a point value to plot via pstext as <LAT LON FONTSIZE ANGLE
-FONTTYPE NAME> so in this case I needed *27.09 -26.71 12 0 1 LM
-Potchefstroom* in the script, as you see before every CDO command I echo this
+So GMT reads a point value to plot via pstext as LAT LON FONTSIZE ANGLE
+FONTTYPE CAPTION so in this case I needed 27.09 -26.71 12 0 1 LM
+Potchefstroom in the script, as you see before every CDO command I echo this
 part with the details as needed. The sed command was to remove decimal places,
 but at the momement it removes the coordinate decimal places to, which I don't want.
 The output looks like this (named nwtmp.dat):
@@ -142,14 +143,6 @@ Now the actual plot comes in, using GMT I do:
 
 # West/East/South/North
 nw=22.4/28.4/-28.12/-24.5
-nc=16.25/26/-33/-24.5
-wc=17/24.5/-35/-30.4
-ec=22.5/30.5/-34.5/-29.75
-zn=28.5/33.5/-31.1/-26.75
-lp=26/32.2/-25.5/-22
-gp=27/29/-26.9/-25
-fs=24.1/30/-30.8/-26.7
-mp=28/32.5/-27.55/-23.8
 
 # North West
 gmt psbasemap  -R$nw -JM25.5 -Ba -Xc -Yc -K > nw.ps

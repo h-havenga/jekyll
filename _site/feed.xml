@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-15T18:26:36+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-15T19:21:08+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Retriving point values from GFS data</title><link href="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html" rel="alternate" type="text/html" title="Retriving point values from GFS data" /><published>2018-04-14T12:43:29+02:00</published><updated>2018-04-14T12:43:29+02:00</updated><id>http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs</id><content type="html" xml:base="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html">&lt;p&gt;I guess I can safely say most of time is dedicated to making our &lt;a href=&quot;http://www.lekewenaradar.co.za&quot;&gt;radar
 website&lt;/a&gt; cooler. I’m pretty lucky. So we
 currently have three things on the website, the radar (obviously), and then two
@@ -21,7 +21,7 @@ people values they can understand more accurately and not rely on interpreting
 a scale, by value I mean a number. The map themselves are made with the same
 script as the other maps, well more or less the same, and you can read on that
 &lt;a href=&quot;https://www.hennohavenga.com/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html&quot;&gt;here&lt;/a&gt;.
-This post details how to get a value of a LAT/LON point from GFS data, and in this case minimum and maximum temperature.&lt;/p&gt;
+This post details how to get a value of a Lat/Lon point from GFS data, and in this case minimum and maximum temperature.&lt;/p&gt;
 
 &lt;p&gt;First we need to grap the GFS data, this pretty simple with wget. I assumed two
 things here, rightly or wrongly so, (1) that 0600 gfs product will be an
@@ -106,11 +106,12 @@ echo function. Here is the script.&lt;/p&gt;
 
 &lt;span class=&quot;c&quot;&gt;#sed -i 's/\.[0-9]*//g' $nw &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;So GMT reads a point value to plot via pstext as &lt;LAT LON=&quot;&quot; FONTSIZE=&quot;&quot; ANGLE=&quot;&quot; FONTTYPE=&quot;&quot; NAME=&quot;&quot;&gt; so in this case I needed *27.09 -26.71 12 0 1 LM
-Potchefstroom* in the script, as you see before every CDO command I echo this
+&lt;p&gt;So GMT reads a point value to plot via pstext as LAT LON FONTSIZE ANGLE
+FONTTYPE CAPTION so in this case I needed 27.09 -26.71 12 0 1 LM
+Potchefstroom in the script, as you see before every CDO command I echo this
 part with the details as needed. The sed command was to remove decimal places,
-but at the momement it removes the coordinate decimal places to, which I don't want.
-The output looks like this (named nwtmp.dat):&lt;/LAT&gt;&lt;/p&gt;
+but at the momement it removes the coordinate decimal places to, which I don’t want.
+The output looks like this (named nwtmp.dat):&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;27.09 &lt;span class=&quot;nt&quot;&gt;-26&lt;/span&gt;.71 12 0 1 LM Potchefstroom 12 | 26 
 27.25 &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.65 12 0 1 LM Rustenburg 13 | 28 
@@ -125,14 +126,6 @@ The output looks like this (named nwtmp.dat):&lt;/LAT&gt;&lt;/p&gt;
 
 &lt;span class=&quot;c&quot;&gt;# West/East/South/North&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;nw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;22.4/28.4/-28.12/-24.5
-&lt;span class=&quot;nv&quot;&gt;nc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;16.25/26/-33/-24.5
-&lt;span class=&quot;nv&quot;&gt;wc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;17/24.5/-35/-30.4
-&lt;span class=&quot;nv&quot;&gt;ec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;22.5/30.5/-34.5/-29.75
-&lt;span class=&quot;nv&quot;&gt;zn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;28.5/33.5/-31.1/-26.75
-&lt;span class=&quot;nv&quot;&gt;lp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;26/32.2/-25.5/-22
-&lt;span class=&quot;nv&quot;&gt;gp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;27/29/-26.9/-25
-&lt;span class=&quot;nv&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;24.1/30/-30.8/-26.7
-&lt;span class=&quot;nv&quot;&gt;mp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;28/32.5/-27.55/-23.8
 
 &lt;span class=&quot;c&quot;&gt;# North West&lt;/span&gt;
 gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM25&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-Ba&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; nw.ps
