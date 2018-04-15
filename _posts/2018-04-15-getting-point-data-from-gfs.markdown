@@ -83,7 +83,7 @@ rm gfs* ncfile* tmin12.nc tmax06.nc aptmp06.nc
 
 This gives us three values; tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
 serves as the background map, so no need to care too much). To get the values is
-the next part. Here we use **Climate Data Operators *outputtab* ** function to
+the next part. Here we use **Climate Data Operators (CDO)** **outputtab** function to
 get a value on, or very close the specified Lat/Lon point. The value also had to be
 easily plotted on a map using GMT's pstext function, this means I had to hack bash's
 echo function. Here is the script.

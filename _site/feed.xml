@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-15T18:24:20+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-15T18:26:36+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Retriving point values from GFS data</title><link href="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html" rel="alternate" type="text/html" title="Retriving point values from GFS data" /><published>2018-04-14T12:43:29+02:00</published><updated>2018-04-14T12:43:29+02:00</updated><id>http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs</id><content type="html" xml:base="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html">&lt;p&gt;I guess I can safely say most of time is dedicated to making our &lt;a href=&quot;http://www.lekewenaradar.co.za&quot;&gt;radar
 website&lt;/a&gt; cooler. I’m pretty lucky. So we
 currently have three things on the website, the radar (obviously), and then two
@@ -74,7 +74,7 @@ updated every morning.&lt;/p&gt;
 
 &lt;p&gt;This gives us three values; tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
 serves as the background map, so no need to care too much). To get the values is
-the next part. Here we use &lt;em&gt;*Climate Data Operators *outputtab&lt;/em&gt; ** function to
+the next part. Here we use &lt;strong&gt;Climate Data Operators (CDO)&lt;/strong&gt; &lt;strong&gt;outputtab&lt;/strong&gt; function to
 get a value on, or very close the specified Lat/Lon point. The value also had to be
 easily plotted on a map using GMT’s pstext function, this means I had to hack bash’s
 echo function. Here is the script.&lt;/p&gt;
