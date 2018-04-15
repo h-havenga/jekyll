@@ -81,10 +81,10 @@ rm gfs* ncfile* tmin12.nc tmax06.nc aptmp06.nc
 
 {% endhighlight %}
 
-This gives us three values tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
-server as the background map, so no need to care too much). To get the values is
-the next part. Here we use Climate Data Operators *outputtab* function to
-get a value on or very close the specified Lat/Lon point. The value also had to be
+This gives us three values; tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
+serves as the background map, so no need to care too much). To get the values is
+the next part. Here we use **Climate Data Operators *outputtab* ** function to
+get a value on, or very close the specified Lat/Lon point. The value also had to be
 easily plotted on a map using GMT's pstext function, this means I had to hack bash's
 echo function. Here is the script.
 
@@ -94,9 +94,9 @@ echo function. Here is the script.
 # Get Temprature values for the following towns in North-West
 
 nw=nwtmp.dat
-potchefstroom=(lon=27.097_lat=-26.714 ) 
-rustenburg=(lon=27.255_lat=-25.654)
-mafikeng=(lon=25.652_lat=-25.859)
+potchefstroom=(lon=27.09_lat=-26.71) 
+rustenburg=(lon=27.25_lat=-25.65)
+mafikeng=(lon=25.65_lat=-25.85)
 lichtenburg=(lon=26.10_lat=-26.17)
 zeerust=(lon=26.10_lat=-25.55)
 suncity=(lon=27.09_lat=-25.34)

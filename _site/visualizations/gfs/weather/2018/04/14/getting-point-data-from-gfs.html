@@ -182,10 +182,10 @@ updated every morning.</p>
 
 </span>rm gfs<span class="k">*</span> ncfile<span class="k">*</span> tmin12.nc tmax06.nc aptmp06.nc</code></pre></figure>
 
-<p>This gives us three values tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
-server as the background map, so no need to care too much). To get the values is
-the next part. Here we use Climate Data Operators <em>outputtab</em> function to
-get a value on or very close the specified Lat/Lon point. The value also had to be
+<p>This gives us three values; tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
+serves as the background map, so no need to care too much). To get the values is
+the next part. Here we use <em>*Climate Data Operators *outputtab</em> ** function to
+get a value on, or very close the specified Lat/Lon point. The value also had to be
 easily plotted on a map using GMT’s pstext function, this means I had to hack bash’s
 echo function. Here is the script.</p>
 
@@ -193,9 +193,9 @@ echo function. Here is the script.</p>
 <span class="c"># Get Temprature values for the following towns in North-West</span>
 
 <span class="nv">nw</span><span class="o">=</span>nwtmp.dat
-<span class="nv">potchefstroom</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.097_lat<span class="o">=</span><span class="nt">-26</span>.714 <span class="o">)</span> 
-<span class="nv">rustenburg</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.255_lat<span class="o">=</span><span class="nt">-25</span>.654<span class="o">)</span>
-<span class="nv">mafikeng</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>25.652_lat<span class="o">=</span><span class="nt">-25</span>.859<span class="o">)</span>
+<span class="nv">potchefstroom</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.09_lat<span class="o">=</span><span class="nt">-26</span>.71<span class="o">)</span> 
+<span class="nv">rustenburg</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.25_lat<span class="o">=</span><span class="nt">-25</span>.65<span class="o">)</span>
+<span class="nv">mafikeng</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>25.65_lat<span class="o">=</span><span class="nt">-25</span>.85<span class="o">)</span>
 <span class="nv">lichtenburg</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>26.10_lat<span class="o">=</span><span class="nt">-26</span>.17<span class="o">)</span>
 <span class="nv">zeerust</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>26.10_lat<span class="o">=</span><span class="nt">-25</span>.55<span class="o">)</span>
 <span class="nv">suncity</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.09_lat<span class="o">=</span><span class="nt">-25</span>.34<span class="o">)</span>
