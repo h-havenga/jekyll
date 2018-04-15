@@ -1,5 +1,162 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-09T22:28:50+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Making an interactive radar map with GDAL</title><link href="http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html" rel="alternate" type="text/html" title="Making an interactive radar map with GDAL" /><published>2018-04-08T12:43:29+02:00</published><updated>2018-04-08T12:43:29+02:00</updated><id>http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal</id><content type="html" xml:base="http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html">&lt;p&gt;This post builds on the previous post. As you’ve seen the image from Titan is
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-04-15T18:19:24+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">Retriving point values from GFS data</title><link href="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html" rel="alternate" type="text/html" title="Retriving point values from GFS data" /><published>2018-04-14T12:43:29+02:00</published><updated>2018-04-14T12:43:29+02:00</updated><id>http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs</id><content type="html" xml:base="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html">&lt;p&gt;I guess I can safely say most of time is dedicated to making our &lt;a href=&quot;http://www.lekewenaradar.co.za&quot;&gt;radar
+website&lt;/a&gt; cooler. I’m pretty lucky. So we
+currently have three things on the website, the radar (obviously), and then two
+&lt;a href=&quot;http://www.lekwenaradar.co.za/forecast.html&quot;&gt;GFS visualizations&lt;/a&gt;. The first is
+a synoptic scale map of the circulation around South-Africa, mainly mimicking
+the &lt;a href=&quot;http://www.weathersa.co.za/observations/synoptic-charts&quot;&gt;South-African Weather Service (SAWS) Synoptic
+Map&lt;/a&gt;, but the SAWS is
+not as lazy as me so my maps are drawn by a computer and not by hand. The
+second product, and I’m fond of this, is the general circulation of the
+Southern-Hemisphere. These maps were inspired by the work of &lt;a href=&quot;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C5&amp;amp;q=harry+von+loon&amp;amp;oq=harry+von+loon&quot;&gt;Harry von
+Loon&lt;/a&gt;
+and &lt;a href=&quot;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C5&amp;amp;q=jj+taljaardt+synoptic&amp;amp;btnG=&quot;&gt;JJ
+Taljaard&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, here comes the actual reason I’m writing this. The third map that’s
+currently in experimental phase is a provincial scale map. I wanted to achieve
+two things; (1) allow people to more clearly what’s happing in their little
+part of the word, this is not really clear on the synoptic map, and (2) give
+people values they can understand more accurately and not rely on interpreting
+a scale, by value I mean a number. The map themselves are made with the same
+script as the other maps, well more or less the same, and you can read on that
+&lt;a href=&quot;https://www.hennohavenga.com/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html&quot;&gt;here&lt;/a&gt;.
+This post details how to get a value of a LAT/LON point from GFS data, and in this case minimum and maximum temperature.&lt;/p&gt;
+
+&lt;p&gt;First we need to grap the GFS data, this pretty simple with wget. I assumed two
+things here, rightly or wrongly so, (1) that 0600 gfs product will be an
+accurate reflection of the day’s minimum temperature and (2) that 1200 will be
+an accurate reflection of the day’s maximum temperature. My notes in the script
+should make it obvious what’s being done at each stage, but the most important
+is to convert the data to netcdf and then make the values human friendly
+(Kelvin -&amp;gt; Celsius). I use the Apparent Temperature at 1200 as the map background.
+We’re not trying to make an animation here instead just a one day static map that’s
+updated every morning.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;today&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;date +&lt;span class=&quot;s2&quot;&gt;&quot;%Y%m%d00&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;gfs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://www.ftp.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs
+&lt;span class=&quot;nv&quot;&gt;forecast&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;06 12&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Loop through the specified forecast times wanted and grab GFS data&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;forecast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;do 
+    &lt;/span&gt;wget &lt;span class=&quot;nv&quot;&gt;$gfs&lt;/span&gt;.&lt;span class=&quot;nv&quot;&gt;$today&lt;/span&gt;/gfs.t00z.pgrb2.0p25.f0&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# For archive purposes we clip the data to South-Africa with cdo&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# and convert GFS files to workable netcdf files&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;forecast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;  
+&lt;span class=&quot;k&quot;&gt;do 
+    &lt;/span&gt;cdo &lt;span class=&quot;nt&quot;&gt;-sellonlatbox&lt;/span&gt;,-180,180,-95,0 gfs.t00z.pgrb2.0p25.f0&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; gfs.&lt;span class=&quot;nv&quot;&gt;$today&lt;/span&gt;.&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; 
+    cdo &lt;span class=&quot;nt&quot;&gt;-f&lt;/span&gt; nc copy gfs.&lt;span class=&quot;nv&quot;&gt;$today&lt;/span&gt;.&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; ncfile&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc 
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# To plot the files in GMT we need to get the variables from the newly &lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# created netcdf files by extracting only the variable we want.&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;forecast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;gmt grdconvert ncfile&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc&lt;span class=&quot;se&quot;&gt;\?&lt;/span&gt;aptmp &lt;span class=&quot;nt&quot;&gt;-Gaptmp&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc
+    gmt grdconvert ncfile&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc&lt;span class=&quot;se&quot;&gt;\?&lt;/span&gt;tmax  &lt;span class=&quot;nt&quot;&gt;-Gtmax&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc
+    gmt grdconvert ncfile&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc&lt;span class=&quot;se&quot;&gt;\?&lt;/span&gt;tmin  &lt;span class=&quot;nt&quot;&gt;-Gtmin&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Do some math&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# We convert Kelvin to Celsius&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;forecast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;gmt grdmath aptmp&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc 273.15 SUB &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; aptmp&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc
+    gmt grdmath tmax&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc 273.15 SUB &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; tmax&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc
+    gmt grdmath tmin&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc 273.15 SUB &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; tmin&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;.nc
+&lt;span class=&quot;k&quot;&gt;done
+
+&lt;/span&gt;rm gfs&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; ncfile&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt; tmin12.nc tmax06.nc aptmp06.nc&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This gives us three values tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
+server as the background map, so no need to care too much). To get the values is
+the next part. Here we use Climate Data Operators &lt;em&gt;outputtab&lt;/em&gt; function to
+get a value on or very close the specified Lat/Lon point. The value also had to be
+easily plotted on a map using GMT’s pstext function, this means I had to hack bash’s
+echo function. Here is the script.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Get Temprature values for the following towns in North-West&lt;/span&gt;
+
+&lt;span class=&quot;nv&quot;&gt;nw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nwtmp.dat
+&lt;span class=&quot;nv&quot;&gt;potchefstroom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;27.097_lat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-26&lt;/span&gt;.714 &lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;nv&quot;&gt;rustenburg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;27.255_lat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.654&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;mafikeng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;25.652_lat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.859&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;lichtenburg&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;26.10_lat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-26&lt;/span&gt;.17&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;zeerust&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;26.10_lat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.55&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;suncity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;27.09_lat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.34&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;## Get temperature using CDO &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;27.09 -26.71 12 0 1 LM Potchefstroom&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$potchefstroom&lt;/span&gt; tmin06.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$potchefstroom&lt;/span&gt; tmax12.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;27.25 -25.65 12 0 1 LM Rustenburg&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$rustenburg&lt;/span&gt; tmin06.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$rustenburg&lt;/span&gt; tmax12.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;25.65 -25.85 12 0 1 LM Mafikeng&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$mafikeng&lt;/span&gt; tmin06.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$mafikeng&lt;/span&gt; tmax12.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;26.10 -26.17 12 0 1 LM Lichtenburg&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$lichtenburg&lt;/span&gt; tmin06.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$lichtenburg&lt;/span&gt; tmax12.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;26.10 -25.55 12 0 1 LM Zeerust&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$zeerust&lt;/span&gt; tmin06.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$zeerust&lt;/span&gt; tmax12.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; 
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;27.09 -25.34 12 0 1 LM Sun-City&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$suncity&lt;/span&gt; tmin06.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;cdo outputtab,value,nohead &lt;span class=&quot;nt&quot;&gt;-remapnn&lt;/span&gt;,&lt;span class=&quot;nv&quot;&gt;$suncity&lt;/span&gt; tmax12.nc&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; 
+
+&lt;span class=&quot;c&quot;&gt;#sed -i 's/\.[0-9]*//g' $nw &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So GMT reads a point value to plot via pstext as &lt;LAT LON=&quot;&quot; FONTSIZE=&quot;&quot; ANGLE=&quot;&quot; FONTTYPE=&quot;&quot; NAME=&quot;&quot;&gt; so in this case I needed *27.09 -26.71 12 0 1 LM
+Potchefstroom* in the script, as you see before every CDO command I echo this
+part with the details as needed. The sed command was to remove decimal places,
+but at the momement it removes the coordinate decimal places to, which I don't want.
+The output looks like this (named nwtmp.dat):&lt;/LAT&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;27.09 &lt;span class=&quot;nt&quot;&gt;-26&lt;/span&gt;.71 12 0 1 LM Potchefstroom 12 | 26 
+27.25 &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.65 12 0 1 LM Rustenburg 13 | 28 
+25.65 &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.85 12 0 1 LM Mafikeng 13 | 25 
+26.10 &lt;span class=&quot;nt&quot;&gt;-26&lt;/span&gt;.17 12 0 1 LM Lichtenburg 12 | 25 
+26.10 &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.55 12 0 1 LM Zeerust 13 | 27 
+27.09 &lt;span class=&quot;nt&quot;&gt;-25&lt;/span&gt;.34 12 0 1 LM Sun-City 14 | 27 &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now the actual plot comes in, using GMT I do:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;#/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# West/East/South/North&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;nw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;22.4/28.4/-28.12/-24.5
+&lt;span class=&quot;nv&quot;&gt;nc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;16.25/26/-33/-24.5
+&lt;span class=&quot;nv&quot;&gt;wc&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;17/24.5/-35/-30.4
+&lt;span class=&quot;nv&quot;&gt;ec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;22.5/30.5/-34.5/-29.75
+&lt;span class=&quot;nv&quot;&gt;zn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;28.5/33.5/-31.1/-26.75
+&lt;span class=&quot;nv&quot;&gt;lp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;26/32.2/-25.5/-22
+&lt;span class=&quot;nv&quot;&gt;gp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;27/29/-26.9/-25
+&lt;span class=&quot;nv&quot;&gt;fs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;24.1/30/-30.8/-26.7
+&lt;span class=&quot;nv&quot;&gt;mp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;28/32.5/-27.55/-23.8
+
+&lt;span class=&quot;c&quot;&gt;# North West&lt;/span&gt;
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$nw&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM25&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-Ba&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; nw.ps
+gmt makecpt    &lt;span class=&quot;nt&quot;&gt;-Cjet&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T-10&lt;/span&gt;/40/0.5 &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; aptmp.cpt
+gmt grdimage   &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; aptmp12.nc &lt;span class=&quot;nt&quot;&gt;-Captmp&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; nw.ps
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Sskyblue&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; nw.ps
+gmt psxy        ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Wfaint&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; nw.ps
+gmt psxy        nwtmp.dat &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-St0&lt;/span&gt;.65 &lt;span class=&quot;nt&quot;&gt;-Gblack&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; nw.ps
+gmt pstext      nwtmp.dat &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X0&lt;/span&gt;.10 &lt;span class=&quot;nt&quot;&gt;-Gwhite&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; nw.ps&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Here we have our map then&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/maps/nw_temp.png&quot; alt=&quot;nw_temp&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The pixels are a little ugly, the way forward here is to play with grdcontour
+and also the cpt file. The eventual plan is to make map like this for every
+province, but it takes time to enter the coordinates, as soon as that’s done
+it’s easy. Another issue is the .dat file, I need to figure out how to remove
+the temperature decimal places, but not the Lat/Lon. I think this is possible
+with AWK. I also plan to add MSLP and CAPE values to the output which could be
+interesting. It should not be to hard to add anything actually, percentage
+cloud cover could also be cool.&lt;/p&gt;
+
+&lt;p&gt;Ps. If you use the script give credit to GMT and CDO.&lt;/p&gt;</content><author><name></name></author><summary type="html">I guess I can safely say most of time is dedicated to making our radar website cooler. I’m pretty lucky. So we currently have three things on the website, the radar (obviously), and then two GFS visualizations. The first is a synoptic scale map of the circulation around South-Africa, mainly mimicking the South-African Weather Service (SAWS) Synoptic Map, but the SAWS is not as lazy as me so my maps are drawn by a computer and not by hand. The second product, and I’m fond of this, is the general circulation of the Southern-Hemisphere. These maps were inspired by the work of Harry von Loon and JJ Taljaard.</summary></entry><entry><title type="html">Making an interactive radar map with GDAL</title><link href="http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html" rel="alternate" type="text/html" title="Making an interactive radar map with GDAL" /><published>2018-04-08T12:43:29+02:00</published><updated>2018-04-08T12:43:29+02:00</updated><id>http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal</id><content type="html" xml:base="http://localhost:4000/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html">&lt;p&gt;This post builds on the previous post. As you’ve seen the image from Titan is
 a static map of the radar coverage. To improve the map we wanted something
 interactive where you can zoom and all that fancy stuff. I made a map with my
 favorite tool, yes you guessed right, GMT, however it was still a static map so
@@ -945,34 +1102,4 @@ gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-20&lt;/span&gt;/55/-38/40 &lt;sp
 gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-20&lt;/span&gt;/50/35/72 &lt;span class=&quot;nt&quot;&gt;-JL15&lt;/span&gt;/35/35/55/13c &lt;span class=&quot;nt&quot;&gt;-X14&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y1&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; travelmap_world.ps
 
 &lt;span class=&quot;c&quot;&gt;# North America&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-130&lt;/span&gt;/-70/24/52 &lt;span class=&quot;nt&quot;&gt;-JL-100&lt;/span&gt;/35/33/45/24c &lt;span class=&quot;nt&quot;&gt;-X-12&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y-17&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$usa&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; travelmap_world.ps&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">This is a very hacked script I used to create my travel map</summary></entry><entry><title type="html">Setting a random mac address for a specific network</title><link href="http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress.html" rel="alternate" type="text/html" title="Setting a random mac address for a specific network" /><published>2017-11-20T14:43:28+02:00</published><updated>2017-11-20T14:43:28+02:00</updated><id>http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress</id><content type="html" xml:base="http://localhost:4000/linux/network/bash/2017/11/20/script-to-change-macadress.html">&lt;p&gt;Every network card has a mac address, a serial number of sorts,
-assigned to it by which a network can identify you. It is a widely
-used way to restrict or monitor your access on a network and it could
-be useful in such cases to have a randomly assigned mac address to
-improve your privacy and anonymity.  The script is just a bunch a of
-commands, you can run them separately if you want to, this just makes
-it easier to reuse instead of remembering every step. The mac address
-should change with every reconnect.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;This script changes your WiFi mac address. Use this at your
-own risk and obey all local laws. By pressing enter you agree that you
-understand the risks you may face! Press ctrl-c to exit otherwise &quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Listing all connections. Connected devices are highlighted&quot;&lt;/span&gt;
-nmcli con show 
-
-&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter the name of the network you wish to modify exactly as
-seen above and press enter &quot;&lt;/span&gt; name 
-nmcli con modify &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; wifi.cloned-mac-address random
-
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Check that the cloned mac address is set to random&quot;&lt;/span&gt; 
-nmcli con show &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$name&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;cloned-mac-address&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Your mac address has been changed and will randomly reassign
-each time you restart your connection. Press enter to exit &quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;To use this script save it as something, like
-machange.sh and then do;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;bash machange.sh&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Every network card has a mac address, a serial number of sorts, assigned to it by which a network can identify you. It is a widely used way to restrict or monitor your access on a network and it could be useful in such cases to have a randomly assigned mac address to improve your privacy and anonymity. The script is just a bunch a of commands, you can run them separately if you want to, this just makes it easier to reuse instead of remembering every step. The mac address should change with every reconnect.</summary></entry></feed>
+gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-130&lt;/span&gt;/-70/24/52 &lt;span class=&quot;nt&quot;&gt;-JL-100&lt;/span&gt;/35/33/45/24c &lt;span class=&quot;nt&quot;&gt;-X-12&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y-17&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$usa&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; travelmap_world.ps&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">This is a very hacked script I used to create my travel map</summary></entry></feed>
