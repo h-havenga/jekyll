@@ -6,7 +6,7 @@ categories: visualizations gfs weather
 ---
 
 I guess I can safely say most of time is dedicated to making our [radar
-website](http://www.lekewenaradar.co.za) cooler. I'm pretty lucky. So we
+website](http://www.lekwenaradar.co.za) cooler. I'm pretty lucky. So we
 currently have three things on the website, the radar (obviously), and then two
 [GFS visualizations](http://www.lekwenaradar.co.za/forecast.html). The first is
 a synoptic scale map of the circulation around South-Africa, mainly mimicking
