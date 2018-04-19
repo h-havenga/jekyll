@@ -11,11 +11,12 @@ _Jorge Cham and Daniel Whitesonk_
 
 #### Read * : 
 How to Stop Living and Start Worrying: Conversations with Carl Cederstrm,
-_Simon Critchley and Carl Cederstrom_ | The Purity Myth: How America's Obsession
-with Virginity Is Hurting Young Women, _Jessica Valenti_ | Freakonomics,
-_Steven D. Levitt and Stephen J. Dubner_ | The Writer's Home Companion: An
-Anthology of the World's Best Writing Advice, From Keats to Kunitz, _Joan
-Bolker_ | The Fall of the Ottomans: The Great War in the Middle East, _Eugene
+_Simon Critchley and Carl Cederstrom_ | The Purity Myth: How America's
+Obsession with Virginity Is Hurting Young Women, _Jessica Valenti_
+| Freakonomics, _Steven D. Levitt and Stephen J. Dubner_ | The Writer's Home
+Companion: An Anthology of the World's Best Writing Advice, From Keats to
+Kunitz, _Joan Bolker_ | The Communist Manifesto, _Karl Marx and Friedrich
+Engels_ | The Fall of the Ottomans: The Great War in the Middle East, _Eugene
 Rogan_ | The Underground Railroad, _Colson Whitehead_ | Thinking, Fast and
 Slow, _Daniel Kahneman_ | When to Rob a Bank, _Steven D. Levitt and Stephen J.
 Dubner_ | War of the Encyclopaedists, _Christopher Robinson and Gavin Kovite_
