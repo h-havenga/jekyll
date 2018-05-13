@@ -22,15 +22,15 @@ setup below best suited me. I'll start off with the packages in the preamble.
 \usepackage{graphicx}
 \usepackage[absolute,overlay]{textpos}
 \usepackage[colorgrid,texcoord]{eso-pic}
-\setlength{\TPHorizModule}{1cm}
-\setlength{\TPVertModule}{1cm}
+\setlength{\TPHorizModule}{10mm}
+\setlength{\TPVertModule}{10mm}
 {% endhighlight %}
 
-[*documentclass{a0poster}*](www.ctan.org/pkg/a0poster) conveniently sorts out
+[*documentclass{a0poster}*](http://www.ctan.org/pkg/a0poster) conveniently sorts out
 the formatting problems related to the poster size, things like fonts and
-formulas. The [*textpos*](www.ctan.org/pkg/textpos) allows you to specify the
+formulas. The [*textpos*](http://www.ctan.org/pkg/textpos) allows you to specify the
 exact position of text boxes, or figures, in the posters as an x,y point and we
-can see this x,y grid by using the [*eso-pic*](www.ctan.org/pkg/eso-pic) package.
+can see this x,y grid by using the [*eso-pic*](http://www.ctan.org/pkg/eso-pic) package.
 The textpos documentation tells us that both _TPHoriz_ and _TPVert_ refer to
 the x,y size parameters of the of the text block environment. You can also
 change the layout to portrait (default is landscape) by doing
@@ -114,7 +114,6 @@ And then you a very nice layout a1, landscape poster.
 To remove the grids, uncomment \usepackage[colorgrid,texcoord]{eso-pic} and to
 remove the boxes around the text (altough it might be good to keep them) remove
 *showboxes* in the *eso-pic* package.
-
 
 ![basic_final]({{ "/assets/images/random/poster_no_grid.png" | absolute_url }})
 
