@@ -115,9 +115,10 @@ and decided to do this for fun.</p>
 
 <p><img src="/assets/images/maps/hail_poster.png" alt="hail_poster" /></p>
 
-<p>The script is quite long and I used it for some work in my thesis
-before I really figured out loops, so it could be simplified a lot, 
-I’m to lazy to do that now. So here you go:</p>
+<p>The script is quite long and I used it for some work in my thesis before
+I really figured out loops, so it could be simplified a lot, I’m to lazy too do
+that now. The only other thing I changed is I removed the complete ECMWF python
+part, it was just a repeating to get data for every case. So here you go:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
@@ -133,9 +134,10 @@ python <span class="o">&lt;&lt;</span> <span class="no">EOF</span><span class="s
 from ecmwfapi import ECMWFDataServer
 server = ECMWFDataServer()
 server.retrieve({
+server.retrieve({
     "class": "ei",
     "dataset": "interim",
-    "date": "2013-11-28/to/2013-11-28",
+    "date": "2011-10-19/to/2011-10-19",
     "expver": "1",
     "grid": "0.75/0.75",
     "levtype": "sfc",
@@ -151,7 +153,7 @@ server.retrieve({
 server.retrieve({
     "class": "ei",
     "dataset": "interim",
-    "date": "2013-11-28/to/2013-11-28",
+    "date": "2011-10-19/to/2011-10-19",
     "expver": "1",
     "grid": "0.75/0.75",
     "levtype": "sfc",
@@ -167,7 +169,7 @@ server.retrieve({
 server.retrieve({
     "class": "ei",
     "dataset": "interim",
-    "date": "2013-11-28/to/2013-11-28",
+    "date": "2011-10-19/to/2011-10-19",
     "expver": "1",
     "grid": "0.75/0.75",
     "levelist": "500",
@@ -179,203 +181,6 @@ server.retrieve({
     "type": "an",
     "format":"netcdf",
     "target": "zg500.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2013-11-11/to/2013-11-11",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl2.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2013-11-11/to/2013-11-11",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape2.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2013-11-11/to/2013-11-11",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5002.nc",
-})
-
-server = ECMWFDataServer()
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-09/to/2012-11-09",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl3.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-09/to/2012-11-09",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape3.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-09/to/2012-11-09",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5003.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-08/to/2012-11-08",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl4.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-08/to/2012-11-08",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape4.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-08/to/2012-11-08",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5004.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2011-10-19/to/2011-10-19",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl5.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2011-10-19/to/2011-10-19",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape5.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2011-10-19/to/2011-10-19",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5005.nc",
 })
 </span><span class="no">
 EOF
@@ -483,16 +288,10 @@ gmt pscoast <span class="nt">-Rzg500_mean</span>.nc <span class="nt">-JX</span> 
 <span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"World map created. Lets create a map of South-Africa. Press enter to continue "</span>
 
 <span class="c">####################################################################</span>
-<span class="c">#Now we need to create a map from the netcdf file for SA           #</span>
+<span class="c">#    Now we need to create a map from the netcdf file for SA       #</span>
 <span class="c">####################################################################</span>
 <span class="nv">out</span><span class="o">=</span><span class="s1">'hail_composite_globe.ps'</span>
 <span class="nv">topo</span><span class="o">=</span>./ETOPO1_Ice_g_gmt4.grd
-
-<span class="c">#Coordinates (actually lower left and upper right not E S W N) </span>
-<span class="nv">east</span><span class="o">=</span><span class="nt">-20</span>
-<span class="nv">south</span><span class="o">=</span><span class="nt">-46</span>
-<span class="nv">west</span><span class="o">=</span>60
-<span class="nv">north</span><span class="o">=</span><span class="nt">-12r</span>
 
 <span class="c">#Projection (Lambert Azimuthal Equal-Area)</span>
 <span class="nv">width</span><span class="o">=</span>25.5

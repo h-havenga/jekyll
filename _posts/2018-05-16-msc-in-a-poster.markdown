@@ -11,9 +11,10 @@ and decided to do this for fun.
 
 ![hail_poster](/assets/images/maps/hail_poster.png)
 
-The script is quite long and I used it for some work in my thesis
-before I really figured out loops, so it could be simplified a lot, 
-I'm to lazy to do that now. So here you go:
+The script is quite long and I used it for some work in my thesis before
+I really figured out loops, so it could be simplified a lot, I'm to lazy too do
+that now. The only other thing I changed is I removed the complete ECMWF python
+part, it was just a repeating to get data for every case. So here you go:
 
 {% highlight bash %}
 #!/bin/bash
@@ -30,9 +31,10 @@ python << EOF
 from ecmwfapi import ECMWFDataServer
 server = ECMWFDataServer()
 server.retrieve({
+server.retrieve({
     "class": "ei",
     "dataset": "interim",
-    "date": "2013-11-28/to/2013-11-28",
+    "date": "2011-10-19/to/2011-10-19",
     "expver": "1",
     "grid": "0.75/0.75",
     "levtype": "sfc",
@@ -48,7 +50,7 @@ server.retrieve({
 server.retrieve({
     "class": "ei",
     "dataset": "interim",
-    "date": "2013-11-28/to/2013-11-28",
+    "date": "2011-10-19/to/2011-10-19",
     "expver": "1",
     "grid": "0.75/0.75",
     "levtype": "sfc",
@@ -64,7 +66,7 @@ server.retrieve({
 server.retrieve({
     "class": "ei",
     "dataset": "interim",
-    "date": "2013-11-28/to/2013-11-28",
+    "date": "2011-10-19/to/2011-10-19",
     "expver": "1",
     "grid": "0.75/0.75",
     "levelist": "500",
@@ -76,203 +78,6 @@ server.retrieve({
     "type": "an",
     "format":"netcdf",
     "target": "zg500.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2013-11-11/to/2013-11-11",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl2.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2013-11-11/to/2013-11-11",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape2.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2013-11-11/to/2013-11-11",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5002.nc",
-})
-
-server = ECMWFDataServer()
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-09/to/2012-11-09",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl3.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-09/to/2012-11-09",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape3.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-09/to/2012-11-09",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5003.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-08/to/2012-11-08",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl4.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-08/to/2012-11-08",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape4.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2012-11-08/to/2012-11-08",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5004.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2011-10-19/to/2011-10-19",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "151.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "msl5.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2011-10-19/to/2011-10-19",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levtype": "sfc",
-    "param": "59.128",
-    "step": "12",
-    "stream": "oper",
-    "time": "00:00:00",
-    "type": "fc",
-    "format":"netcdf",
-    "target": "cape5.nc",
-})
-
-server.retrieve({
-    "class": "ei",
-    "dataset": "interim",
-    "date": "2011-10-19/to/2011-10-19",
-    "expver": "1",
-    "grid": "0.75/0.75",
-    "levelist": "500",
-    "levtype": "pl",
-    "param": "129.128",
-    "step": "0",
-    "stream": "oper",
-    "time": "12:00:00",
-    "type": "an",
-    "format":"netcdf",
-    "target": "zg5005.nc",
 })
 
 EOF
@@ -380,16 +185,10 @@ gmt pscoast -Rzg500_mean.nc -JX -W0.5 -N3 -O -Dc >> zg500.ps
 read -p "World map created. Lets create a map of South-Africa. Press enter to continue "
 
 ####################################################################
-#Now we need to create a map from the netcdf file for SA           #
+#    Now we need to create a map from the netcdf file for SA       #
 ####################################################################
 out='hail_composite_globe.ps'
 topo=./ETOPO1_Ice_g_gmt4.grd
-
-#Coordinates (actually lower left and upper right not E S W N) 
-east=-20
-south=-46
-west=60
-north=-12r
 
 #Projection (Lambert Azimuthal Equal-Area)
 width=25.5

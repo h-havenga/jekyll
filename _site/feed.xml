@@ -1,13 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-14T19:10:24+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-14T19:16:09+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">My msc in a nutshell</title><link href="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html" rel="alternate" type="text/html" title="My msc in a nutshell" /><published>2018-05-14T12:43:29+02:00</published><updated>2018-05-14T12:43:29+02:00</updated><id>http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster</id><content type="html" xml:base="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html">&lt;p&gt;I recently finished my masters dissertation on hailstorms over South-Africa and
 decided to make a poster summary of my work. I mostly wanted to make a cool map
 and decided to do this for fun.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/maps/hail_poster.png&quot; alt=&quot;hail_poster&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;The script is quite long and I used it for some work in my thesis
-before I really figured out loops, so it could be simplified a lot, 
-I’m to lazy to do that now. So here you go:&lt;/p&gt;
+&lt;p&gt;The script is quite long and I used it for some work in my thesis before
+I really figured out loops, so it could be simplified a lot, I’m to lazy too do
+that now. The only other thing I changed is I removed the complete ECMWF python
+part, it was just a repeating to get data for every case. So here you go:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
 
@@ -23,9 +24,10 @@ python &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span cl
 from ecmwfapi import ECMWFDataServer
 server = ECMWFDataServer()
 server.retrieve({
+server.retrieve({
     &quot;class&quot;: &quot;ei&quot;,
     &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2013-11-28/to/2013-11-28&quot;,
+    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
     &quot;expver&quot;: &quot;1&quot;,
     &quot;grid&quot;: &quot;0.75/0.75&quot;,
     &quot;levtype&quot;: &quot;sfc&quot;,
@@ -41,7 +43,7 @@ server.retrieve({
 server.retrieve({
     &quot;class&quot;: &quot;ei&quot;,
     &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2013-11-28/to/2013-11-28&quot;,
+    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
     &quot;expver&quot;: &quot;1&quot;,
     &quot;grid&quot;: &quot;0.75/0.75&quot;,
     &quot;levtype&quot;: &quot;sfc&quot;,
@@ -57,7 +59,7 @@ server.retrieve({
 server.retrieve({
     &quot;class&quot;: &quot;ei&quot;,
     &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2013-11-28/to/2013-11-28&quot;,
+    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
     &quot;expver&quot;: &quot;1&quot;,
     &quot;grid&quot;: &quot;0.75/0.75&quot;,
     &quot;levelist&quot;: &quot;500&quot;,
@@ -69,203 +71,6 @@ server.retrieve({
     &quot;type&quot;: &quot;an&quot;,
     &quot;format&quot;:&quot;netcdf&quot;,
     &quot;target&quot;: &quot;zg500.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2013-11-11/to/2013-11-11&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;151.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;msl2.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2013-11-11/to/2013-11-11&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;59.128&quot;,
-    &quot;step&quot;: &quot;12&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;00:00:00&quot;,
-    &quot;type&quot;: &quot;fc&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;cape2.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2013-11-11/to/2013-11-11&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levelist&quot;: &quot;500&quot;,
-    &quot;levtype&quot;: &quot;pl&quot;,
-    &quot;param&quot;: &quot;129.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;zg5002.nc&quot;,
-})
-
-server = ECMWFDataServer()
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2012-11-09/to/2012-11-09&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;151.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;msl3.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2012-11-09/to/2012-11-09&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;59.128&quot;,
-    &quot;step&quot;: &quot;12&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;00:00:00&quot;,
-    &quot;type&quot;: &quot;fc&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;cape3.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2012-11-09/to/2012-11-09&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levelist&quot;: &quot;500&quot;,
-    &quot;levtype&quot;: &quot;pl&quot;,
-    &quot;param&quot;: &quot;129.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;zg5003.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2012-11-08/to/2012-11-08&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;151.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;msl4.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2012-11-08/to/2012-11-08&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;59.128&quot;,
-    &quot;step&quot;: &quot;12&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;00:00:00&quot;,
-    &quot;type&quot;: &quot;fc&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;cape4.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2012-11-08/to/2012-11-08&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levelist&quot;: &quot;500&quot;,
-    &quot;levtype&quot;: &quot;pl&quot;,
-    &quot;param&quot;: &quot;129.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;zg5004.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;151.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;msl5.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levtype&quot;: &quot;sfc&quot;,
-    &quot;param&quot;: &quot;59.128&quot;,
-    &quot;step&quot;: &quot;12&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;00:00:00&quot;,
-    &quot;type&quot;: &quot;fc&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;cape5.nc&quot;,
-})
-
-server.retrieve({
-    &quot;class&quot;: &quot;ei&quot;,
-    &quot;dataset&quot;: &quot;interim&quot;,
-    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
-    &quot;expver&quot;: &quot;1&quot;,
-    &quot;grid&quot;: &quot;0.75/0.75&quot;,
-    &quot;levelist&quot;: &quot;500&quot;,
-    &quot;levtype&quot;: &quot;pl&quot;,
-    &quot;param&quot;: &quot;129.128&quot;,
-    &quot;step&quot;: &quot;0&quot;,
-    &quot;stream&quot;: &quot;oper&quot;,
-    &quot;time&quot;: &quot;12:00:00&quot;,
-    &quot;type&quot;: &quot;an&quot;,
-    &quot;format&quot;:&quot;netcdf&quot;,
-    &quot;target&quot;: &quot;zg5005.nc&quot;,
 })
 &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;
 EOF
@@ -373,16 +178,10 @@ gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rzg500_mean&lt;/span&gt;.nc &lt;sp
 &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;World map created. Lets create a map of South-Africa. Press enter to continue &quot;&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;####################################################################&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#Now we need to create a map from the netcdf file for SA           #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#    Now we need to create a map from the netcdf file for SA       #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;####################################################################&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hail_composite_globe.ps'&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;topo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ETOPO1_Ice_g_gmt4.grd
-
-&lt;span class=&quot;c&quot;&gt;#Coordinates (actually lower left and upper right not E S W N) &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;east&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-20&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;south&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-46&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;west&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;60
-&lt;span class=&quot;nv&quot;&gt;north&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-12r&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;#Projection (Lambert Azimuthal Equal-Area)&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;25.5
