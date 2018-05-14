@@ -4,7 +4,7 @@ title: Writings
 permalink: /writings/
 ---
 
-<center> Assume TL;DR for some posts </center>
+<center> Assume TL;DR for all posts </center>
 
 <ul>
 {% for post in site.posts %}
