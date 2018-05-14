@@ -1,5 +1,469 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-14T14:36:17+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Retriving point values from GFS data</title><link href="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html" rel="alternate" type="text/html" title="Retriving point values from GFS data" /><published>2018-04-14T12:43:29+02:00</published><updated>2018-04-14T12:43:29+02:00</updated><id>http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs</id><content type="html" xml:base="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html">&lt;p&gt;I guess I can safely say most of time is dedicated to making our &lt;a href=&quot;http://www.lekwenaradar.co.za&quot;&gt;radar
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-14T19:03:36+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">My msc in a nutshell</title><link href="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html" rel="alternate" type="text/html" title="My msc in a nutshell" /><published>2018-05-14T12:43:29+02:00</published><updated>2018-05-14T12:43:29+02:00</updated><id>http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster</id><content type="html" xml:base="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html">&lt;p&gt;I recently finished my masters dissertation on hailstorms over South-Africa and
+decided to make a poster summary of my work. I mostly wanted to make a cool map
+and decided to do this for fun.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/maps/hail_poster.png&quot; alt=&quot;hail_poster&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The script is quite long and I used it for some work in my thesis
+before I really figured out loops, so it could be simplified a lot, 
+I’m to lazy to do that now. So here you go:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#####################################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# This is to make a synotpic map                   #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# http://gmt.soest.hawaii.edu/boards/1/topics/5997 #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#####################################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#####################################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;## Step 1: Download the ERA-DATA with this script   #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#####################################################&lt;/span&gt;
+
+python &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EOF&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+from ecmwfapi import ECMWFDataServer
+server = ECMWFDataServer()
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2013-11-28/to/2013-11-28&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;151.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;msl.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2013-11-28/to/2013-11-28&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;59.128&quot;,
+    &quot;step&quot;: &quot;12&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;00:00:00&quot;,
+    &quot;type&quot;: &quot;fc&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;cape.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2013-11-28/to/2013-11-28&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levelist&quot;: &quot;500&quot;,
+    &quot;levtype&quot;: &quot;pl&quot;,
+    &quot;param&quot;: &quot;129.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;zg500.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2013-11-11/to/2013-11-11&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;151.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;msl2.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2013-11-11/to/2013-11-11&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;59.128&quot;,
+    &quot;step&quot;: &quot;12&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;00:00:00&quot;,
+    &quot;type&quot;: &quot;fc&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;cape2.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2013-11-11/to/2013-11-11&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levelist&quot;: &quot;500&quot;,
+    &quot;levtype&quot;: &quot;pl&quot;,
+    &quot;param&quot;: &quot;129.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;zg5002.nc&quot;,
+})
+
+server = ECMWFDataServer()
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2012-11-09/to/2012-11-09&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;151.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;msl3.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2012-11-09/to/2012-11-09&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;59.128&quot;,
+    &quot;step&quot;: &quot;12&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;00:00:00&quot;,
+    &quot;type&quot;: &quot;fc&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;cape3.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2012-11-09/to/2012-11-09&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levelist&quot;: &quot;500&quot;,
+    &quot;levtype&quot;: &quot;pl&quot;,
+    &quot;param&quot;: &quot;129.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;zg5003.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2012-11-08/to/2012-11-08&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;151.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;msl4.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2012-11-08/to/2012-11-08&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;59.128&quot;,
+    &quot;step&quot;: &quot;12&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;00:00:00&quot;,
+    &quot;type&quot;: &quot;fc&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;cape4.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2012-11-08/to/2012-11-08&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levelist&quot;: &quot;500&quot;,
+    &quot;levtype&quot;: &quot;pl&quot;,
+    &quot;param&quot;: &quot;129.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;zg5004.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;151.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;msl5.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levtype&quot;: &quot;sfc&quot;,
+    &quot;param&quot;: &quot;59.128&quot;,
+    &quot;step&quot;: &quot;12&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;00:00:00&quot;,
+    &quot;type&quot;: &quot;fc&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;cape5.nc&quot;,
+})
+
+server.retrieve({
+    &quot;class&quot;: &quot;ei&quot;,
+    &quot;dataset&quot;: &quot;interim&quot;,
+    &quot;date&quot;: &quot;2011-10-19/to/2011-10-19&quot;,
+    &quot;expver&quot;: &quot;1&quot;,
+    &quot;grid&quot;: &quot;0.75/0.75&quot;,
+    &quot;levelist&quot;: &quot;500&quot;,
+    &quot;levtype&quot;: &quot;pl&quot;,
+    &quot;param&quot;: &quot;129.128&quot;,
+    &quot;step&quot;: &quot;0&quot;,
+    &quot;stream&quot;: &quot;oper&quot;,
+    &quot;time&quot;: &quot;12:00:00&quot;,
+    &quot;type&quot;: &quot;an&quot;,
+    &quot;format&quot;:&quot;netcdf&quot;,
+    &quot;target&quot;: &quot;zg5005.nc&quot;,
+})
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;
+EOF
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;ERA-Data downloaded. Press enter to continue and convert data for use in GMT &quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#############################################################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#  The file is not compatible with GMT, to get it to work do where ?msl     #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#  selects the variable we want and writes it to mslp.nc. The '' is         #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#  important otherwise bash looks for a wildcard.                           #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#  The date units are also wrong to correct them we need to use gmt grdmath #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#############################################################################&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#                MSLP                   #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp_org&lt;/span&gt;.nc
+gmt grdedit mslp_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath mslp_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl2.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp2_org&lt;/span&gt;.nc
+gmt grdedit mslp2_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath mslp2_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp2_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl3.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp3_org&lt;/span&gt;.nc
+gmt grdedit mslp3_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath mslp3_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp3_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl4.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp4_org&lt;/span&gt;.nc
+gmt grdedit mslp4_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath mslp4_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp4_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl5.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp5_org&lt;/span&gt;.nc
+gmt grdedit mslp5_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath mslp5_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp5_nrm.nc
+
+gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4_nrm.nc ADD 5 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp_mean.nc
+
+&lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#                CAPE                   #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape_org&lt;/span&gt;.nc
+gmt grdedit cape_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape2.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape2_org&lt;/span&gt;.nc
+gmt grdedit cape2_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape3.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape3_org&lt;/span&gt;.nc
+gmt grdedit cape3_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape4.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape4_org&lt;/span&gt;.nc
+gmt grdedit cape4_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape5.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape5_org&lt;/span&gt;.nc
+gmt grdedit cape5_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+
+gmt grdmath cape_org.nc cape2_org.nc ADD cape3_org.nc ADD cape4_org.nc ADD cape5_org.nc ADD 5 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cape_mean.nc
+
+&lt;span class=&quot;c&quot;&gt;# Make NaN values after grdmath otherwise NaN will&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# result in wrong values&lt;/span&gt;
+gmt grdclip cape_mean.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-Sa2500&lt;/span&gt;/2500 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape_mean&lt;/span&gt;.nc 
+gmt grdclip cape5_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape5_org&lt;/span&gt;.nc 
+gmt grdclip cape4_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape4_org&lt;/span&gt;.nc 
+gmt grdclip cape3_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape3_org&lt;/span&gt;.nc 
+gmt grdclip cape2_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape2_org&lt;/span&gt;.nc 
+gmt grdclip cape_org.nc  &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape_org&lt;/span&gt;.nc 
+
+&lt;span class=&quot;c&quot;&gt;##########################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#           Geopotentail 500             #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;##########################################&lt;/span&gt;
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg500.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg500_org&lt;/span&gt;.nc
+gmt grdedit zg500_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath zg500_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg500_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5002.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5002_org&lt;/span&gt;.nc
+gmt grdedit zg5002_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath zg5002_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5002_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5003.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5003_org&lt;/span&gt;.nc
+gmt grdedit zg5003_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath zg5003_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5003_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5004.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5004_org&lt;/span&gt;.nc
+gmt grdedit zg5004_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath zg5004_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5004_nrm.nc
+
+gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5005.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5005_org&lt;/span&gt;.nc
+gmt grdedit zg5005_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
+gmt grdmath zg5005_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5005_nrm.nc
+
+gmt grdmath zg500_nrm.nc zg5002_nrm.nc ADD zg5003_nrm.nc ADD zg5004_nrm.nc ADD zg5005_nrm.nc ADD 5 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg500_mean.nc
+
+&lt;span class=&quot;c&quot;&gt;###########################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#               Inspect Mean              #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;###########################################&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Lets inspect the data with ncdump. Press enter to continue &quot;&lt;/span&gt;
+ncdump &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; mslp_mean.nc
+ncdump &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; zg500_mean.nc
+ncdump &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; cape_mean.nc
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Lets inspect the data with grdinfo. Press enter to continue &quot;&lt;/span&gt;
+gmt grdinfo mslp_mean.nc
+gmt grdinfo zg500_mean.nc
+gmt grdinfo cape_mean.nc
+
+&lt;span class=&quot;c&quot;&gt;####################################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Here we create a very basic map to view our data #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;####################################################&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Lets create a world map. Press enter to continue &quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'MSLP map '&lt;/span&gt;
+gmt grdimage mslp_mean.nc &lt;span class=&quot;nt&quot;&gt;-JX25&lt;/span&gt;/0d &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; mslp.ps
+gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rmslp_mean&lt;/span&gt;.nc &lt;span class=&quot;nt&quot;&gt;-JX&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-N3&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; mslp.ps
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'CAPE map '&lt;/span&gt;
+gmt grdimage cape_mean.nc &lt;span class=&quot;nt&quot;&gt;-JX25&lt;/span&gt;/0d &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; cape.ps
+gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rcape_mean&lt;/span&gt;.nc &lt;span class=&quot;nt&quot;&gt;-JX&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-N3&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; cape.ps
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Geopotential map '&lt;/span&gt;
+gmt grdimage zg500_mean.nc &lt;span class=&quot;nt&quot;&gt;-JX25&lt;/span&gt;/0d &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; zg500.ps
+gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rzg500_mean&lt;/span&gt;.nc &lt;span class=&quot;nt&quot;&gt;-JX&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-N3&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; zg500.ps
+
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;World map created. Lets create a map of South-Africa. Press enter to continue &quot;&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;####################################################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#Now we need to create a contoured map from the netcdf file for SA #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;####################################################################&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hail_composite_globe.ps'&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;topo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ETOPO1_Ice_g_gmt4.grd
+
+&lt;span class=&quot;c&quot;&gt;#Coordinates (actually lower left and upper right not E S W N) &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;east&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-20&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;south&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-46&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;west&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;60
+&lt;span class=&quot;nv&quot;&gt;north&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-12r&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;#Projection (Lambert Azimuthal Equal-Area)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;25.5
+
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-Rg&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JG25&lt;/span&gt;/-20/40 &lt;span class=&quot;nt&quot;&gt;-X3&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y3&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bag&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--PS_MEDIA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;50.94cx80.41c &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt makecpt    &lt;span class=&quot;nt&quot;&gt;-Crainbow&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T200&lt;/span&gt;/2550/100 &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; cape.cpt
+gmt psscale    &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-D6&lt;/span&gt;.5c/0.5c+w12c/0.5c+jTC+h &lt;span class=&quot;nt&quot;&gt;-Bxaf&lt;/span&gt;+l&lt;span class=&quot;s2&quot;&gt;&quot;CAPE J/Kg&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt makecpt    &lt;span class=&quot;nt&quot;&gt;-Cglobe&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T-10000&lt;/span&gt;/10000/100 &lt;span class=&quot;nt&quot;&gt;-Z&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; topo.cpt
+gmt grdimage    &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage    cape_mean.nc &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt; 
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Lx7&lt;/span&gt;.5/-2+c-26.5+w4500k+f &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;,-- mslp_mean.nc &lt;span class=&quot;nt&quot;&gt;-S4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt;+f12 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt;+lLH &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt;.7 zg500_mean.nc &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt;+f18 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C100&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy       ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Start plotting the individual days&lt;/span&gt;
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/34/-36/-21 &lt;span class=&quot;nt&quot;&gt;-JM10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bn&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X42&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage    &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage   cape5_org.nc &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt; 
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;,-- mslp5_nrm.nc &lt;span class=&quot;nt&quot;&gt;-S4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt;+f12 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt;+lLH &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt;.7 zg5005_nrm.nc &lt;span class=&quot;nt&quot;&gt;-A150&lt;/span&gt;+f16 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C150&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy       ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;34 -34 19/10/2011&quot;&lt;/span&gt; | gmt pstext &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;+jTR+f16 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gwhite&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W1p&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dj0&lt;/span&gt;.1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/34/-36/-21 &lt;span class=&quot;nt&quot;&gt;-JM10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bn&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage    &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage   cape4_org.nc &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt; 
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt; mslp4_nrm.nc &lt;span class=&quot;nt&quot;&gt;-S4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt;+f12 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt;+lLH &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt;.7 zg5004_nrm.nc &lt;span class=&quot;nt&quot;&gt;-A150&lt;/span&gt;+f16 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C150&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy       ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;34 -34 08/11/2012&quot;&lt;/span&gt; | gmt pstext &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;+jTR+f16 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gwhite&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W1p&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dj0&lt;/span&gt;.1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/34/-36/-21 &lt;span class=&quot;nt&quot;&gt;-JM10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bn&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X11&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage    &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage   cape3_org.nc &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt; 
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt; mslp3_nrm.nc &lt;span class=&quot;nt&quot;&gt;-S4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt;+f12 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt;+lLH &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt;.7 zg5003_nrm.nc &lt;span class=&quot;nt&quot;&gt;-A150&lt;/span&gt;+f16 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C150&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy       ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;34 -34 09/11/2012&quot;&lt;/span&gt; | gmt pstext &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;+jTR+f16 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gwhite&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W1p&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dj0&lt;/span&gt;.1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/34/-36/-21 &lt;span class=&quot;nt&quot;&gt;-JM10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bn&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X-11&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage    &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage   cape2_org.nc &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt; 
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt; mslp2_nrm.nc &lt;span class=&quot;nt&quot;&gt;-S4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt;+f12 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt;+lLH &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt;.7 zg5002_nrm.nc &lt;span class=&quot;nt&quot;&gt;-A150&lt;/span&gt;+f16 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C150&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy       ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;34 -34 11/11/2013&quot;&lt;/span&gt; | gmt pstext &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;+jTR+f16 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gwhite&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W1p&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dj0&lt;/span&gt;.1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+
+gmt psbasemap  &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/34/-36/-21 &lt;span class=&quot;nt&quot;&gt;-JM10&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bn&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X11&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage    &lt;span class=&quot;nv&quot;&gt;$topo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ctopo&lt;/span&gt;.cpt &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Na&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-I1&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-I2&lt;/span&gt;/0.25p,skyblue3 &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdimage   cape_org.nc &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ccape&lt;/span&gt;.cpt &lt;span class=&quot;nt&quot;&gt;-Q&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt; 
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt; mslp_nrm.nc &lt;span class=&quot;nt&quot;&gt;-S4&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt;+f12 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt;+lLH &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-W1&lt;/span&gt;.7 zg500_nrm.nc &lt;span class=&quot;nt&quot;&gt;-A150&lt;/span&gt;+f16 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-C150&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+gmt psxy       ZAF_adm1.gmt &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W0&lt;/span&gt;.05 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;34 -34 28/11/2013&quot;&lt;/span&gt; | gmt pstext &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JM&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;+jTR+f16 &lt;span class=&quot;nt&quot;&gt;-T&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gwhite&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-W1p&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dj0&lt;/span&gt;.1 &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
+
+gmt logo &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-DjTR&lt;/span&gt;+o-0/10+w10 &lt;span class=&quot;nt&quot;&gt;-Y-11&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">I recently finished my masters dissertation on hailstorms over South-Africa and decided to make a poster summary of my work. I mostly wanted to make a cool map and decided to do this for fun.</summary></entry><entry><title type="html">Retriving point values from GFS data</title><link href="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html" rel="alternate" type="text/html" title="Retriving point values from GFS data" /><published>2018-04-14T12:43:29+02:00</published><updated>2018-04-14T12:43:29+02:00</updated><id>http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs</id><content type="html" xml:base="http://localhost:4000/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html">&lt;p&gt;I guess I can safely say most of time is dedicated to making our &lt;a href=&quot;http://www.lekwenaradar.co.za&quot;&gt;radar
 website&lt;/a&gt; cooler. I’m pretty lucky. So we
 currently have three things on the website, the radar (obviously), and then two
 &lt;a href=&quot;http://www.lekwenaradar.co.za/forecast.html&quot;&gt;GFS visualizations&lt;/a&gt;. The first is
@@ -1051,48 +1515,4 @@ gmt pscoast    &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&
 gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JA&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Wthinnest&lt;/span&gt; mslp_nrm.nc &lt;span class=&quot;nt&quot;&gt;-C2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A2&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
 gmt grdcontour &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JA&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Wthick&lt;/span&gt;,red zg500_nrm.nc &lt;span class=&quot;nt&quot;&gt;-C100&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt;+v &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gn1&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$out&lt;/span&gt;
 
-&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Done. Press enter to continue &quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">For my thesis I had to examine synoptic scale circulation over South-Africa, I wanted to recreate a classic synoptic map that represented mean sea level pressure and also geopotentail at 500hPa. I knew the South-African Weather Service (SAWS) has daily maps they make publicly available, but the maps are not always the highest quality as they are hand drawn - a tedious process I would imagine.</summary></entry><entry><title type="html">How I made the travel maps in this site</title><link href="http://localhost:4000/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html" rel="alternate" type="text/html" title="How I made the travel maps in this site" /><published>2017-11-22T14:43:28+02:00</published><updated>2017-11-22T14:43:28+02:00</updated><id>http://localhost:4000/gmt/map/travel/2017/11/22/travelmap-gmt-bash</id><content type="html" xml:base="http://localhost:4000/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html">&lt;p&gt;This is a very hacked script I used to create my travel map&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#Use ISO2 country codes&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ZA,BW,NA,GB,ZM,MW,NL,CH,FR,FI,DE,BE,LU,CZ,US,RE,US,AT,LS,&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;usa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;US.NC,US.SC,US.NY,US.VA,US.WY,US.MO,US.SD,US.TN,US.WV,US.KS,US.CO,US.MA,US.GA,US.MI,US.AZ,US.KY,US.NJ,US.PA,US.TX,US.DC,US.OR,US.ID,US.MS,US.CA,US.NE,US.NM,US.AL,US.IL,US.AL,US.LA,US.IA,US.MD&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# World&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rd&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JN0&lt;/span&gt;/27.5 &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bg30&lt;/span&gt;/g15 &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.25p,black &lt;span class=&quot;nt&quot;&gt;-A1000&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Glightgray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; travelmap_world.ps
-convert &lt;span class=&quot;nt&quot;&gt;-density&lt;/span&gt; 300 travelmap_world.ps &lt;span class=&quot;nt&quot;&gt;-rotate&lt;/span&gt; 90 travelmap_world.png 
-mogrify &lt;span class=&quot;nt&quot;&gt;-format&lt;/span&gt; png &lt;span class=&quot;nt&quot;&gt;-gravity&lt;/span&gt; south &lt;span class=&quot;nt&quot;&gt;-chop&lt;/span&gt; 0x300 &lt;span class=&quot;nt&quot;&gt;-gravity&lt;/span&gt; north &lt;span class=&quot;nt&quot;&gt;-chop&lt;/span&gt; 0x300 travelmap_world.png
-
-&lt;span class=&quot;c&quot;&gt;# Africa&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-20&lt;/span&gt;/55/-38/40 &lt;span class=&quot;nt&quot;&gt;-JM17&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-P&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ba60f30&lt;/span&gt;/a30f15 &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-Glightgray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; travelmap_africa.ps
-convert &lt;span class=&quot;nt&quot;&gt;-density&lt;/span&gt; 300 travelmap_africa.ps travelmap_africa.png 
-mogrify &lt;span class=&quot;nt&quot;&gt;-format&lt;/span&gt; png &lt;span class=&quot;nt&quot;&gt;-gravity&lt;/span&gt; south &lt;span class=&quot;nt&quot;&gt;-chop&lt;/span&gt; 0x500 &lt;span class=&quot;nt&quot;&gt;-gravity&lt;/span&gt; north &lt;span class=&quot;nt&quot;&gt;-chop&lt;/span&gt; 0x500 travelmap_africa.png
-
-&lt;span class=&quot;c&quot;&gt;# Europe&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-20&lt;/span&gt;/50/35/72 &lt;span class=&quot;nt&quot;&gt;-JL15&lt;/span&gt;/35/35/55/25c &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; travelmap_europe.ps
-convert &lt;span class=&quot;nt&quot;&gt;-density&lt;/span&gt; 300 travelmap_europe.ps &lt;span class=&quot;nt&quot;&gt;-rotate&lt;/span&gt; 90 travelmap_europe.png 
-
-&lt;span class=&quot;c&quot;&gt;# North America&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-130&lt;/span&gt;/-70/24/52 &lt;span class=&quot;nt&quot;&gt;-JL-100&lt;/span&gt;/35/33/45/25c &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$usa&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; travelmap_na.ps
-convert &lt;span class=&quot;nt&quot;&gt;-density&lt;/span&gt; 300 travelmap_na.ps &lt;span class=&quot;nt&quot;&gt;-rotate&lt;/span&gt; 90 travelmap_na.png 
-mogrify &lt;span class=&quot;nt&quot;&gt;-format&lt;/span&gt; png &lt;span class=&quot;nt&quot;&gt;-gravity&lt;/span&gt; south &lt;span class=&quot;nt&quot;&gt;-chop&lt;/span&gt; 0x300 &lt;span class=&quot;nt&quot;&gt;-gravity&lt;/span&gt; north &lt;span class=&quot;nt&quot;&gt;-chop&lt;/span&gt; 0x300 travelmap_na.png&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h1 id=&quot;update&quot;&gt;Update&lt;/h1&gt;
-&lt;p&gt;This is much more effcient, in the previous code I drew the maps individually and merged them in inkscape, here I draw it all in GMT.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Use ISO2 country codes&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;visited&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ZA,BW,NA,GB,ZM,MW,NL,CH,FR,FI,DE,BE,LU,CZ,US,RE,US,AT,ES&quot;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;usa&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;US.NC,US.SC,US.NY,US.VA,US.WY,US.MO,US.SD,US.TN,US.WV,US.KS,US.CO,US.MA,US.GA,US.MI,US.AZ,US.KY,US.NJ,US.PA,US.TX,US.DC,US.OR,US.ID,US.MS,US.CA,US.NE,US.NM,US.AL,US.IL,US.AL,US.LA,US.IA,US.MD&quot;&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# World&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rd&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-JN0&lt;/span&gt;/24 &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y33&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Bg30&lt;/span&gt;/g15 &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.25p,black &lt;span class=&quot;nt&quot;&gt;-A1000&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Glightgray&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--PS_MEDIA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;45.5cx30c &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; travelmap_world.ps
-
-&lt;span class=&quot;c&quot;&gt;# Africa&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-20&lt;/span&gt;/55/-38/40 &lt;span class=&quot;nt&quot;&gt;-JM12&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-X-1&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-Y-15&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Ba30f30&lt;/span&gt;/a30f15 &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-Glightgray&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; travelmap_world.ps
-
-&lt;span class=&quot;c&quot;&gt;# Europe&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-20&lt;/span&gt;/50/35/72 &lt;span class=&quot;nt&quot;&gt;-JL15&lt;/span&gt;/35/35/55/13c &lt;span class=&quot;nt&quot;&gt;-X14&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y1&lt;/span&gt;.5 &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$visited&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-A100&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; travelmap_world.ps
-
-&lt;span class=&quot;c&quot;&gt;# North America&lt;/span&gt;
-gmt pscoast &lt;span class=&quot;nt&quot;&gt;-R-130&lt;/span&gt;/-70/24/52 &lt;span class=&quot;nt&quot;&gt;-JL-100&lt;/span&gt;/35/33/45/24c &lt;span class=&quot;nt&quot;&gt;-X-12&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Y-17&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B10a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Dh&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-E&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$usa&lt;/span&gt;+p0.25p,black+g100/255/100 &lt;span class=&quot;nt&quot;&gt;-N1&lt;/span&gt;/0.5p,black &lt;span class=&quot;nt&quot;&gt;-Glightgrey&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; travelmap_world.ps&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">This is a very hacked script I used to create my travel map</summary></entry></feed>
+&lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Done. Press enter to continue &quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">For my thesis I had to examine synoptic scale circulation over South-Africa, I wanted to recreate a classic synoptic map that represented mean sea level pressure and also geopotentail at 500hPa. I knew the South-African Weather Service (SAWS) has daily maps they make publicly available, but the maps are not always the highest quality as they are hand drawn - a tedious process I would imagine.</summary></entry></feed>
