@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "My Msc in a nutshell (aka a poster)"
+title:  "My msc in a nutshell"
 date:   2018-05-16 12:43:29 +0200
 categories: thesis weather  
 ---
