@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-14T19:03:36+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-05-14T19:10:24+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">My msc in a nutshell</title><link href="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html" rel="alternate" type="text/html" title="My msc in a nutshell" /><published>2018-05-14T12:43:29+02:00</published><updated>2018-05-14T12:43:29+02:00</updated><id>http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster</id><content type="html" xml:base="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html">&lt;p&gt;I recently finished my masters dissertation on hailstorms over South-Africa and
 decided to make a poster summary of my work. I mostly wanted to make a cool map
 and decided to do this for fun.&lt;/p&gt;
@@ -276,30 +276,25 @@ EOF
 &lt;span class=&quot;c&quot;&gt;#  The file is not compatible with GMT, to get it to work do where ?msl     #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#  selects the variable we want and writes it to mslp.nc. The '' is         #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#  important otherwise bash looks for a wildcard.                           #&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#  The date units are also wrong to correct them we need to use gmt grdmath #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#  The units are also wrong to correct them we need to use gmt grdmath      #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#############################################################################&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#                MSLP                   #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp_org&lt;/span&gt;.nc
-gmt grdedit mslp_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath mslp_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl2.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp2_org&lt;/span&gt;.nc
-gmt grdedit mslp2_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath mslp2_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp2_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl3.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp3_org&lt;/span&gt;.nc
-gmt grdedit mslp3_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath mslp3_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp3_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl4.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp4_org&lt;/span&gt;.nc
-gmt grdedit mslp4_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath mslp4_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp4_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'msl5.nc?msl'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gmslp5_org&lt;/span&gt;.nc
-gmt grdedit mslp5_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath mslp5_org.nc 100 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp5_nrm.nc
 
 gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4_nrm.nc ADD 5 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mslp_mean.nc
@@ -308,24 +303,16 @@ gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4
 &lt;span class=&quot;c&quot;&gt;#                CAPE                   #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;#########################################&lt;/span&gt;
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape_org&lt;/span&gt;.nc
-gmt grdedit cape_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
-
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape2.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape2_org&lt;/span&gt;.nc
-gmt grdedit cape2_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
-
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape3.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape3_org&lt;/span&gt;.nc
-gmt grdedit cape3_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
-
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape4.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape4_org&lt;/span&gt;.nc
-gmt grdedit cape4_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
-
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'cape5.nc?cape'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape5_org&lt;/span&gt;.nc
-gmt grdedit cape5_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 
 gmt grdmath cape_org.nc cape2_org.nc ADD cape3_org.nc ADD cape4_org.nc ADD cape5_org.nc ADD 5 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cape_mean.nc
 
-&lt;span class=&quot;c&quot;&gt;# Make NaN values after grdmath otherwise NaN will&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# result in wrong values&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;##########################################&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#           Mask some values             #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;##########################################&lt;/span&gt;
 gmt grdclip cape_mean.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-Sa2500&lt;/span&gt;/2500 &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape_mean&lt;/span&gt;.nc 
 gmt grdclip cape5_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape5_org&lt;/span&gt;.nc 
 gmt grdclip cape4_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape4_org&lt;/span&gt;.nc 
@@ -334,32 +321,27 @@ gmt grdclip cape2_org.nc &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/Na
 gmt grdclip cape_org.nc  &lt;span class=&quot;nt&quot;&gt;-Sb250&lt;/span&gt;/NaN &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gcape_org&lt;/span&gt;.nc 
 
 &lt;span class=&quot;c&quot;&gt;##########################################&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#           Geopotentail 500             #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#           Geopotential 500             #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;##########################################&lt;/span&gt;
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg500.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg500_org&lt;/span&gt;.nc
-gmt grdedit zg500_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath zg500_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg500_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5002.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5002_org&lt;/span&gt;.nc
-gmt grdedit zg5002_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath zg5002_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5002_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5003.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5003_org&lt;/span&gt;.nc
-gmt grdedit zg5003_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath zg5003_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5003_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5004.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5004_org&lt;/span&gt;.nc
-gmt grdedit zg5004_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath zg5004_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5004_nrm.nc
 
 gmt grdconvert &lt;span class=&quot;s1&quot;&gt;'zg5005.nc?z'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Gzg5005_org&lt;/span&gt;.nc
-gmt grdedit zg5005_org.nc &lt;span class=&quot;nt&quot;&gt;-R-180&lt;/span&gt;/180/-90/90 &lt;span class=&quot;nt&quot;&gt;-S&lt;/span&gt;
 gmt grdmath zg5005_org.nc 10 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg5005_nrm.nc
 
 gmt grdmath zg500_nrm.nc zg5002_nrm.nc ADD zg5003_nrm.nc ADD zg5004_nrm.nc ADD zg5005_nrm.nc ADD 5 DIV &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; zg500_mean.nc
 
 &lt;span class=&quot;c&quot;&gt;###########################################&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#               Inspect Mean              #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#               Inspect Data              #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;###########################################&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Lets inspect the data with ncdump. Press enter to continue &quot;&lt;/span&gt;
 ncdump &lt;span class=&quot;nt&quot;&gt;-h&lt;/span&gt; mslp_mean.nc
@@ -391,7 +373,7 @@ gmt pscoast &lt;span class=&quot;nt&quot;&gt;-Rzg500_mean&lt;/span&gt;.nc &lt;sp
 &lt;span class=&quot;nb&quot;&gt;read&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;World map created. Lets create a map of South-Africa. Press enter to continue &quot;&lt;/span&gt;
 
 &lt;span class=&quot;c&quot;&gt;####################################################################&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#Now we need to create a contoured map from the netcdf file for SA #&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;#Now we need to create a map from the netcdf file for SA           #&lt;/span&gt;
 &lt;span class=&quot;c&quot;&gt;####################################################################&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'hail_composite_globe.ps'&lt;/span&gt;
 &lt;span class=&quot;nv&quot;&gt;topo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;./ETOPO1_Ice_g_gmt4.grd

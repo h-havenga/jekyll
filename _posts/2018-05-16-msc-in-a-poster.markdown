@@ -283,30 +283,25 @@ read -p "ERA-Data downloaded. Press enter to continue and convert data for use i
 #  The file is not compatible with GMT, to get it to work do where ?msl     #
 #  selects the variable we want and writes it to mslp.nc. The '' is         #
 #  important otherwise bash looks for a wildcard.                           #
-#  The date units are also wrong to correct them we need to use gmt grdmath #
+#  The units are also wrong to correct them we need to use gmt grdmath      #
 #############################################################################
 
 #########################################
 #                MSLP                   #
 #########################################
 gmt grdconvert 'msl.nc?msl' -Gmslp_org.nc
-gmt grdedit mslp_org.nc -R-180/180/-90/90 -S
 gmt grdmath mslp_org.nc 100 DIV = mslp_nrm.nc
 
 gmt grdconvert 'msl2.nc?msl' -Gmslp2_org.nc
-gmt grdedit mslp2_org.nc -R-180/180/-90/90 -S
 gmt grdmath mslp2_org.nc 100 DIV = mslp2_nrm.nc
 
 gmt grdconvert 'msl3.nc?msl' -Gmslp3_org.nc
-gmt grdedit mslp3_org.nc -R-180/180/-90/90 -S
 gmt grdmath mslp3_org.nc 100 DIV = mslp3_nrm.nc
 
 gmt grdconvert 'msl4.nc?msl' -Gmslp4_org.nc
-gmt grdedit mslp4_org.nc -R-180/180/-90/90 -S
 gmt grdmath mslp4_org.nc 100 DIV = mslp4_nrm.nc
 
 gmt grdconvert 'msl5.nc?msl' -Gmslp5_org.nc
-gmt grdedit mslp5_org.nc -R-180/180/-90/90 -S
 gmt grdmath mslp5_org.nc 100 DIV = mslp5_nrm.nc
 
 gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4_nrm.nc ADD 5 DIV = mslp_mean.nc
@@ -315,24 +310,16 @@ gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4
 #                CAPE                   #
 #########################################
 gmt grdconvert 'cape.nc?cape' -Gcape_org.nc
-gmt grdedit cape_org.nc -R-180/180/-90/90 -S
-
 gmt grdconvert 'cape2.nc?cape' -Gcape2_org.nc
-gmt grdedit cape2_org.nc -R-180/180/-90/90 -S
-
 gmt grdconvert 'cape3.nc?cape' -Gcape3_org.nc
-gmt grdedit cape3_org.nc -R-180/180/-90/90 -S
-
 gmt grdconvert 'cape4.nc?cape' -Gcape4_org.nc
-gmt grdedit cape4_org.nc -R-180/180/-90/90 -S
-
 gmt grdconvert 'cape5.nc?cape' -Gcape5_org.nc
-gmt grdedit cape5_org.nc -R-180/180/-90/90 -S
 
 gmt grdmath cape_org.nc cape2_org.nc ADD cape3_org.nc ADD cape4_org.nc ADD cape5_org.nc ADD 5 DIV = cape_mean.nc
 
-# Make NaN values after grdmath otherwise NaN will
-# result in wrong values
+##########################################
+#           Mask some values             #
+##########################################
 gmt grdclip cape_mean.nc -Sb250/NaN -Sa2500/2500 -V -Gcape_mean.nc 
 gmt grdclip cape5_org.nc -Sb250/NaN -V -Gcape5_org.nc 
 gmt grdclip cape4_org.nc -Sb250/NaN -V -Gcape4_org.nc 
@@ -341,32 +328,27 @@ gmt grdclip cape2_org.nc -Sb250/NaN -V -Gcape2_org.nc
 gmt grdclip cape_org.nc  -Sb250/NaN -V -Gcape_org.nc 
 
 ##########################################
-#           Geopotentail 500             #
+#           Geopotential 500             #
 ##########################################
 gmt grdconvert 'zg500.nc?z' -Gzg500_org.nc
-gmt grdedit zg500_org.nc -R-180/180/-90/90 -S
 gmt grdmath zg500_org.nc 10 DIV = zg500_nrm.nc
 
 gmt grdconvert 'zg5002.nc?z' -Gzg5002_org.nc
-gmt grdedit zg5002_org.nc -R-180/180/-90/90 -S
 gmt grdmath zg5002_org.nc 10 DIV = zg5002_nrm.nc
 
 gmt grdconvert 'zg5003.nc?z' -Gzg5003_org.nc
-gmt grdedit zg5003_org.nc -R-180/180/-90/90 -S
 gmt grdmath zg5003_org.nc 10 DIV = zg5003_nrm.nc
 
 gmt grdconvert 'zg5004.nc?z' -Gzg5004_org.nc
-gmt grdedit zg5004_org.nc -R-180/180/-90/90 -S
 gmt grdmath zg5004_org.nc 10 DIV = zg5004_nrm.nc
 
 gmt grdconvert 'zg5005.nc?z' -Gzg5005_org.nc
-gmt grdedit zg5005_org.nc -R-180/180/-90/90 -S
 gmt grdmath zg5005_org.nc 10 DIV = zg5005_nrm.nc
 
 gmt grdmath zg500_nrm.nc zg5002_nrm.nc ADD zg5003_nrm.nc ADD zg5004_nrm.nc ADD zg5005_nrm.nc ADD 5 DIV = zg500_mean.nc
 
 ###########################################
-#               Inspect Mean              #
+#               Inspect Data              #
 ###########################################
 read -p "Lets inspect the data with ncdump. Press enter to continue "
 ncdump -h mslp_mean.nc
@@ -398,7 +380,7 @@ gmt pscoast -Rzg500_mean.nc -JX -W0.5 -N3 -O -Dc >> zg500.ps
 read -p "World map created. Lets create a map of South-Africa. Press enter to continue "
 
 ####################################################################
-#Now we need to create a contoured map from the netcdf file for SA #
+#Now we need to create a map from the netcdf file for SA           #
 ####################################################################
 out='hail_composite_globe.ps'
 topo=./ETOPO1_Ice_g_gmt4.grd

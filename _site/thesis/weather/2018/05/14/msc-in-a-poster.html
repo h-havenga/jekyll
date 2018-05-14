@@ -386,30 +386,25 @@ EOF
 <span class="c">#  The file is not compatible with GMT, to get it to work do where ?msl     #</span>
 <span class="c">#  selects the variable we want and writes it to mslp.nc. The '' is         #</span>
 <span class="c">#  important otherwise bash looks for a wildcard.                           #</span>
-<span class="c">#  The date units are also wrong to correct them we need to use gmt grdmath #</span>
+<span class="c">#  The units are also wrong to correct them we need to use gmt grdmath      #</span>
 <span class="c">#############################################################################</span>
 
 <span class="c">#########################################</span>
 <span class="c">#                MSLP                   #</span>
 <span class="c">#########################################</span>
 gmt grdconvert <span class="s1">'msl.nc?msl'</span> <span class="nt">-Gmslp_org</span>.nc
-gmt grdedit mslp_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath mslp_org.nc 100 DIV <span class="o">=</span> mslp_nrm.nc
 
 gmt grdconvert <span class="s1">'msl2.nc?msl'</span> <span class="nt">-Gmslp2_org</span>.nc
-gmt grdedit mslp2_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath mslp2_org.nc 100 DIV <span class="o">=</span> mslp2_nrm.nc
 
 gmt grdconvert <span class="s1">'msl3.nc?msl'</span> <span class="nt">-Gmslp3_org</span>.nc
-gmt grdedit mslp3_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath mslp3_org.nc 100 DIV <span class="o">=</span> mslp3_nrm.nc
 
 gmt grdconvert <span class="s1">'msl4.nc?msl'</span> <span class="nt">-Gmslp4_org</span>.nc
-gmt grdedit mslp4_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath mslp4_org.nc 100 DIV <span class="o">=</span> mslp4_nrm.nc
 
 gmt grdconvert <span class="s1">'msl5.nc?msl'</span> <span class="nt">-Gmslp5_org</span>.nc
-gmt grdedit mslp5_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath mslp5_org.nc 100 DIV <span class="o">=</span> mslp5_nrm.nc
 
 gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4_nrm.nc ADD 5 DIV <span class="o">=</span> mslp_mean.nc
@@ -418,24 +413,16 @@ gmt grdmath mslp_nrm.nc mslp2_nrm.nc ADD mslp3_nrm.nc ADD mslp4_nrm.nc ADD mslp4
 <span class="c">#                CAPE                   #</span>
 <span class="c">#########################################</span>
 gmt grdconvert <span class="s1">'cape.nc?cape'</span> <span class="nt">-Gcape_org</span>.nc
-gmt grdedit cape_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
-
 gmt grdconvert <span class="s1">'cape2.nc?cape'</span> <span class="nt">-Gcape2_org</span>.nc
-gmt grdedit cape2_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
-
 gmt grdconvert <span class="s1">'cape3.nc?cape'</span> <span class="nt">-Gcape3_org</span>.nc
-gmt grdedit cape3_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
-
 gmt grdconvert <span class="s1">'cape4.nc?cape'</span> <span class="nt">-Gcape4_org</span>.nc
-gmt grdedit cape4_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
-
 gmt grdconvert <span class="s1">'cape5.nc?cape'</span> <span class="nt">-Gcape5_org</span>.nc
-gmt grdedit cape5_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 
 gmt grdmath cape_org.nc cape2_org.nc ADD cape3_org.nc ADD cape4_org.nc ADD cape5_org.nc ADD 5 DIV <span class="o">=</span> cape_mean.nc
 
-<span class="c"># Make NaN values after grdmath otherwise NaN will</span>
-<span class="c"># result in wrong values</span>
+<span class="c">##########################################</span>
+<span class="c">#           Mask some values             #</span>
+<span class="c">##########################################</span>
 gmt grdclip cape_mean.nc <span class="nt">-Sb250</span>/NaN <span class="nt">-Sa2500</span>/2500 <span class="nt">-V</span> <span class="nt">-Gcape_mean</span>.nc 
 gmt grdclip cape5_org.nc <span class="nt">-Sb250</span>/NaN <span class="nt">-V</span> <span class="nt">-Gcape5_org</span>.nc 
 gmt grdclip cape4_org.nc <span class="nt">-Sb250</span>/NaN <span class="nt">-V</span> <span class="nt">-Gcape4_org</span>.nc 
@@ -444,32 +431,27 @@ gmt grdclip cape2_org.nc <span class="nt">-Sb250</span>/NaN <span class="nt">-V<
 gmt grdclip cape_org.nc  <span class="nt">-Sb250</span>/NaN <span class="nt">-V</span> <span class="nt">-Gcape_org</span>.nc 
 
 <span class="c">##########################################</span>
-<span class="c">#           Geopotentail 500             #</span>
+<span class="c">#           Geopotential 500             #</span>
 <span class="c">##########################################</span>
 gmt grdconvert <span class="s1">'zg500.nc?z'</span> <span class="nt">-Gzg500_org</span>.nc
-gmt grdedit zg500_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath zg500_org.nc 10 DIV <span class="o">=</span> zg500_nrm.nc
 
 gmt grdconvert <span class="s1">'zg5002.nc?z'</span> <span class="nt">-Gzg5002_org</span>.nc
-gmt grdedit zg5002_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath zg5002_org.nc 10 DIV <span class="o">=</span> zg5002_nrm.nc
 
 gmt grdconvert <span class="s1">'zg5003.nc?z'</span> <span class="nt">-Gzg5003_org</span>.nc
-gmt grdedit zg5003_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath zg5003_org.nc 10 DIV <span class="o">=</span> zg5003_nrm.nc
 
 gmt grdconvert <span class="s1">'zg5004.nc?z'</span> <span class="nt">-Gzg5004_org</span>.nc
-gmt grdedit zg5004_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath zg5004_org.nc 10 DIV <span class="o">=</span> zg5004_nrm.nc
 
 gmt grdconvert <span class="s1">'zg5005.nc?z'</span> <span class="nt">-Gzg5005_org</span>.nc
-gmt grdedit zg5005_org.nc <span class="nt">-R-180</span>/180/-90/90 <span class="nt">-S</span>
 gmt grdmath zg5005_org.nc 10 DIV <span class="o">=</span> zg5005_nrm.nc
 
 gmt grdmath zg500_nrm.nc zg5002_nrm.nc ADD zg5003_nrm.nc ADD zg5004_nrm.nc ADD zg5005_nrm.nc ADD 5 DIV <span class="o">=</span> zg500_mean.nc
 
 <span class="c">###########################################</span>
-<span class="c">#               Inspect Mean              #</span>
+<span class="c">#               Inspect Data              #</span>
 <span class="c">###########################################</span>
 <span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Lets inspect the data with ncdump. Press enter to continue "</span>
 ncdump <span class="nt">-h</span> mslp_mean.nc
@@ -501,7 +483,7 @@ gmt pscoast <span class="nt">-Rzg500_mean</span>.nc <span class="nt">-JX</span> 
 <span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"World map created. Lets create a map of South-Africa. Press enter to continue "</span>
 
 <span class="c">####################################################################</span>
-<span class="c">#Now we need to create a contoured map from the netcdf file for SA #</span>
+<span class="c">#Now we need to create a map from the netcdf file for SA           #</span>
 <span class="c">####################################################################</span>
 <span class="nv">out</span><span class="o">=</span><span class="s1">'hail_composite_globe.ps'</span>
 <span class="nv">topo</span><span class="o">=</span>./ETOPO1_Ice_g_gmt4.grd
