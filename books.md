@@ -10,6 +10,7 @@ Gene, _Richard Dawkins_ | We Have No Idea: A Guide to the Unknown Universe,
 _Jorge Cham and Daniel Whitesonk_ 
 
 #### Read * : 
+Waking Up, *Sam Harris* |
 The Subtle Art of Not Giving a Fuck, *Mark Manson* |
 Freedom and Neurobiology: Reflections on Free Will, Language, and Political Power, _John Searle_ |
 How to Stop Living and Start Worrying: Conversations with Carl Cederstrm,

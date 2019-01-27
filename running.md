@@ -28,5 +28,7 @@ Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
 32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |
 BoekelderCross 15km: 1st, 55:23 | Zurich Málaga Maratón: 16th, 2:39:45 |
 
-<b> 2018 </b>: Two Oceans: 21.1km: 75th, 1:17:49 (Bad day) | 
+<b> 2018 </b>: Two Oceans: 21.1km: 75th, 1:17:49 (Bad day)
+
+<b> 2019 </b>: Ottosdal Draf en Trap: 10km, 7th, 35:00 |
 

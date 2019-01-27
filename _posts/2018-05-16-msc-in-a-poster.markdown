@@ -14,7 +14,8 @@ and decided to do this for fun.
 The script is quite long and I used it for some work in my thesis before
 I really figured out loops, so it could be simplified a lot, I'm too lazy to do
 that now. The only other thing I changed is I removed the complete ECMWF python
-part, it was just a repeating to get data for every case. So here you go:
+part, it was just a repeating to get reanalysis data for every case.
+Here you go:
 
 {% highlight bash %}
 #!/bin/bash

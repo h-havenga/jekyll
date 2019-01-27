@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/assets/main.css">
   <link rel="canonical" href="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
-  
+   
   
 </head>
 
@@ -96,7 +96,8 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script><article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">My msc in a nutshell</h1>
@@ -118,7 +119,8 @@ and decided to do this for fun.</p>
 <p>The script is quite long and I used it for some work in my thesis before
 I really figured out loops, so it could be simplified a lot, I’m too lazy to do
 that now. The only other thing I changed is I removed the complete ECMWF python
-part, it was just a repeating to get data for every case. So here you go:</p>
+part, it was just a repeating to get reanalysis data for every case.
+Here you go:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
 
