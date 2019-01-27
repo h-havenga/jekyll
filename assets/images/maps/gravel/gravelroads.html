@@ -49,6 +49,12 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 		fillOpacity: 0.5
 	}).addTo(mymap).bindPopup("My running road, not always well mainted for driving");
 
+    L.circle([-26.689797, 26.61644], 500, {
+		color: 'yellow',
+		fillColor: '#ffee00',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindPopup("One very bad section coming from Klerksdorp. Once it clears out it's very nice");
+
     L.circle([-26.832036, 27.365913], 500, {
 		color: 'yellow',
 		fillColor: '#ffee00',
@@ -80,21 +86,30 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 		fillOpacity: 0.5
 	}).addTo(mymap).bindPopup("Nice drive, turns from Boons");
 
+    L.circle([-26.43876, 27.044392], 500, {
+    		color: 'green',
+    		fillColor: '#00ff2a',
+    		fillOpacity: 0.5
+    	}).addTo(mymap).bindPopup("Good road, initially not the greatest, but gets better. There's even a silo in the middle of nowhere which was cool'");
 
+    L.circle([-26.663644, 26.846552], 500, {
+    		color: 'green',
+    		fillColor: '#00ff2a',
+    		fillOpacity: 0.5
+    	}).addTo(mymap).bindPopup("Very scenic gravel road, some corrugations towards the en, but well worth it.");
+    
+    L.circle([-25.966919, 26.973152], 500, {
+    		color: 'green',
+    		fillColor: '#00ff2a',
+    		fillOpacity: 0.5
+    	}).addTo(mymap).bindPopup("Scenic, excelent condition");
 
-L.circle([-26.43876, 27.044392], 500, {
-		color: 'green',
-		fillColor: '#00ff2a',
-		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("Good road, initially not the greatest, but gets better. There's even a silo in the middle of nowhere which was cool'");
-
-
-L.circle([-25.966919, 26.973152], 500, {
-		color: 'green',
-		fillColor: '#00ff2a',
-		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("Scenic, excelent condition");
-
+    L.circle([-26.693785, 26.697807], 500, {
+    		color: 'green',
+    		fillColor: '#00ff2a',
+    		fillOpacity: 0.5
+    	}).addTo(mymap).bindPopup("Scenic, excelent condition");
+ 
 <!--END-->
 
 	var popup = L.popup();
