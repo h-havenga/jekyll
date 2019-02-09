@@ -1,19 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-09T22:38:19+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-09T22:43:42+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
 </subtitle><entry><title type="html">Writing is hard</title><link href="http://localhost:4000/writing/2019/02/09/writing-is-hard.html" rel="alternate" type="text/html" title="Writing is hard" /><published>2019-02-09T12:43:29+02:00</published><updated>2019-02-09T12:43:29+02:00</updated><id>http://localhost:4000/writing/2019/02/09/writing-is-hard</id><content type="html" xml:base="http://localhost:4000/writing/2019/02/09/writing-is-hard.html">&lt;p&gt;I started this blog with noble intentions, which I still have, but looking at
 the date of my last post I am embarrassed by my commitment to it. It’s not that
 I’ve lost interest, it’s more a case of very bad &lt;em&gt;imposter syndrome&lt;/em&gt; that came
 over me and particularly my writing style. But as with everything I should see
 this as practise. The only way to get better is to write more and write
 regularly, otherwise you &lt;em&gt;get out of shape&lt;/em&gt;. That’s the same with reading,
-exercising, meditating or anything else. The book &lt;em&gt;*Writer’s Home Companion: An
-Anthology of the World’s Best Writing Advice, From Keats to Kunitz, _Joan
-Bolker_ ** makes the same argument and suggest writing exercises by using cues.
+exercising, meditating or anything else. The book Writer’s Home Companion: An
+Anthology of the World’s Best Writing Advice, From Keats to Kunitz by &lt;em&gt;Joan
+Bolker&lt;/em&gt;  makes the same argument and suggest writing exercises by using cues.
 Or just even writing randomly for a set time each day about anything that comes
-up in your mind. So this post is a little commitment to myself to *just write&lt;/em&gt;.
+up in your mind. So this post is a little commitment to myself to &lt;em&gt;just write&lt;/em&gt;.
 No matter how bad, or how random, I just need to write.&lt;/p&gt;
 
 &lt;p&gt;Ps. I also write in everything directly in vim without any fancy spell or
-grammar checker, that kind of makes this a very raw read in a sense.&lt;/p&gt;</content><author><name></name></author><summary type="html">I started this blog with noble intentions, which I still have, but looking at the date of my last post I am embarrassed by my commitment to it. It’s not that I’ve lost interest, it’s more a case of very bad imposter syndrome that came over me and particularly my writing style. But as with everything I should see this as practise. The only way to get better is to write more and write regularly, otherwise you get out of shape. That’s the same with reading, exercising, meditating or anything else. The book *Writer’s Home Companion: An Anthology of the World’s Best Writing Advice, From Keats to Kunitz, _Joan Bolker_ ** makes the same argument and suggest writing exercises by using cues. Or just even writing randomly for a set time each day about anything that comes up in your mind. So this post is a little commitment to myself to *just write. No matter how bad, or how random, I just need to write.</summary></entry><entry><title type="html">My msc in a nutshell</title><link href="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html" rel="alternate" type="text/html" title="My msc in a nutshell" /><published>2018-05-14T12:43:29+02:00</published><updated>2018-05-14T12:43:29+02:00</updated><id>http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster</id><content type="html" xml:base="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html">&lt;p&gt;I recently finished my masters dissertation on hailstorms over South-Africa and
+grammar checker, that kind of makes this a very raw read in a sense.&lt;/p&gt;</content><author><name></name></author><summary type="html">I started this blog with noble intentions, which I still have, but looking at the date of my last post I am embarrassed by my commitment to it. It’s not that I’ve lost interest, it’s more a case of very bad imposter syndrome that came over me and particularly my writing style. But as with everything I should see this as practise. The only way to get better is to write more and write regularly, otherwise you get out of shape. That’s the same with reading, exercising, meditating or anything else. The book Writer’s Home Companion: An Anthology of the World’s Best Writing Advice, From Keats to Kunitz by Joan Bolker makes the same argument and suggest writing exercises by using cues. Or just even writing randomly for a set time each day about anything that comes up in your mind. So this post is a little commitment to myself to just write. No matter how bad, or how random, I just need to write.</summary></entry><entry><title type="html">Usefull, useless things</title><link href="http://localhost:4000/things/linux/2019/02/09/useless-things-learn-during-the-day.html" rel="alternate" type="text/html" title="Usefull, useless things" /><published>2019-02-09T10:00:29+02:00</published><updated>2019-02-09T10:00:29+02:00</updated><id>http://localhost:4000/things/linux/2019/02/09/useless-things-learn-during-the-day</id><content type="html" xml:base="http://localhost:4000/things/linux/2019/02/09/useless-things-learn-during-the-day.html">&lt;p&gt;Everyday I figure out small things that make life a little easier and don’t fit
+in my &lt;em&gt;useful one liners&lt;/em&gt; post , I tend to forget them the moment I’m done
+using it or implementing whatever I need it for. This could be anything from
+latex to git to bash to vim and in most cases these are just little
+conveniences. So I’ll attempt to note these useless things here.&lt;/p&gt;
+
+&lt;h3 id=&quot;adding-metadata-to-latex-pdf&quot;&gt;Adding Metadata to LaTeX pdf&lt;/h3&gt;
+&lt;p&gt;This whole post was inspired by right clicking on my thesis and seeing that my
+metadata is empty, the fix was pretty easy. Add this to your preamble:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;hyperref&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;\hypersetup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    pdftitle=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;LaTeX is for cool kids&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;,
+    pdfsubject=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;Not Computer Science&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;,
+    pdfauthor=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;Henno Havenga&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;,
+    pdfkeywords=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;LaTeX, VIM, Debian, GNU, Linux&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;plotting-a-tif-file-with-gmt&quot;&gt;Plotting a tif file with GMT&lt;/h3&gt;
+&lt;p&gt;I needed to clip a &lt;a href=&quot;https://visibleearth.nasa.gov/view_cat.php?categoryID=1484&quot;&gt;NASA Blue
+Marble&lt;/a&gt; tif file.
+I wanted to use &lt;em&gt;gdal_tanslate&lt;/em&gt; but a not so quick search yield
+&lt;a href=&quot;https://joeyklee.github.io/broc-cli-geo/guide/XX_raster_cropping_and_clipping.html&quot;&gt;&lt;em&gt;gdalwarp&lt;/em&gt;&lt;/a&gt;
+as a simpler option. Also note that the default NASA projection is Plate Carrée
+(JQ in GMT), this is useful to know if you want to draw borders over the NASA
+data using GMT without thinking to much about conversions. To clip the data
+I used gdalwarp and then GMT’s psimage module to overlay the image on a map:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gdalwarp &lt;span class=&quot;nt&quot;&gt;-te&lt;/span&gt; 15 59 38 71 blue_marble_infile.tif clipped_blue_marble_outfile.tif&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gmt psbasemap &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/38/59/71.5 &lt;span class=&quot;nt&quot;&gt;-JQ20&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B5a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; image_map.ps
+gmt psimage clipped_blue_marble_outfile.tif &lt;span class=&quot;nt&quot;&gt;-DjCM&lt;/span&gt;+w20/11.1 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; image_map.ps&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;linking-to-most-recent-eumetsat-products-in-markdown&quot;&gt;Linking to most recent EUMETSAT products in markdown&lt;/h3&gt;
+&lt;p&gt;In playing around with this site I thought about make a page dedicated weather
+stuff, it was pretty easy to link directly to EUMETSAT products with markdown
+by just copying the image link like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-markdown&quot; data-lang=&quot;markdown&quot;&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;center&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;align=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;center&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;valign=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;center&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &amp;lt;img
+    SRC=&quot;http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg&quot;
+    alt=&quot;description here&quot; /&amp;gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;br&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; EUMETSAT RGB Africa. &lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/center&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;center&gt; &lt;td align=&quot;center&quot; valign=&quot;center&quot;&gt; &lt;img src=&quot;http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg&quot; alt=&quot;description here&quot; /&gt; &lt;br /&gt; EUMETSAT RGB Africa. &lt;/td&gt; &lt;/center&gt;
+
+&lt;h3 id=&quot;array-in-bash&quot;&gt;Array in bash&lt;/h3&gt;
+
+&lt;p&gt;To work with arrays in bash you must call the array variable 
+“${array[@]}”&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;12 18 24 30 36 42 48&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;count &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;do 
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; 
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;making-barcodes&quot;&gt;Making barcodes&lt;/h3&gt;
+&lt;p&gt;Making barcodes in Linux is very easy, install barcode, run the command convert the ps file to pdf using ps2pdf&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install barcode
+barcode &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; 3x6 &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; Oatmeal 128 &lt;span class=&quot;nt&quot;&gt;-o&lt;/span&gt; output.ps
+ps2pdf output.ps oatmealbarcode.pdf&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Everyday I figure out small things that make life a little easier and don’t fit in my useful one liners post , I tend to forget them the moment I’m done using it or implementing whatever I need it for. This could be anything from latex to git to bash to vim and in most cases these are just little conveniences. So I’ll attempt to note these useless things here.</summary></entry><entry><title type="html">My msc in a nutshell</title><link href="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html" rel="alternate" type="text/html" title="My msc in a nutshell" /><published>2018-05-14T12:43:29+02:00</published><updated>2018-05-14T12:43:29+02:00</updated><id>http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster</id><content type="html" xml:base="http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html">&lt;p&gt;I recently finished my masters dissertation on hailstorms over South-Africa and
 decided to make a poster summary of my work. I mostly wanted to make a cool map
 and decided to do this for fun.&lt;/p&gt;
 
@@ -920,61 +981,7 @@ make a executable just do&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;chmod +x inputfile&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;And now it’s just a double click away&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently downloaded Ubuntu on a new pc for my family, in my quest to convince them of the usefulness of Linux, I wrote a little script for them to use when downloading photos from their cameras instead of going through the tedious process of clicking a mouse 25 times. If my attempts to actually get them into the Linux system works is another question.</summary></entry><entry><title type="html">Usefull, useless things</title><link href="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html" rel="alternate" type="text/html" title="Usefull, useless things" /><published>2018-01-09T10:00:29+02:00</published><updated>2018-01-09T10:00:29+02:00</updated><id>http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day</id><content type="html" xml:base="http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html">&lt;p&gt;Everyday I figure out small things that make life a little easier and don’t fit
-in my &lt;em&gt;useful one liners&lt;/em&gt; post , I tend to forget them the moment I’m done
-using it or implementing whatever I need it for. This could be anything from
-latex to git to bash to vim and in most cases these are just little
-conveniences. So I’ll attempt to note these useless things here.&lt;/p&gt;
-
-&lt;h3 id=&quot;adding-metadata-to-latex-pdf&quot;&gt;Adding Metadata to LaTeX pdf&lt;/h3&gt;
-&lt;p&gt;This whole post was inspired by right clicking on my thesis and seeing that my
-metadata is empty, the fix was pretty easy. Add this to your preamble:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;hyperref&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\hypersetup&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    pdftitle=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;LaTeX is for cool kids&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;,
-    pdfsubject=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;Not Computer Science&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;,
-    pdfauthor=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;Henno Havenga&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;,
-    pdfkeywords=&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;LaTeX, VIM, Debian, GNU, Linux&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;plotting-a-tif-file-with-gmt&quot;&gt;Plotting a tif file with GMT&lt;/h3&gt;
-&lt;p&gt;I needed to clip a &lt;a href=&quot;https://visibleearth.nasa.gov/view_cat.php?categoryID=1484&quot;&gt;NASA Blue
-Marble&lt;/a&gt; tif file.
-I wanted to use &lt;em&gt;gdal_tanslate&lt;/em&gt; but a not so quick search yield
-&lt;a href=&quot;https://joeyklee.github.io/broc-cli-geo/guide/XX_raster_cropping_and_clipping.html&quot;&gt;&lt;em&gt;gdalwarp&lt;/em&gt;&lt;/a&gt;
-as a simpler option. Also note that the default NASA projection is Plate Carrée
-(JQ in GMT), this is useful to know if you want to draw borders over the NASA
-data using GMT without thinking to much about conversions. To clip the data
-I used gdalwarp and then GMT’s psimage module to overlay the image on a map:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gdalwarp &lt;span class=&quot;nt&quot;&gt;-te&lt;/span&gt; 15 59 38 71 blue_marble_infile.tif clipped_blue_marble_outfile.tif&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;gmt psbasemap &lt;span class=&quot;nt&quot;&gt;-R15&lt;/span&gt;/38/59/71.5 &lt;span class=&quot;nt&quot;&gt;-JQ20&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Xc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-Yc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-B5a0&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; image_map.ps
-gmt psimage clipped_blue_marble_outfile.tif &lt;span class=&quot;nt&quot;&gt;-DjCM&lt;/span&gt;+w20/11.1 &lt;span class=&quot;nt&quot;&gt;-R&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-J&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-O&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-K&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-V&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; image_map.ps&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h3 id=&quot;linking-to-most-recent-eumetsat-products-in-markdown&quot;&gt;Linking to most recent EUMETSAT products in markdown&lt;/h3&gt;
-&lt;p&gt;In playing around with this site I thought about make a page dedicated weather
-stuff, it was pretty easy to link directly to EUMETSAT products with markdown
-by just copying the image link like this:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-markdown&quot; data-lang=&quot;markdown&quot;&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;center&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;td&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;align=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;center&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;valign=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;center&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt; &amp;lt;img
-    SRC=&quot;http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg&quot;
-    alt=&quot;description here&quot; /&amp;gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;br&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt; EUMETSAT RGB Africa. &lt;span class=&quot;nt&quot;&gt;&amp;lt;/td&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/tr&amp;gt;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;&amp;lt;/center&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;center&gt; &lt;td align=&quot;center&quot; valign=&quot;center&quot;&gt; &lt;img src=&quot;http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg&quot; alt=&quot;description here&quot; /&gt; &lt;br /&gt; EUMETSAT RGB Africa. &lt;/td&gt; &lt;/center&gt;
-
-&lt;h3 id=&quot;array-in-bash&quot;&gt;Array in bash&lt;/h3&gt;
-
-&lt;p&gt;To work with arrays in bash you must call the array variable 
-“${array[@]}”&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;12 18 24 30 36 42 48&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;count &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[@]&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; 
-&lt;span class=&quot;k&quot;&gt;do 
-    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt; 
-&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Everyday I figure out small things that make life a little easier and don’t fit in my useful one liners post , I tend to forget them the moment I’m done using it or implementing whatever I need it for. This could be anything from latex to git to bash to vim and in most cases these are just little conveniences. So I’ll attempt to note these useless things here.</summary></entry><entry><title type="html">Browsing: attempting to balance useablity with privacy</title><link href="http://localhost:4000/firefox/security/2017/12/26/browser-privacy.html" rel="alternate" type="text/html" title="Browsing: attempting to balance useablity with privacy" /><published>2017-12-26T12:43:29+02:00</published><updated>2017-12-26T12:43:29+02:00</updated><id>http://localhost:4000/firefox/security/2017/12/26/browser-privacy</id><content type="html" xml:base="http://localhost:4000/firefox/security/2017/12/26/browser-privacy.html">&lt;p&gt;I am of the opinion that most of what we do on a computer occurs in our browser
+&lt;p&gt;And now it’s just a double click away&lt;/p&gt;</content><author><name></name></author><summary type="html">I recently downloaded Ubuntu on a new pc for my family, in my quest to convince them of the usefulness of Linux, I wrote a little script for them to use when downloading photos from their cameras instead of going through the tedious process of clicking a mouse 25 times. If my attempts to actually get them into the Linux system works is another question.</summary></entry><entry><title type="html">Browsing: attempting to balance useablity with privacy</title><link href="http://localhost:4000/firefox/security/2017/12/26/browser-privacy.html" rel="alternate" type="text/html" title="Browsing: attempting to balance useablity with privacy" /><published>2017-12-26T12:43:29+02:00</published><updated>2017-12-26T12:43:29+02:00</updated><id>http://localhost:4000/firefox/security/2017/12/26/browser-privacy</id><content type="html" xml:base="http://localhost:4000/firefox/security/2017/12/26/browser-privacy.html">&lt;p&gt;I am of the opinion that most of what we do on a computer occurs in our browser
 these days, anything from banking, shopping, connecting, reading and learning
 all occurs within this one box.&lt;/p&gt;
 

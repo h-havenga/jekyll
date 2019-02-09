@@ -37,10 +37,6 @@
 <lastmod>2017-12-26T12:43:29+02:00</lastmod>
 </url>
 <url>
-<loc>http://localhost:4000/things/linux/2018/01/09/useless-things-learn-during-the-day.html</loc>
-<lastmod>2018-01-09T10:00:29+02:00</lastmod>
-</url>
-<url>
 <loc>http://localhost:4000/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html</loc>
 <lastmod>2018-01-14T12:43:29+02:00</lastmod>
 </url>
@@ -67,6 +63,10 @@
 <url>
 <loc>http://localhost:4000/thesis/weather/2018/05/14/msc-in-a-poster.html</loc>
 <lastmod>2018-05-14T12:43:29+02:00</lastmod>
+</url>
+<url>
+<loc>http://localhost:4000/things/linux/2019/02/09/useless-things-learn-during-the-day.html</loc>
+<lastmod>2019-02-09T10:00:29+02:00</lastmod>
 </url>
 <url>
 <loc>http://localhost:4000/writing/2019/02/09/writing-is-hard.html</loc>

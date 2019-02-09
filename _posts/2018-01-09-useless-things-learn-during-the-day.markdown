@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Usefull, useless things"
-date:   2018-01-09 10:00:29 +0200
+date:   2019-02-09 10:00:29 +0200
 categories: things linux
 ---
 
@@ -72,3 +72,11 @@ do
 done
 {% endhighlight %}
 
+### Making barcodes
+Making barcodes in Linux is very easy, install barcode, run the command convert the ps file to pdf using ps2pdf
+
+{% highlight bash %}
+sudo apt install barcode
+barcode -t 3x6 -i Oatmeal 128 -o output.ps
+ps2pdf output.ps oatmealbarcode.pdf
+{% endhighlight %}
