@@ -34,5 +34,4 @@ Meteorology Laboratory)
 **Current: Phd. Environmental Science**  
 Concentration: Numerical Weather Prediction, Cloud Microphysics, Cloud Dynamics, Anthropogenic Air Pollution  
 Dissertation: Anthropogenic Impacts on Severe Convective Events over the South-African Highveld  
-Supervisors: Dr. Roelof Burger (Atmospheric Scientist) & Prof. Stuart Piketh  
-(Atmospheric Chemist)  
+Supervisors: Dr. Roelof Burger (Atmospheric Scientist) & Prof. Stuart Piketh (Atmospheric Chemist)  
