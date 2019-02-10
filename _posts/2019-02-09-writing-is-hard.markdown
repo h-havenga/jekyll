@@ -11,9 +11,9 @@ I've lost interest, it's more a case of very bad *imposter syndrome* that came
 over me and particularly my writing style. But as with everything I should see
 this as practise. The only way to get better is to write more and write
 regularly, otherwise you *get out of shape*. That's the same with reading,
-exercising, meditating or anything else. The book Writer's Home Companion: An
+exercising, meditating or anything else. The book, Writer's Home Companion: An
 Anthology of the World's Best Writing Advice, From Keats to Kunitz by _Joan
-Bolker_  makes the same argument and suggest writing exercises by using cues.
+Bolker_ , the author makes the same argument and suggest writing exercises by using cues.
 Or just even writing randomly for a set time each day about anything that comes
 up in your mind. So this post is a little commitment to myself to *just write*.
 No matter how bad, or how random, I just need to write.

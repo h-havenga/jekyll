@@ -8,7 +8,7 @@ permalink: /travelmap/
 
 ![travelmap]({{ "/assets/images/maps/travelmap_world.png" | absolute_url }})
 
-# Unpaved roads I like to drive on
+# Unpaved roads I've driven on
 
 Some roads are marked but not visible on the basemap 
 
