@@ -23,7 +23,7 @@ NWU Potchefstroom, 2014
 Concentration: Remote Sensing, Air-Pollution, Numerical Weather Prediction  
 Dissertation: The numerical simulation of the 28 November 2013 extreme hail event over Johannesburg  
 
-**Current: Msc. Environmental Science**  
+**Msc. Environmental Science**  
 NWU Potchefstroom, 2018  
 Concentration: Remote Sensing, Numerical Weather Prediction, Synoptic Climatology  
 Dissertation: Characteristics of hailstorms over the South-African Highveld  
@@ -31,14 +31,9 @@ Supervisors: Dr. Roelof Burger (Atmospheric Scientist), Prof. Stuart Piketh
 (Atmospheric Chemist), Dr. Cindy Bruyere (NCAR - Mesoscale and Microscale  
 Meteorology Laboratory)  
 
-Current Projects
-1. CRG/NWU Lekwena C-band radar development 
-2. Characterizing Hailstorms over the Highveld 
-+ Synoptic clustering of synoptic patterns related to hail days
-+ Convective permitting simulations over South-Africa using WRF 
-+ Assessing the trends of hailstorms over the Highveld
-
+**Current: Phd. Environmental Science**  
+Concentration: Remote Sensing, Numerical Weather Prediction, Cloud Microphysics, Cloud Dynamics, Anthropogenic Impacts   
+Dissertation: Anthropogenic Impacts on Severe Convective Events over the South-African Highveld
+Supervisors: Dr. Roelof Burger (Atmospheric Scientist) & Prof. Stuart Piketh  
+(Atmospheric Chemist)  
 ______
-
-**Programming Languages & Software:**  
-R, Python, NCL, GrADS, LaTeX, ArcGis, QGIS, WRF & COST733class   
