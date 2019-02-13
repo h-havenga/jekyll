@@ -10,6 +10,7 @@ permalink: /travelmap/
 
 # Unpaved roads I've driven on
 
-Some roads are marked but not visible on the basemap 
+##### Red: bad roads || Yellow: so-so || Green: pretty nice to drive on
 
 <iframe height="768px" width="768px" src="/assets/images/maps/gravel/gravelroads.html"></iframe>
+*Some roads are marked but not visible on the basemap 
