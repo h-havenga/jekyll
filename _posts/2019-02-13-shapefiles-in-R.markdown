@@ -5,7 +5,7 @@ date:   2019-02-13 12:43:29 +0200
 categories: writing  
 ---
 
-I've been using R in my daily doings more and more and as students in the
+I've been using R in my daily doings more and more and as a student in the
 *geo-sciences* making maps is pretty important. My first love is still GMT, but
 R is proving useful and this is just a brief note on how to make a very simple
 map using R and ggplot2.
