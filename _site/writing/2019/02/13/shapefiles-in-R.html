@@ -122,12 +122,12 @@ unzip ZAF_adm_shp.zip</code></pre></figure>
 
 <p>Install these packages (I’m lazy, so I just use the wildcard)</p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install libgeos<span class="se">\*</span> </code></pre></figure>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install r-base-core libgdal<span class="se">\*</span> libproj<span class="se">\*</span> libgeos<span class="se">\*</span> </code></pre></figure>
 
 <p>Open R and first do:</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="w">
-</span><span class="nf">c</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rgdal"</span><span class="p">,</span><span class="s2">"rgeos"</span><span class="p">)</span><span class="w">
+</span><span class="nf">c</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rgdal"</span><span class="p">,</span><span class="s2">"rgeos"</span><span class="p">,</span><span class="s2">"maps"</span><span class="p">,</span><span class="s2">"sp"</span><span class="p">)</span><span class="w">
 </span><span class="p">)</span></code></pre></figure>
 
 <p>The needed packages should be installed. Load the libraries and read the

@@ -19,14 +19,14 @@ unzip ZAF_adm_shp.zip
 Install these packages (I'm lazy, so I just use the wildcard)
 
 {% highlight bash %}
-sudo apt install libgeos\* 
+sudo apt install r-base-core libgdal\* libproj\* libgeos\* 
 {% endhighlight %}
 
 Open R and first do:
 
 {% highlight R %}
 install.packages(
-c("ggplot2", "rgdal","rgeos")
+c("ggplot2", "rgdal","rgeos","maps","sp")
 )
 {% endhighlight %}
 
