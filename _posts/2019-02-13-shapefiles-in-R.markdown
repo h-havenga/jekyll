@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Working with shapefiles in R"
+title:  "Shapefiles in R - making a basic map"
 date:   2019-02-13 12:43:29 +0200
 categories: writing  
 ---
