@@ -156,7 +156,7 @@ over do:</p>
 
 <figure class="highlight"><pre><code class="language-zsh" data-lang="zsh"><span class="k">for </span>i <span class="k">in</span> <span class="k">*</span>/.git<span class="p">;</span> <span class="k">do</span> <span class="o">(</span> <span class="nb">echo</span> <span class="nv">$i</span><span class="p">;</span> <span class="nb">cd</span> <span class="nv">$i</span>/..<span class="p">;</span> git pull<span class="p">;</span> <span class="o">)</span><span class="p">;</span> <span class="k">done</span></code></pre></figure>
 
-<p>Convert a multisheet spreadsheet to a csv file</p>
+<p>Convert a multisheet spreadsheet to a csv file. UPDATE: This is not a good idea for multi-sheet spreadsheets.</p>
 
 <figure class="highlight"><pre><code class="language-zsh" data-lang="zsh">xlsx2csv sheet.xlsx <span class="nt">-d</span> <span class="s1">';'</span> <span class="nt">--all</span> <span class="o">&gt;</span> sheet.csv</code></pre></figure>
 

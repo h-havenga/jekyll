@@ -72,7 +72,7 @@ Update all git repositories in a given directory
 for i in */.git; do ( echo $i; cd $i/..; git pull; ); done
 {% endhighlight %}
 
-Convert a multisheet spreadsheet to a csv file
+Convert a multisheet spreadsheet to a csv file. UPDATE: This is not a good idea for multi-sheet spreadsheets.
 {% highlight zsh %}
 xlsx2csv sheet.xlsx -d ';' --all > sheet.csv
 {% endhighlight %}
