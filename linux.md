@@ -71,3 +71,8 @@ Update all git repositories in a given directory
 {% highlight zsh %}
 for i in */.git; do ( echo $i; cd $i/..; git pull; ); done
 {% endhighlight %}
+
+Convert a multisheet spreadsheet to a csv file
+{% highlight zsh %}
+xlsx2csv sheet.xlsx -d ';' --all > sheet.csv
+{% endhighlight %}
