@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "Working with an excel multisheet spreadsheet in R"
-date:   2019-02-17 09:40:29 +0200
+title:  "Multisheet spreadsheets in R"
+date:   2019-02-19 09:40:29 +0200
 categories: R  
 ---
 
@@ -19,7 +19,7 @@ for i in {1..76}; do echo "\"d\$Sheet$i\"," ; done
 {% endhighlight %}
 
 And paste the result in rbindlist to create a workable df.
-Ps. I only did this becuase my R loop was not working
+I only did the bash loop becuase my R loop was not working
 
 {% highlight R %}
 df <- rbindlist(list(df$Sheet1, df$Sheet2, df$Sheet3, df$Sheet4, df$Sheet5, df$Sheet6,

@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Working with an excel multisheet spreadsheet in R</title>
+  <title>Multisheet spreadsheets in R</title>
   <meta name="description" content="library(rio) exceldf &amp;lt;- import_list(&quot;filewithatonoftabs.xlsx&quot;)">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/r/2019/02/17/excel-mulitsheet-in-R.html">
+  <link rel="canonical" href="http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
    
   
@@ -100,11 +100,11 @@
 <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script><article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">Working with an excel multisheet spreadsheet in R</h1>
+    <h1 class="post-title" itemprop="name headline">Multisheet spreadsheets in R</h1>
     <p class="post-meta">
-      <time datetime="2019-02-17T09:40:29+02:00" itemprop="datePublished">
+      <time datetime="2019-02-19T09:40:29+02:00" itemprop="datePublished">
         
-        Feb 17, 2019
+        Feb 19, 2019
       </time>
       </p>
   </header>
@@ -121,7 +121,7 @@
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>1..76<span class="o">}</span><span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="s2">"</span><span class="se">\"</span><span class="s2">d</span><span class="se">\$</span><span class="s2">Sheet</span><span class="nv">$i</span><span class="se">\"</span><span class="s2">,"</span> <span class="p">;</span> <span class="k">done</span></code></pre></figure>
 
 <p>And paste the result in rbindlist to create a workable df.
-Ps. I only did this becuase my R loop was not working</p>
+I only did the bash loop becuase my R loop was not working</p>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">rbindlist</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Sheet1</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet2</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet3</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet4</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet5</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet6</span><span class="p">,</span><span class="w">
 </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet7</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet8</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet9</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet10</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet11</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Sheet12</span><span class="p">,</span><span class="w">
