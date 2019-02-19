@@ -15,7 +15,7 @@ There is 76 tabs in this sheet -- F*ck.
 Write a for loop in bash
 
 {% highlight bash %}
-for i in {1..76}; do echo "\"d\$Sheet$i\"," ; done
+for i in {1..76}; do echo "\"df\$Sheet$i\"," ; done
 {% endhighlight %}
 
 And paste the result in rbindlist to create a workable df.
