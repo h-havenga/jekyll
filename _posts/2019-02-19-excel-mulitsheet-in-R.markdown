@@ -7,7 +7,8 @@ categories: R
 
 {% highlight R %}
 library(rio)
-exceldf <- import_list("filewithatonoftabs.xlsx")
+library(data.tables)
+df <- import_list("filewithatonoftabs.xlsx")
 {% endhighlight %}
 
 There is 76 tabs in this sheet -- F*ck.
@@ -22,7 +23,7 @@ And paste the result in rbindlist to create a workable df.
 I only did the bash loop becuase my R loop was not working
 
 {% highlight R %}
-df <- rbindlist(list(df$Sheet1, df$Sheet2, df$Sheet3, df$Sheet4, df$Sheet5, df$Sheet6,
+df_working <- rbindlist(list(df$Sheet1, df$Sheet2, df$Sheet3, df$Sheet4, df$Sheet5, df$Sheet6,
 df$Sheet7, df$Sheet8, df$Sheet9, df$Sheet10, df$Sheet11, df$Sheet12,
 df$Sheet13, df$Sheet14, df$Sheet15, df$Sheet16, df$Sheet17, df$Sheet18,
 df$Sheet19, df$Sheet20, df$Sheet21, df$Sheet22, df$Sheet23, df$Sheet24,
@@ -37,6 +38,6 @@ df$Sheet67, df$Sheet68, df$Sheet69, df$Sheet70, df$Sheet71, df$Sheet72,
 df$Sheet73, df$Sheet74, df$Sheet75, df$Sheet76))[order(ClimNo)]
 
 # Save the csv so you wont have to repeat this
-write.csv(df_2, file = "./yourfile.csv", row.names = TRUE)
+write.csv(df_working, file = "./yourfile.csv", row.names = TRUE)
 {% endhighlight %}
 
