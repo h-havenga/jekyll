@@ -59,9 +59,15 @@ theme_set(theme_classic(base_size=22))
 # Lets load the df first
 df <- read.csv("libsum.csv", sep=";", header=TRUE)
 
-# Get shapefiles and define the regions of interest
-highveld <- map_data(readOGR(dsn="./", layer="Ecoregions2017"))
-gauteng <- map_data(readOGR(dsn="./", layer="Guateng"))
+#To actually work with the shapefiles, omit the map_data function
+# and invoke it later
+basemap_1  <- readOGR(dsn="./", layer="ZAF_adm1")
+ecoregions <- readOGR(dsn="./", layer="Ecoregions2017")
+
+# To extract a layer to use in a plot, in this case Gauteng and the Highveld,
+# do:
+gauteng  <- map_data(basemap_1[basemap_1$NAME_1=="Gauteng", ])
+highveld <- map_data(ecoregions[ecoregions$ECO_ID=="81", ])
 
 # Here we extract data that falls within the Higheld ecoregion and Gauteng
 # We create a new column in the df where a 1 or 0 will be assigned if it falls inside the
