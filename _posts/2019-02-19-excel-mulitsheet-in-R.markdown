@@ -7,7 +7,7 @@ categories: R
 
 {% highlight R %}
 library(rio)
-library(data.tables)
+library(data.table)
 df <- import_list("filewithatonoftabs.xlsx")
 {% endhighlight %}
 

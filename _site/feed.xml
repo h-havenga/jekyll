@@ -1,6 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-19T21:48:11+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Multisheet spreadsheets in R</title><link href="http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R.html" rel="alternate" type="text/html" title="Multisheet spreadsheets in R" /><published>2019-02-19T09:40:29+02:00</published><updated>2019-02-19T09:40:29+02:00</updated><id>http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R</id><content type="html" xml:base="http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R.html">&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data.tables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-24T13:41:37+02:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">Shapefiles in R - extracting data in a spesific polygon</title><link href="http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html" rel="alternate" type="text/html" title="Shapefiles in R - extracting data in a spesific polygon" /><published>2019-02-24T09:40:29+02:00</published><updated>2019-02-24T09:40:29+02:00</updated><id>http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons</id><content type="html" xml:base="http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html">&lt;p&gt;I encountered an issue where I wanted to extract points located within
+a specific shapefile, in this case the Highveld ecoregion and Gauteng.
+Instead of extracting the points in R I assign them a 1/0 (TRUE/FALSE) value in
+a new column using &lt;em&gt;point.in.polygon&lt;/em&gt;, following this I the &lt;em&gt;filter&lt;/em&gt; function
+in R to create a new dataframe where Highveld == 1. In theory you could use the
+&lt;em&gt;over&lt;/em&gt; function which is part of the rgdal package, but I found this
+cumbersome.&lt;/p&gt;
+
+&lt;p&gt;So here we have a nice example dataset that is geo-referenced, lets call it &lt;em&gt;libsum.csv&lt;/em&gt;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csv&quot; data-lang=&quot;csv&quot;&gt;Date     ;Event         ;Place                    ;Latitude  ;Longitude  ;Height(m)               
+2014/2/3 ;Rain/flooding ;JOHANNESBURG, GAUTENG    ;-26.12    ;28.02      ;1749       		
+2014/2/3 ;Rain/flooding ;SOWETO, GAUTENG          ;-26.14    ;26.15      ;1646       		
+2014/2/3 ;Rain/flooding ;LENASIA, GAUTENG         ;-26.20    ;27.51      ;1574       		
+2014/2/3 ;Rain/flooding ;TEMBISA, GAUTENG         ;-26.00    ;28.12      ;16         		
+2014/2/3 ;Rain/flooding ;MIDRAND, GAUTENG         ;-25.56    ;28.08      ;1539       		
+2014/2/3 ;Rain/flooding ;CENTURION, GAUTENG       ;-25.51    ;28.11      ;1432       		
+2014/2/3 ;Rain/flooding ;RANDBURG, GAUTENG        ;-26.08    ;27.59      ;1603       		
+2014/2/3 ;Rain/flooding ;ROODEPOORT, GAUTENG      ;-26.07    ;27.54      ;1747       		
+2014/2/3 ;Rain/flooding ;ALEXANDRA, GAUTENG       ;-26.06    ;28.05      ;1546       		
+2014/2/3 ;Rain/flooding ;KRUGERSDORP, GAUTENG     ;-26.07    ;27.54      ;1727       		
+2014/2/3 ;Rain/flooding ;MAKHADO, LIMPOPO         ;-23.02    ;29.54      ;950        		
+2014/2/3 ;Rain/flooding ;THOHOYANDOU, LIMPOPO     ;-22.52    ;30.28      ;741        		
+2014/2/3 ;Rain/flooding ;DELAREYVILLE, NORTH-WEST ;-26.41    ;25.27      ;1349       		
+2014/2/3 ;Rain/flooding ;OTTOSDAL, NORTH-WEST     ;-26.48    ;26.00      ;1504       		
+2014/2/3 ;Rain/flooding ;VRYBURG, NORTH-WEST      ;-26.57    ;24.43      ;1199       		
+2014/2/3 ;Rain/flooding ;WOLMARANSTAD, NORTH-WEST ;-27.12    ;25.58      ;1356       		
+2014/2/3 ;Rain/flooding ;TSWAING, NORTH-WEST      ;-26.39    ;25.46      ;1405       		
+2010/2/3 ;Other         ;MAGALIESBERG             ;-26.00    ;27.55      ;1480       		
+2014/2/3 ;Other         ;LANSERIA, GAUTENG        ;-25.26    ;27.55      ;1362       		&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we can open R&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Load some usefull libraries&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tidyverse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ggplot2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reshape2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;viridis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rgdal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;grid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gridExtra&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GSODR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rgeos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# sudo apt install libgeos\* &lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme_set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theme_classic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;base_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Lets load the df first&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read.csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;libsum.csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sep&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;header&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Get shapefiles and define the regions of interest&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;highveld&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readOGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dsn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Ecoregions2017&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gauteng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;map_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;readOGR&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dsn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Guateng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Here we extract data that falls within the Higheld ecoregion and Gauteng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# We create a new column in the df where a 1 or 0 will be assigned if it falls inside the&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# lat and lon of the corresponding polygon&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Highveld&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point.in.polygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Longitude&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Latitude&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;highveld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;highveld&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Highveld&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Highveld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+
+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# And we do the same for Gauteng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Gauteng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point.in.polygon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Longitude&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Latitude&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gauteng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;long&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gauteng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Gauteng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as.character&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Gauteng&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;After running this the df should look something like this&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-csv&quot; data-lang=&quot;csv&quot;&gt;Date     ;Event;Place                             ;Latitude;Longitude;Height (m); Highveld;Gauteng
+2014/2/3 ;Rain/flooding ;JOHANNESBURG; GAUTENG    ;-26.12; 28.02;    1749;        1;       1
+2014/2/3 ;Rain/flooding ;SOWETO; GAUTENG          ;-26.14; 26.15;    1646;        1;       0
+2014/2/3 ;Rain/flooding ;LENASIA; GAUTENG         ;-26.2;  27.51;    1574;        1;       1
+2014/2/3 ;Rain/flooding ;TEMBISA; GAUTENG         ;-26;    28.12;    16  ;        1;       1
+2014/2/3 ;Rain/flooding ;MIDRAND; GAUTENG         ;-25.56; 28.08;    1539;        0;       1
+2014/2/3 ;Rain/flooding ;CENTURION; GAUTENG       ;-25.51; 28.11;    1432;        0;       1
+2014/2/3 ;Rain/flooding ;RANDBURG; GAUTENG        ;-26.08; 27.59;    1603;        1;       1
+2014/2/3 ;Rain/flooding ;ROODEPOORT; GAUTENG      ;-26.07; 27.54;    1747;        1;       1
+2014/2/3 ;Rain/flooding ;ALEXANDRA; GAUTENG       ;-26.06; 28.05;    1546;        1;       1
+2014/2/3 ;Rain/flooding ;KRUGERSDORP; GAUTENG     ;-26.07; 27.54;    1727;        1;       1
+2014/2/3 ;Rain/flooding ;MAKHADO; LIMPOPO         ;-23.02; 29.54;    950 ;        0;       0
+2014/2/3 ;Rain/flooding ;THOHOYANDOU; LIMPOPO     ;-22.52; 30.28;    741 ;        0;       0
+2014/2/3 ;Rain/flooding ;DELAREYVILLE; NORTH-WEST ;-26.41; 25.27;    1349;        0;       0
+2014/2/3 ;Rain/flooding ;OTTOSDAL; NORTH-WEST     ;-26.48; 26;       1504;        1;       0
+2014/2/3 ;Rain/flooding ;VRYBURG; NORTH-WEST      ;-26.57; 24.43;    1199;        0;       0
+2014/2/3 ;Rain/flooding ;WOLMARANSTAD; NORTH-WEST ;-27.12; 25.58;    1356;        1;       0
+2014/2/3 ;Rain/flooding ;TSWAING; NORTH-WEST      ;-26.39; 25.46;    1405;        1;       0
+2010/2/3 ;Other         ;MAGALIESBERG             ;-26   ; 27. 55;   1480;        0;       1
+2014/2/3 ;Other         ;LANSERIA; GAUTENG        ;-25.26; 27.55;    1362;        0;       0&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now we can create a new dataframe to work with that only contains the data that
+falls within the polygons of interest&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;df_hv&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Highveld&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_gp&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Gauteng&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">I encountered an issue where I wanted to extract points located within a specific shapefile, in this case the Highveld ecoregion and Gauteng. Instead of extracting the points in R I assign them a 1/0 (TRUE/FALSE) value in a new column using point.in.polygon, following this I the filter function in R to create a new dataframe where Highveld == 1. In theory you could use the over function which is part of the rgdal package, but I found this cumbersome.</summary></entry><entry><title type="html">Multisheet spreadsheets in R</title><link href="http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R.html" rel="alternate" type="text/html" title="Multisheet spreadsheets in R" /><published>2019-02-19T09:40:29+02:00</published><updated>2019-02-19T09:40:29+02:00</updated><id>http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R</id><content type="html" xml:base="http://localhost:4000/r/2019/02/19/excel-mulitsheet-in-R.html">&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;data.table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;import_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;filewithatonoftabs.xlsx&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;There is 76 tabs in this sheet – F*ck.&lt;/p&gt;
@@ -27,7 +120,7 @@ I only did the bash loop becuase my R loop was not working&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sheet73&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sheet74&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sheet75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sheet76&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ClimNo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 
 &lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Save the csv so you wont have to repeat this&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write.csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_working&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./yourfile.csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;row.names&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">library(rio) library(data.tables) df &amp;lt;- import_list(&quot;filewithatonoftabs.xlsx&quot;)</summary></entry><entry><title type="html">Shapefiles in R - extracting polygons</title><link href="http://localhost:4000/r/2019/02/17/shapefiles-in-R-2.html" rel="alternate" type="text/html" title="Shapefiles in R - extracting polygons" /><published>2019-02-17T09:40:29+02:00</published><updated>2019-02-17T09:40:29+02:00</updated><id>http://localhost:4000/r/2019/02/17/shapefiles-in-R-2</id><content type="html" xml:base="http://localhost:4000/r/2019/02/17/shapefiles-in-R-2.html">&lt;p&gt;This builds on the previous post &lt;em&gt;Shapefiles in R - making a basic map&lt;/em&gt;.&lt;/p&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write.csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_working&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./yourfile.csv&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;row.names&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">library(rio) library(data.table) df &amp;lt;- import_list(&quot;filewithatonoftabs.xlsx&quot;)</summary></entry><entry><title type="html">Shapefiles in R - extracting polygons</title><link href="http://localhost:4000/r/2019/02/17/shapefiles-in-R-2.html" rel="alternate" type="text/html" title="Shapefiles in R - extracting polygons" /><published>2019-02-17T09:40:29+02:00</published><updated>2019-02-17T09:40:29+02:00</updated><id>http://localhost:4000/r/2019/02/17/shapefiles-in-R-2</id><content type="html" xml:base="http://localhost:4000/r/2019/02/17/shapefiles-in-R-2.html">&lt;p&gt;This builds on the previous post &lt;em&gt;Shapefiles in R - making a basic map&lt;/em&gt;.&lt;/p&gt;
 
 &lt;p&gt;In QGIS or ArcGIS is pretty easy to extract part of a shapefile. Generally you
 can open shapefile attribute table and select the feature you want and delete
@@ -794,109 +887,4 @@ the location of the SAWS Irene Weather station. The circular lines indicate the 
 of from the radar site, which is a maximum of 200km due to various factors such as the
 curvature of the earth&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarAirports.png&quot; alt=&quot;radar_interference&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The North West University Potchefstroom has a pretty cool C-band radar currently under development. The radar, a WSR74-C radar, was previously located in Texas and after three decades it was redeployed to South-Africa for research purposes. The project was initiated before I started my graduate studies, but since 2016 we have slowly worked to get the radar operational. The site location and deployment of the radar was already completed in 2015 and since then most problems have been related to data transfer from the radar site to the university 30km away, we continue to have some troubles with interference on the radar frequency and unreliable power. Considering all this we managed to get the radar operational and running on a more permanent bases. We also designed a simple website using Jekyll which you can view on www.lekwenaradar.co.za.</summary></entry><entry><title type="html">Making a poster with LaTeX</title><link href="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html" rel="alternate" type="text/html" title="Making a poster with LaTeX" /><published>2018-02-22T12:43:29+02:00</published><updated>2018-02-22T12:43:29+02:00</updated><id>http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences</id><content type="html" xml:base="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html">&lt;p&gt;LaTex is one of those cool things that suck you into the metaphorical rabbit
-hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out
-of my own initiative, my supervisor was using it but he recommended everyone
-against it and I would do the same, it’s just not that efficient and you can’t
-hide behind Microsoft Office’s fancy spelling/grammar checks and it lacks some
-support, our University’s writing department did not even know what LaTex is,
-this might be the case at other institutions to.&lt;/p&gt;
-
-&lt;p&gt;Making a poster in LaTeX was an surprisingly enjoyable exercise. After finding
-the the right combination of packages and experimenting with the layout the
-setup below best suited me. I’ll start off with the packages in the preamble.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[a1,final]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;a0poster&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;graphicx&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[absolute,overlay]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;textpos&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[colorgrid,texcoord]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;eso-pic&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPHorizModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPVertModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.ctan.org/pkg/a0poster&quot;&gt;&lt;em&gt;documentclass{a0poster}&lt;/em&gt;&lt;/a&gt; conveniently sorts out
-the formatting problems related to the poster size, things like fonts and
-formulas. The &lt;a href=&quot;http://www.ctan.org/pkg/textpos&quot;&gt;&lt;em&gt;textpos&lt;/em&gt;&lt;/a&gt; allows you to specify the
-exact position of text boxes, or figures, in the posters as an x,y point and we
-can see this x,y grid by using the &lt;a href=&quot;http://www.ctan.org/pkg/eso-pic&quot;&gt;&lt;em&gt;eso-pic&lt;/em&gt;&lt;/a&gt; package.
-The textpos documentation tells us that both &lt;em&gt;TPHoriz&lt;/em&gt; and &lt;em&gt;TPVert&lt;/em&gt; refer to
-the x,y size parameters of the of the text block environment. You can also
-change the layout to portrait (default is landscape) by doing
-&lt;em&gt;/documentclass[portrait,a0,final]&lt;/em&gt; and change the aX to 0 or 1 depending on
-your desired size&lt;/p&gt;
-
-&lt;p&gt;Try this out to get a feel:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;c&quot;&gt;% The preamble &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[a1,final]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;a0poster&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;graphicx&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[absolute,overlay]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;textpos&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[colorgrid,texcoord]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;eso-pic&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPHorizModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPVertModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Begin&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Title&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;26&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(2, 2)
-&lt;span class=&quot;k&quot;&gt;\VeryHuge&lt;/span&gt; Poster Making 101
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;You should get this output:
-&lt;img src=&quot;http://localhost:4000/assets/images/random/poster_basic.png&quot; alt=&quot;basic_poster&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Adding and positioning blocks of text is pretty easy. I’m going to use the
-&lt;em&gt;\lipsum&lt;/em&gt; package to avoid writing my own stuff :).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;c&quot;&gt;% The preamble &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[a1,final]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;a0poster&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;graphicx&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[absolute,overlay]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;textpos&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[colorgrid,texcoord]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;eso-pic&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPHorizModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPVertModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;lipsum&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Begin&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Title&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;26&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(2, 2)
-&lt;span class=&quot;k&quot;&gt;\VeryHuge&lt;/span&gt; Poster Making 101 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Text Box 1&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;50&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(2, 6)
-&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\lipsum&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[60]&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Text Box 2&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;30&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(53, 6)
-&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\lipsum&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[80]&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Text Box 3&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;15&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(68, 27)
-&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\lipsum&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[40]&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% A Fancy Picture made with GMT of course&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(0, 10)
-&lt;span class=&quot;nt&quot;&gt;\begin{figure}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\includegraphics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;hail&lt;span class=&quot;p&quot;&gt;_&lt;/span&gt;composite&lt;span class=&quot;p&quot;&gt;_&lt;/span&gt;globe.pdf&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\end{figure}&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And then you a very nice layout a1, landscape poster.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/random/poster_not_so_basic.png&quot; alt=&quot;basic_final&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;To remove the grids, uncomment \usepackage[colorgrid,texcoord]{eso-pic} and to
-remove the boxes around the text (altough it might be good to keep them) remove
-&lt;em&gt;showboxes&lt;/em&gt; in the &lt;em&gt;eso-pic&lt;/em&gt; package.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/random/poster_no_grid.png&quot; alt=&quot;basic_final&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">LaTex is one of those cool things that suck you into the metaphorical rabbit hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out of my own initiative, my supervisor was using it but he recommended everyone against it and I would do the same, it’s just not that efficient and you can’t hide behind Microsoft Office’s fancy spelling/grammar checks and it lacks some support, our University’s writing department did not even know what LaTex is, this might be the case at other institutions to.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarAirports.png&quot; alt=&quot;radar_interference&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The North West University Potchefstroom has a pretty cool C-band radar currently under development. The radar, a WSR74-C radar, was previously located in Texas and after three decades it was redeployed to South-Africa for research purposes. The project was initiated before I started my graduate studies, but since 2016 we have slowly worked to get the radar operational. The site location and deployment of the radar was already completed in 2015 and since then most problems have been related to data transfer from the radar site to the university 30km away, we continue to have some troubles with interference on the radar frequency and unreliable power. Considering all this we managed to get the radar operational and running on a more permanent bases. We also designed a simple website using Jekyll which you can view on www.lekwenaradar.co.za.</summary></entry></feed>
