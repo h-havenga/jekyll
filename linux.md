@@ -76,3 +76,8 @@ Convert a multisheet spreadsheet to a csv file. UPDATE: This is not a good idea 
 {% highlight zsh %}
 xlsx2csv sheet.xlsx -d ';' --all > sheet.csv
 {% endhighlight %}
+
+Docx to Tex format
+{% highlight zsh %}
+pandoc -f docx -t latex -o out.tex in.docx 
+{% endhighlight %}

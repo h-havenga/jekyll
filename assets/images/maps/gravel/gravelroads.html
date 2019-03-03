@@ -23,7 +23,6 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 <!--Add road lat lon and condtions here-->
 
 <!--NO GO ROADS-->
-
     L.circle([-26.89023, 27.282486], 500, {
 		color: 'red',
 		fillColor: '#f03',
@@ -49,6 +48,18 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 	}).addTo(mymap).bindPopup("No Go, heavy corrucations");
 
 <!--SO-SO ROADS-->
+    L.circle([-26.829049, 27.126789], 500, {
+		color: 'yellow',
+		fillColor: '#ffee00',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindPopup("Not bad but pretty boring");
+
+    L.circle([-26.881043, 27.359905], 500, {
+		color: 'yellow',
+		fillColor: '#ffee00',
+		fillOpacity: 0.5
+	}).addTo(mymap).bindPopup("Scenic, but pretty bad and narrow at places");
+
     L.circle([-25.76318, 27.177429], 500, {
 		color: 'yellow',
 		fillColor: '#ffee00',
@@ -157,8 +168,6 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     		fillColor: '#00ff2a',
     		fillOpacity: 0.5
     	}).addTo(mymap).bindPopup("Good road, seems like there is some interesting side roads to take");
-
-
 
 <!--END-->
 
