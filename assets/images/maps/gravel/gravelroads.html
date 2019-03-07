@@ -169,6 +169,12 @@ L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
     		fillOpacity: 0.5
     	}).addTo(mymap).bindPopup("Good road, seems like there is some interesting side roads to take");
 
+   L.circle([-26.931559, 27.151337], 500, {
+    		color: 'green',
+    		fillColor: '#00ff2a',
+    		fillOpacity: 0.5
+    	}).addTo(mymap).bindPopup("Nice drive along the vaal river.");
+
 <!--END-->
 
 	var popup = L.popup();
