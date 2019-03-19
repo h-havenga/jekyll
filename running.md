@@ -26,9 +26,10 @@ ______
 Biedenköpper Stadtlauf: 10km, 2nd, 33:47 | Der Gießener Stadtlauf: 10km,
 2nd, 31:57 | Nuthetal-Crosslauf: 16km, 2nd, 59:44 | Finlandia 10km: 1st,
 32:39 | Marburg Stadtlauf: 2nd, 34:01 | Köln Half Marathon: 31st, 1:12:21 |
-BoekelderCross 15km: 1st, 55:23 | Zurich Málaga Maratón: 16th, 2:39:45 |
+BoekelderCross 15km: 1st, 55:23 | Zurich Málaga Maratón: 16th, 2:39:45
 
 <b> 2018 </b>: Two Oceans: 21.1km: 75th, 1:17:49 (Bad day)
 
-<b> 2019 </b>: Ottosdal Draf en Trap: 10km, 7th, 35:00 |
-
+<b> 2019 </b>: Ottosdal Draf en Trap: 10km, 7th, 35:00 | Cape Gate Vaal
+Marathon: 10km, 34:16 No official result, no chip | Om Die Dam: 21.1km, 5th,
+1:15:30 |
