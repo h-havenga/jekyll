@@ -10,7 +10,7 @@ Gene, _Richard Dawkins_ | We Have No Idea: A Guide to the Unknown Universe,
 _Jorge Cham and Daniel Whitesonk_ 
 
 #### Read * : 
-Pot-Pourri, _André P. Brink_ |
+The Outsider, _Albert Camus_ | Pot-Pourri, _André P. Brink_ |
 Because We Say So, _Noam Chomsky_ | Waking Up, _Sam Harris_ |
 The Subtle Art of Not Giving a Fuck, _Mark Manson_ |
 Freedom and Neurobiology: Reflections on Free Will, Language, and Political Power, _John Searle_ |
