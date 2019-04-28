@@ -32,4 +32,4 @@ BoekelderCross 15km: 1st, 55:23 | Zurich Málaga Maratón: 16th, 2:39:45
 
 <b> 2019 </b>: Ottosdal Draf en Trap: 10km, 7th, 35:00 | Cape Gate Vaal
 Marathon: 10km, 34:16 No official result, no chip | Om Die Dam: 21.1km, 5th,
-1:15:30
+1:15:30 | Vienna City Half Marathon, 16th, 1:13:53 | Two Oceans: 21.1km: 65th _ish_, 1:14:50
