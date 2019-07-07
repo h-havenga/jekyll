@@ -1,0 +1,65 @@
+<p>Everyday I figure out small things that make life a little easier and don’t fit
+in my <em>useful one liners</em> post , I tend to forget them the moment I’m done
+using it or implementing whatever I need it for. This could be anything from
+latex to git to bash to vim and in most cases these are just little
+conveniences. So I’ll attempt to note these useless things here.</p>
+
+<h3 id="adding-metadata-to-latex-pdf">Adding Metadata to LaTeX pdf</h3>
+<p>This whole post was inspired by right clicking on my thesis and seeing that my
+metadata is empty, the fix was pretty easy. Add this to your preamble:</p>
+
+<figure class="highlight"><pre><code class="language-latex" data-lang="latex"><span class="k">\usepackage</span><span class="p">{</span>hyperref<span class="p">}</span>
+<span class="k">\hypersetup</span><span class="p">{</span>
+    pdftitle=<span class="p">{</span>LaTeX is for cool kids<span class="p">}</span>,
+    pdfsubject=<span class="p">{</span>Not Computer Science<span class="p">}</span>,
+    pdfauthor=<span class="p">{</span>Henno Havenga<span class="p">}</span>,
+    pdfkeywords=<span class="p">{</span>LaTeX, VIM, Debian, GNU, Linux<span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<h3 id="plotting-a-tif-file-with-gmt">Plotting a tif file with GMT</h3>
+<p>I needed to clip a <a href="https://visibleearth.nasa.gov/view_cat.php?categoryID=1484">NASA Blue
+Marble</a> tif file.
+I wanted to use <em>gdal_tanslate</em> but a not so quick search yield
+<a href="https://joeyklee.github.io/broc-cli-geo/guide/XX_raster_cropping_and_clipping.html"><em>gdalwarp</em></a>
+as a simpler option. Also note that the default NASA projection is Plate Carrée
+(JQ in GMT), this is useful to know if you want to draw borders over the NASA
+data using GMT without thinking to much about conversions. To clip the data
+I used gdalwarp and then GMT’s psimage module to overlay the image on a map:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gdalwarp <span class="nt">-te</span> 15 59 38 71 blue_marble_infile.tif clipped_blue_marble_outfile.tif</code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">gmt psbasemap <span class="nt">-R15</span>/38/59/71.5 <span class="nt">-JQ20</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B5a0</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;</span> image_map.ps
+gmt psimage clipped_blue_marble_outfile.tif <span class="nt">-DjCM</span>+w20/11.1 <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-V</span> <span class="o">&gt;&gt;</span> image_map.ps</code></pre></figure>
+
+<h3 id="linking-to-most-recent-eumetsat-products-in-markdown">Linking to most recent EUMETSAT products in markdown</h3>
+<p>In playing around with this site I thought about make a page dedicated weather
+stuff, it was pretty easy to link directly to EUMETSAT products with markdown
+by just copying the image link like this:</p>
+
+<figure class="highlight"><pre><code class="language-markdown" data-lang="markdown">    <span class="nt">&lt;center&gt;</span> <span class="nt">&lt;td</span> <span class="na">align=</span><span class="s">"center"</span> <span class="na">valign=</span><span class="s">"center"</span><span class="nt">&gt;</span> &lt;img
+    SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
+    alt="description here" /&gt; <span class="nt">&lt;br</span> <span class="nt">/&gt;</span> EUMETSAT SEVIRI
+    spectral channel IR 10.8 (copyright 2018 EUMETSAT) <span class="nt">&lt;/td&gt;</span> <span class="nt">&lt;/tr&gt;</span> <span class="nt">&lt;/center&gt;</span></code></pre></figure>
+
+<center> <td align="center" valign="center"> <img src="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg" alt="description here" /> <br /> EUMETSAT SEVIRI
+spectral channel IR 10.8 (copyright 2018 EUMETSAT).  </td> </center>
+
+<h3 id="array-in-bash">Array in bash</h3>
+
+<p>To work with arrays in bash you must call the array variable 
+“${array[@]}”</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">array</span><span class="o">=(</span>12 18 24 30 36 42 48<span class="o">)</span>
+
+<span class="k">for </span>count <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">array</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do 
+    </span><span class="nb">echo</span> <span class="nv">$i</span> 
+<span class="k">done</span></code></pre></figure>
+
+<h3 id="making-barcodes">Making barcodes</h3>
+<p>Making barcodes in Linux is very easy, install barcode, run the command convert the ps file to pdf using ps2pdf</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install barcode
+barcode <span class="nt">-t</span> 3x6 <span class="nt">-i</span> Oatmeal 128 <span class="nt">-o</span> output.ps
+ps2pdf output.ps oatmealbarcode.pdf</code></pre></figure>
+

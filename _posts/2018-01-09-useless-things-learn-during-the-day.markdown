@@ -51,12 +51,15 @@ by just copying the image link like this:
 
 {% highlight markdown %}
     <center> <td align="center" valign="center"> <img
-    SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
-    alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </tr> </center>
+    SRC="https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSG_IR108Color_SouthernAfrica.jpg"
+    alt="description here" /> <br /> EUMETSAT SEVIRI
+    spectral channel IR 10.8 (copyright 2018 EUMETSAT) </td> </tr> </center>
 {% endhighlight %}
+
 <center> <td align="center" valign="center"> <img
-SRC="http://oiswww.eumetsat.org/IPPS/html/latestImages/EUMETSAT_MSG_RGBNatColour_LowResolution.jpg"
-alt="description here" /> <br /> EUMETSAT RGB Africa. </td> </center>
+SRC="https://eumetview.eumetsat.int/static-images/latestImages/EUMETSAT_MSG_IR108Color_SouthernAfrica.jpg"
+alt="description here" alt="description here" /> <br /> EUMETSAT SEVIRI
+spectral channel IR 10.8 (copyright 2018 EUMETSAT).  </td> </center>
 
 ### Array in bash
 

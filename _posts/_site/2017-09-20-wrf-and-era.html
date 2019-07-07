@@ -1,0 +1,65 @@
+<p>I actually started a blog as part of another class, but lets pretend
+that never happened and mark this as the official start.</p>
+
+<p>I’m slowly going to start putting myself out there, I’m trying
+not to be a hypocrite – I preach open-source but I keep myself closed.</p>
+
+<p>I’m in the process of running WRF. It’s not been without challenges though,
+when running WRF locally compiling can be a major time consumer, you have
+to know some GNU/Linux basics, which is actually pretty cool. Okay, I’m all
+over the place, but let me write about my current problem and as the blog
+evolves hopefully I can get more ordered.</p>
+
+<p>I’m currently running WRF on a convective scale over the South-Africa
+Highveld, the area is also home to Jo’burg and Pretoria, two of
+South-Africa major cities, I’m doing this to try to understand hailstorms
+better. WRF has various input datasets that can be used to initialize the
+model, I’m specifically using ERA-Interim data, but the ERA data requires
+some extra steps, I’m not going to try and give an in-depth explanation of
+all the steps, but instead I’m just doing them here in the order that was
+successful eventually. I also assume that you’ve already complied WRF
+successfully and was to lazy to RTFM (like me) and used Google (like me).</p>
+
+<p>Last thing, I use vim, but replace that with whatever you want, on a remote
+machine nano and vi are good alternatives, Emacs is pretty cool (I’m super
+slowly learning that) but I don’t know about its availability on all remote
+computers.</p>
+
+<p>First get the data ready in WPS:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd </span>wps/
+<span class="nv">$ </span>./geogrid.exe
+<span class="nv">$ </span>ln <span class="nt">-sf</span> ungrib/Variable_Tables/Vtable.ERA-interim.ml Vtable
+<span class="nv">$ </span>./link_grib.csh ~/ei.oper.an.ml/201311/ei.oper.an.ml.regn128<span class="k">*</span> ~/ei.oper.an.sfc/201311/ei.oper.an.sfc.regn128.sc.201311<span class="k">*</span>
+<span class="nv">$ </span>./ungrib.exe</code></pre></figure>
+
+<p>Create ecmwf_coeffs file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>touch ecmwf_coeffs <span class="c">#NOTE: Google for the ecmwf_coeffs contents, its just a table.</span>
+<span class="nv">$ </span>./util/calc_ecmwf_p.exe</code></pre></figure>
+
+<p>Look for PRES:2013-11-*</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>vim namelist.wps
+&amp;metgrid
+  fg_name <span class="o">=</span> ‘FILE’ ‘PRES’
+<span class="nv">$ </span>./metgrid.exe</code></pre></figure>
+
+<p>Look for met_em.d0*</p>
+
+<p>If this worked you will now go back and change directory to WRF:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> ../WRFV7/test/em_real/
+<span class="nv">$ </span>ln <span class="nt">-sf</span> ../../../WPS3.7/met_em.d0<span class="k">*</span> <span class="nb">.</span>
+<span class="nv">$ </span>./real.exe</code></pre></figure>
+
+<p>Look for wrfbdy_d01, wrfinput_do1, wrfinput_d02, …</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>./wrf.exe</code></pre></figure>
+
+<p>Look for wrfout_do1_2013* until complete for the run time series</p>
+
+<p>Again, Google around for ecmwf_coeffs table I’m assuming you check,
+double-check and triple check your namelist.wps and namelist.input. If
+using more than two domains, check fourth time, its easy to miss something
+when looking at to long.</p>

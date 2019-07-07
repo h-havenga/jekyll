@@ -1,0 +1,151 @@
+<p>I guess I can safely say most of time is dedicated to making our <a href="http://www.lekwenaradar.co.za">radar
+website</a> cooler. I’m pretty lucky. So we
+currently have three things on the website, the radar (obviously), and then two
+<a href="http://www.lekwenaradar.co.za/forecast.html">GFS visualizations</a>. The first is
+a synoptic scale map of the circulation around South-Africa, mainly mimicking
+the <a href="http://www.weathersa.co.za/observations/synoptic-charts">South-African Weather Service (SAWS) Synoptic
+Map</a>, but the SAWS is
+not as lazy as me so my maps are drawn by a computer and not by hand. The
+second product, and I’m fond of this, is the general circulation of the
+Southern-Hemisphere. These maps were inspired by the work of <a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=harry+von+loon&amp;oq=harry+von+loon">Harry von
+Loon</a>
+and <a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C5&amp;q=jj+taljaardt+synoptic&amp;btnG=">JJ
+Taljaard</a>.</p>
+
+<p>Now, here comes the actual reason I’m writing this. The third map that’s
+currently in experimental phase is a provincial scale map. I wanted to achieve
+two things; (1) allow people to more clearly what’s happing in their little
+part of the word, this is not really clear on the synoptic map, and (2) give
+people values they can understand more accurately and not rely on interpreting
+a scale, by value I mean a number. The map themselves are made with the same
+script as the other maps, well more or less the same, and you can read on that
+<a href="https://www.hennohavenga.com/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html">here</a>.
+This post details how to get a value of a Lat/Lon point from GFS data, and in this case minimum and maximum temperature.</p>
+
+<p>First we need to grap the GFS data, this pretty simple with wget. I assumed two
+things here, rightly or wrongly so, (1) that 0600 gfs product will be an
+accurate reflection of the day’s minimum temperature and (2) that 1200 will be
+an accurate reflection of the day’s maximum temperature. My notes in the script
+should make it obvious what’s being done at each stage, but the most important
+is to convert the data to netcdf and then make the values human friendly
+(Kelvin -&gt; Celsius). I use the Apparent Temperature at 1200 as the map background.
+We’re not trying to make an animation here instead just a one day static map that’s
+updated every morning.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nv">today</span><span class="o">=</span><span class="k">$(</span>date +<span class="s2">"%Y%m%d00"</span><span class="k">)</span>
+<span class="nv">gfs</span><span class="o">=</span>http://www.ftp.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs
+<span class="nv">forecast</span><span class="o">=(</span>06 12<span class="o">)</span>
+
+<span class="c"># Loop through the specified forecast times wanted and grab GFS data</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do 
+    </span>wget <span class="nv">$gfs</span>.<span class="nv">$today</span>/gfs.t00z.pgrb2.0p25.f0<span class="nv">$i</span> 
+<span class="k">done</span>
+
+<span class="c"># For archive purposes we clip the data to South-Africa with cdo</span>
+<span class="c"># and convert GFS files to workable netcdf files</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span>  
+<span class="k">do 
+    </span>cdo <span class="nt">-sellonlatbox</span>,-180,180,-95,0 gfs.t00z.pgrb2.0p25.f0<span class="nv">$i</span> gfs.<span class="nv">$today</span>.<span class="nv">$i</span> 
+    cdo <span class="nt">-f</span> nc copy gfs.<span class="nv">$today</span>.<span class="nv">$i</span> ncfile<span class="nv">$i</span>.nc 
+<span class="k">done</span>
+
+<span class="c"># To plot the files in GMT we need to get the variables from the newly </span>
+<span class="c"># created netcdf files by extracting only the variable we want.</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>aptmp <span class="nt">-Gaptmp</span><span class="nv">$i</span>.nc
+    gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>tmax  <span class="nt">-Gtmax</span><span class="nv">$i</span>.nc
+    gmt grdconvert ncfile<span class="nv">$i</span>.nc<span class="se">\?</span>tmin  <span class="nt">-Gtmin</span><span class="nv">$i</span>.nc
+<span class="k">done</span>
+
+<span class="c"># Do some math</span>
+<span class="c"># We convert Kelvin to Celsius</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="s2">"</span><span class="k">${</span><span class="nv">forecast</span><span class="p">[@]</span><span class="k">}</span><span class="s2">"</span> 
+<span class="k">do
+    </span>gmt grdmath aptmp<span class="nv">$i</span>.nc 273.15 SUB <span class="o">=</span> aptmp<span class="nv">$i</span>.nc
+    gmt grdmath tmax<span class="nv">$i</span>.nc 273.15 SUB <span class="o">=</span> tmax<span class="nv">$i</span>.nc
+    gmt grdmath tmin<span class="nv">$i</span>.nc 273.15 SUB <span class="o">=</span> tmin<span class="nv">$i</span>.nc
+<span class="k">done
+
+</span>rm gfs<span class="k">*</span> ncfile<span class="k">*</span> tmin12.nc tmax06.nc aptmp06.nc</code></pre></figure>
+
+<p>This gives us three values; tmin06.nc tmax12.nc and aptmp12.nc (the aptmp just
+serves as the background map, so no need to care too much). To get the values is
+the next part. Here we use <strong>Climate Data Operators (CDO)</strong> <strong>outputtab</strong> function to
+get a value on, or very close the specified Lat/Lon point. The value also had to be
+easily plotted on a map using GMT’s pstext function, this means I had to hack bash’s
+echo function. Here is the script.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="c"># Get Temprature values for the following towns in North-West</span>
+
+<span class="nv">nw</span><span class="o">=</span>nwtmp.dat
+<span class="nv">potchefstroom</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.09_lat<span class="o">=</span><span class="nt">-26</span>.71<span class="o">)</span> 
+<span class="nv">rustenburg</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.25_lat<span class="o">=</span><span class="nt">-25</span>.65<span class="o">)</span>
+<span class="nv">mafikeng</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>25.65_lat<span class="o">=</span><span class="nt">-25</span>.85<span class="o">)</span>
+<span class="nv">lichtenburg</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>26.10_lat<span class="o">=</span><span class="nt">-26</span>.17<span class="o">)</span>
+<span class="nv">zeerust</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>26.10_lat<span class="o">=</span><span class="nt">-25</span>.55<span class="o">)</span>
+<span class="nv">suncity</span><span class="o">=(</span><span class="nv">lon</span><span class="o">=</span>27.09_lat<span class="o">=</span><span class="nt">-25</span>.34<span class="o">)</span>
+
+<span class="c">## Get temperature using CDO </span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"27.09 -26.71 12 0 1 LM Potchefstroom"</span> <span class="o">&gt;</span> <span class="nv">$nw</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$potchefstroom</span> tmin06.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$potchefstroom</span> tmax12.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> 
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"27.25 -25.65 12 0 1 LM Rustenburg"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$rustenburg</span> tmin06.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$rustenburg</span> tmax12.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> 
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"25.65 -25.85 12 0 1 LM Mafikeng"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$mafikeng</span> tmin06.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$mafikeng</span> tmax12.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> 
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"26.10 -26.17 12 0 1 LM Lichtenburg"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$lichtenburg</span> tmin06.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$lichtenburg</span> tmax12.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> 
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"26.10 -25.55 12 0 1 LM Zeerust"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$zeerust</span> tmin06.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$zeerust</span> tmax12.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> 
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"27.09 -25.34 12 0 1 LM Sun-City"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$suncity</span> tmin06.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> <span class="p">;</span> <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cdo outputtab,value,nohead <span class="nt">-remapnn</span>,<span class="nv">$suncity</span> tmax12.nc<span class="k">)</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> <span class="nv">$nw</span> 
+
+<span class="c">#sed -i 's/\.[0-9]*//g' $nw </span></code></pre></figure>
+
+<p>So GMT reads a point value to plot via pstext as LAT LON FONTSIZE ANGLE
+FONTTYPE CAPTION so in this case I needed 27.09 -26.71 12 0 1 LM
+Potchefstroom in the script, as you see before every CDO command I echo this
+part with the details as needed. The sed command was to remove decimal places,
+but at the momement it removes the coordinate decimal places to, which I don’t want.
+The output looks like this (named nwtmp.dat):</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">27.09 <span class="nt">-26</span>.71 12 0 1 LM Potchefstroom 12 | 26 
+27.25 <span class="nt">-25</span>.65 12 0 1 LM Rustenburg 13 | 28 
+25.65 <span class="nt">-25</span>.85 12 0 1 LM Mafikeng 13 | 25 
+26.10 <span class="nt">-26</span>.17 12 0 1 LM Lichtenburg 12 | 25 
+26.10 <span class="nt">-25</span>.55 12 0 1 LM Zeerust 13 | 27 
+27.09 <span class="nt">-25</span>.34 12 0 1 LM Sun-City 14 | 27 </code></pre></figure>
+
+<p>Now the actual plot comes in, using GMT I do:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">!</span><span class="c">#/bin/bash</span>
+
+<span class="c"># West/East/South/North</span>
+<span class="nv">nw</span><span class="o">=</span>22.4/28.4/-28.12/-24.5
+
+<span class="c"># North West</span>
+gmt psbasemap  <span class="nt">-R</span><span class="nv">$nw</span> <span class="nt">-JM25</span>.5 <span class="nt">-Ba</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-K</span> <span class="o">&gt;</span> nw.ps
+gmt makecpt    <span class="nt">-Cjet</span> <span class="nt">-T-10</span>/40/0.5 <span class="o">&gt;</span> aptmp.cpt
+gmt grdimage   <span class="nt">-R</span> aptmp12.nc <span class="nt">-Captmp</span>.cpt <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-Q</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> nw.ps
+gmt pscoast    <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-W</span> <span class="nt">-Sskyblue</span> <span class="nt">-Df</span> <span class="o">&gt;&gt;</span> nw.ps
+gmt psxy        ZAF_adm1.gmt <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-Wfaint</span> <span class="nt">-V</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> nw.ps
+gmt psxy        nwtmp.dat <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-K</span> <span class="nt">-O</span> <span class="nt">-W0</span>.5 <span class="nt">-St0</span>.65 <span class="nt">-Gblack</span> <span class="nt">-V</span> <span class="o">&gt;&gt;</span> nw.ps
+gmt pstext      nwtmp.dat <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-X0</span>.10 <span class="nt">-Gwhite</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> nw.ps</code></pre></figure>
+
+<p>Here we have our map then</p>
+
+<p><img src="/assets/images/maps/nw_temp.png" alt="nw_temp" /></p>
+
+<p>The pixels are a little ugly, the way forward here is to play with grdcontour
+and also the cpt file. The eventual plan is to make map like this for every
+province, but it takes time to enter the coordinates, as soon as that’s done
+it’s easy. Another issue is the .dat file, I need to figure out how to remove
+the temperature decimal places, but not the Lat/Lon. I think this is possible
+with AWK. I also plan to add MSLP and CAPE values to the output which could be
+interesting. It should not be to hard to add anything actually, percentage
+cloud cover could also be cool.</p>
+
+<p>Ps. If you use the script give credit to GMT and CDO.</p>

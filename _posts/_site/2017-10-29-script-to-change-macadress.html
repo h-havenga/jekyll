@@ -1,0 +1,32 @@
+<p>Every network card has a mac address, a serial number of sorts,
+assigned to it by which a network can identify you. It is a widely
+used way to restrict or monitor your access on a network and it could
+be useful in such cases to have a randomly assigned mac address to
+improve your privacy and anonymity.  The script is just a bunch a of
+commands, you can run them separately if you want to, this just makes
+it easier to reuse instead of remembering every step. The mac address
+should change with every reconnect.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"This script changes your WiFi mac address. Use this at your
+own risk and obey all local laws. By pressing enter you agree that you
+understand the risks you may face! Press ctrl-c to exit otherwise "</span>
+
+<span class="nb">echo</span> <span class="s2">"Listing all connections. Connected devices are highlighted"</span>
+nmcli con show 
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Enter the name of the network you wish to modify exactly as
+seen above and press enter "</span> name 
+nmcli con modify <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> wifi.cloned-mac-address random
+
+<span class="nb">echo</span> <span class="s2">"Check that the cloned mac address is set to random"</span> 
+nmcli con show <span class="s2">"</span><span class="nv">$name</span><span class="s2">"</span> | <span class="nb">grep</span> <span class="s2">"cloned-mac-address"</span>
+
+<span class="nb">read</span> <span class="nt">-p</span> <span class="s2">"Your mac address has been changed and will randomly reassign
+each time you restart your connection. Press enter to exit "</span></code></pre></figure>
+
+<p>To use this script save it as something, like
+machange.sh and then do;</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">bash machange.sh</code></pre></figure>
+

@@ -1,0 +1,135 @@
+<p>I hope this does not come across as a tutorial of some sort, I am mostly
+writing things down for myself. But I know someone might one day copy and
+paste this as I’ve done numerous times, but this mostly for me to master
+GMT. In the previous GMT related post I created this basic map of
+South-Africa. The map does not however have any cities, provincial
+boundaries or topography.</p>
+
+<p>A basic map of South-Africa created with GMT:<br />
+<img src="http://localhost:4000/assets/images/maps/south_africa.png" alt="gmtmap" /></p>
+
+<p><sub>Note that I converted is from postscript format to reduce size. </sub></p>
+
+<p>So first we need to get some external topographic and administrative data for
+South-Africa. In this case I’ll use ETOPO data from
+the <a href="https://www.ngdc.noaa.gov/mgg/global/global.html">National Center for Environmental Informatics</a>.
+The cool thing about the Etopo data is that it is already availible in the
+GMT readable grd format.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget https://www.ngdc.noaa.gov/mgg/global/relief/ETOPO1/data/bedrock/grid_registered/netcdf/ETOPO1_Bed_g_gmt4.grd.gz 
+gunzip ETOPO1_Bed_g_gmt4.grd.gz </code></pre></figure>
+
+<p>The data can be inspected with ncdump or another GMT tool, grdinfo,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ncdump <span class="nt">-h</span> ETOPO1_Bed_g_gmt4.grd
+gmt grdinfo ETOPO1_Bed_g_gmt4.grd</code></pre></figure>
+
+<p>Next we need the administrative data for South-Africa. GMT only has the
+national boundaries for world countries and then also the data for US
+states. The admin data can be freely obtained from the <a href="http://www.gadm.org/country">GADM
+Database</a>. We need to get the shapefiles for
+SA in this case.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://biogeo.ucdavis.edu/data/gadm2.8/shp/ZAF_adm_shp.zip
+unzip ZAF_adm_shp.zip</code></pre></figure>
+
+<p>The shapefile data needs to be converted for use in GMT. This is done with
+a GDAL tool, ogr2ogr. GDAL is a amazing resource and in my mind the
+most powerful Geospatial tool out there. If you already have GDAL installed
+correctly, we can prepare the admin data. I only wanted the SA provinces
+so we do,</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">ogr2ogr <span class="nt">-F</span> GMT ZAF_adm.gmt ZAF_adm1.shp</code></pre></figure>
+
+<p>Which converts the shapefile into a GMT readable format. So now we have
+topography data and provincial data to create a more detailed map. I have
+removed the colors specified by the -R and -S switch for the basic. The
+topography color table will create colors for the map. Lets create a
+bash script to plot the map.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c"># MAKE A MAP!</span>
+<span class="c"># Define the names of the input and output files</span>
+<span class="nv">out</span><span class="o">=</span>southafrica_topo.ps                           <span class="c"># This will be the name of</span>
+<span class="nv">topo</span><span class="o">=</span>./ETOPO1_Bed_g_gmt4.grd                   <span class="c"># ETOPO1 topography grid</span>
+<span class="nv">admin</span><span class="o">=</span>ZAF_adm1.gmt			       <span class="c"># Provincial boundaries</span>
+
+<span class="c"># Define map characteristics</span>
+<span class="c"># Define your area 15/33.5/-35/-22 </span>
+<span class="nv">north</span><span class="o">=</span><span class="nt">-22</span>
+<span class="nv">south</span><span class="o">=</span><span class="nt">-35</span>
+<span class="nv">east</span><span class="o">=</span>34
+<span class="nv">west</span><span class="o">=</span>15
+
+<span class="c"># Define tick intervals and projection</span>
+<span class="nv">tick</span><span class="o">=</span><span class="s1">'-B2.5/2.5WSen'</span>
+<span class="nv">proj</span><span class="o">=</span><span class="s1">'-JM20'</span>
+
+<span class="c"># Call GMT, define basemap coordinates, make a color table and plot</span>
+gmt psbasemap <span class="nt">-R</span><span class="nv">$west</span>/<span class="nv">$east</span>/<span class="nv">$south</span>/<span class="nv">$north</span> <span class="nv">$proj</span> <span class="nv">$tick</span> <span class="nt">-X6</span> <span class="nt">-K</span> <span class="o">&gt;</span> <span class="nv">$out</span>
+gmt makecpt <span class="nt">-Crelief</span> <span class="nt">-T-7500</span>/7500/200 <span class="nt">-Z</span> <span class="o">&gt;</span> topo.cpt
+gmt grdimage <span class="nv">$topo</span> <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-Ctopo</span>.cpt <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt pscoast <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-W0</span>.25 <span class="nt">-Df</span> <span class="nt">-B</span>+t<span class="s2">"South Africa"</span> <span class="nt">-Na0</span>.05 <span class="nt">-I1</span>/0.25p,skyblue3 <span class="nt">-I2</span>/0.25p,skyblue3 <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt psxy <span class="nv">$admin</span> <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-K</span> <span class="nt">-O</span> <span class="nt">-W0</span>.05 <span class="nt">-V</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+open <span class="nv">$out</span></code></pre></figure>
+
+<p>This is the map we should get,
+<img src="http://localhost:4000/assets/images/maps/south_africa_topo.png" alt="gmtmap" /></p>
+
+<p>Play around with the <em>-T-</em> option to get the desired colors. This map looks
+a little cooler then the first basic map, however, there is no names of
+cities or anything, lets change that. So in GMT you need a list with the
+latitude and longitude of cities to plot in the map, something like this:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">28.05   <span class="nt">-26</span>.21  14 0 1 LM Johannesburg
+28.23   <span class="nt">-25</span>.71  14 0 1 LM Pretoria
+29.45   <span class="nt">-23</span>.89  14 0 1 LM Polokwane
+26.15   <span class="nt">-29</span>.08  14 0 1 LM Bloemfontein
+18.42   <span class="nt">-33</span>.92  14 0 1 LM Cape Town
+31.02   <span class="nt">-29</span>.85  14 0 1 LM Durban
+25.52   <span class="nt">-33</span>.71  14 0 1 LM Port Elizabeth
+22.45   <span class="nt">-33</span>.99  14 0 1 LM George
+17.89   <span class="nt">-29</span>.17  14 0 1 LM Springbok
+25.64   <span class="nt">-25</span>.85  14 0 1 LM Mahikeng
+30.97   <span class="nt">-25</span>.48  14 0 1 LM Nelspruit
+22.58   <span class="nt">-32</span>.35  14 0 1 LM Beauford-Wes</code></pre></figure>
+
+<p>The first and second column tells us the lat/lon of the city we want on the
+map while the other columns is related to text size, marker and of course
+the name of the city. In GMT we’re calling the psxy function to plot the
+points. Now all that’s required is to call the psxy and pstext to plot the
+location and names of the cities respectively.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="c"># MAKE A MAP!</span>
+<span class="c"># Define the names of the input and output files</span>
+<span class="nv">out</span><span class="o">=</span>southafrica_topo.ps                  <span class="c"># This will be the name of</span>
+<span class="nv">topo</span><span class="o">=</span>./ETOPO1_Bed_g_gmt4.grd             <span class="c"># ETOPO1 topography grid</span>
+<span class="nv">admin</span><span class="o">=</span>./ZAF_adm1.gmt			 <span class="c"># Provincial boundaries</span>
+<span class="nv">cities</span><span class="o">=</span>./towns.dat                       <span class="c"># Towns to plot on map</span>
+
+<span class="c"># Define map characteristics</span>
+<span class="c"># Define your area 15/33.5/-35/-22 </span>
+<span class="nv">north</span><span class="o">=</span><span class="nt">-22</span>
+<span class="nv">south</span><span class="o">=</span><span class="nt">-35</span>
+<span class="nv">east</span><span class="o">=</span>34
+<span class="nv">west</span><span class="o">=</span>15
+
+<span class="c"># Define tick intervals and projection</span>
+<span class="nv">tick</span><span class="o">=</span><span class="s1">'-B2.5/2.5WSen'</span>
+<span class="nv">proj</span><span class="o">=</span><span class="s1">'-JM20'</span>
+
+<span class="c"># Call GMT, define basemap coordinates, make a color table and plot</span>
+gmt psbasemap <span class="nt">-R</span><span class="nv">$west</span>/<span class="nv">$east</span>/<span class="nv">$south</span>/<span class="nv">$north</span> <span class="nv">$proj</span> <span class="nv">$tick</span> <span class="nt">-X6</span> <span class="nt">-K</span> <span class="o">&gt;</span> <span class="nv">$out</span>
+gmt makecpt <span class="nt">-Crelief</span> <span class="nt">-T-7500</span>/7500/200 <span class="nt">-Z</span> <span class="o">&gt;</span> topo.cpt
+gmt grdimage <span class="nv">$topo</span> <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-Ctopo</span>.cpt <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt pscoast <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="nt">-W0</span>.25 <span class="nt">-Df</span> <span class="nt">-B</span>+t<span class="s2">"South Africa"</span> <span class="nt">-Na0</span>.05 <span class="nt">-I1</span>/0.25p,skyblue3 <span class="nt">-I2</span>/0.25p,skyblue3 <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt psxy <span class="nv">$cities</span> <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-K</span> <span class="nt">-O</span> <span class="nt">-W1</span> <span class="nt">-St0</span>.25 <span class="nt">-G255</span>/0/0 <span class="nt">-V</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt psxy <span class="nv">$admin</span> <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-K</span> <span class="nt">-O</span> <span class="nt">-W0</span>.05 <span class="nt">-V</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+gmt pstext <span class="nv">$cities</span> <span class="nt">-R</span> <span class="nt">-J</span> <span class="nt">-X0</span>.25 <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> <span class="nv">$out</span>
+open <span class="nv">$out</span></code></pre></figure>
+
+<p>And tada, a map with some cities in South-Africa
+<img src="http://localhost:4000/assets/images/maps/south_africa_topo_towns.png" alt="gmtmap" /></p>

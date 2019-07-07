@@ -1,0 +1,101 @@
+<p>I encountered an issue where I wanted to extract points located within
+a specific shapefile, in this case the Highveld ecoregion and Gauteng.
+Instead of extracting the points in R I assign them a 1/0 (TRUE/FALSE) value in
+a new column using <em>point.in.polygon</em>, following this I the <em>filter</em> function
+in R to create a new dataframe where Highveld == 1. In theory you could use the
+<em>over</em> function which is part of the rgdal package, but I found this
+cumbersome.</p>
+
+<p>So here we have a nice example dataset that is geo-referenced, lets call it <em>libsum.csv</em></p>
+
+<figure class="highlight"><pre><code class="language-csv" data-lang="csv">Date     ;Event          ;Latitude  ;Longitude  ;Height(m)               
+2014/2/3 ;Rain/flooding  ;-26.12    ;28.02      ;1749       		
+2014/2/3 ;Rain/flooding  ;-26.14    ;26.15      ;1646       		
+2014/2/3 ;Rain/flooding  ;-26.20    ;27.51      ;1574       		
+2014/2/3 ;Rain/flooding  ;-26.00    ;28.12      ;16         		
+2014/2/3 ;Rain/flooding  ;-25.56    ;28.08      ;1539       		
+2014/2/3 ;Rain/flooding  ;-25.51    ;28.11      ;1432       		
+2014/2/3 ;Rain/flooding  ;-26.08    ;27.59      ;1603       		
+2014/2/3 ;Rain/flooding  ;-26.07    ;27.54      ;1747       		
+2014/2/3 ;Rain/flooding  ;-26.06    ;28.05      ;1546       		
+2014/2/3 ;Rain/flooding  ;-26.07    ;27.54      ;1727       		
+2014/2/3 ;Rain/flooding  ;-23.02    ;29.54      ;950        		
+2014/2/3 ;Rain/flooding  ;-22.52    ;30.28      ;741        		
+2014/2/3 ;Rain/flooding  ;-26.41    ;25.27      ;1349       		
+2014/2/3 ;Rain/flooding  ;-26.48    ;26.00      ;1504       		
+2014/2/3 ;Rain/flooding  ;-26.57    ;24.43      ;1199       		
+2014/2/3 ;Rain/flooding  ;-27.12    ;25.58      ;1356       		
+2014/2/3 ;Rain/flooding  ;-26.39    ;25.46      ;1405       		
+2010/2/3 ;Other          ;-26.00    ;27.55      ;1480       		
+2014/2/3 ;Other          ;-25.26    ;27.55      ;1362       		</code></pre></figure>
+
+<p>Now we can open R</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># Load some usefull libraries</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">reshape2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">viridis</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">readr</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">gridExtra</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">GSODR</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
+</span><span class="c1"># sudo apt install libgeos\* </span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span><span class="w">
+</span><span class="n">theme_set</span><span class="p">(</span><span class="n">theme_classic</span><span class="p">(</span><span class="n">base_size</span><span class="o">=</span><span class="m">22</span><span class="p">))</span><span class="w">
+
+</span><span class="c1"># Lets load the df first</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"libsum.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">";"</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#To actually work with the shapefiles, omit the map_data function</span><span class="w">
+</span><span class="c1"># and invoke it later</span><span class="w">
+</span><span class="n">basemap_1</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="o">=</span><span class="s2">"./"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="o">=</span><span class="s2">"ZAF_adm1"</span><span class="p">)</span><span class="w">
+</span><span class="n">ecoregions</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="o">=</span><span class="s2">"./"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="o">=</span><span class="s2">"Ecoregions2017"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># To extract a layer to use in a plot, in this case Gauteng and the Highveld,</span><span class="w">
+</span><span class="c1"># do:</span><span class="w">
+</span><span class="n">gauteng</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_data</span><span class="p">(</span><span class="n">basemap_1</span><span class="p">[</span><span class="n">basemap_1</span><span class="o">$</span><span class="n">NAME_1</span><span class="o">==</span><span class="s2">"Gauteng"</span><span class="p">,</span><span class="w"> </span><span class="p">])</span><span class="w">
+</span><span class="n">highveld</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_data</span><span class="p">(</span><span class="n">ecoregions</span><span class="p">[</span><span class="n">ecoregions</span><span class="o">$</span><span class="n">ECO_ID</span><span class="o">==</span><span class="s2">"81"</span><span class="p">,</span><span class="w"> </span><span class="p">])</span><span class="w">
+
+</span><span class="c1"># Here we extract data that falls within the Higheld ecoregion and Gauteng</span><span class="w">
+</span><span class="c1"># We create a new column in the df where a 1 or 0 will be assigned if it falls inside the</span><span class="w">
+</span><span class="c1"># lat and lon of the corresponding polygon</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">Highveld</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">point.in.polygon</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Longitude</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Latitude</span><span class="p">,</span><span class="w"> </span><span class="n">highveld</span><span class="o">$</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">highveld</span><span class="o">$</span><span class="n">lat</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">Highveld</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Highveld</span><span class="p">)</span><span class="w">
+
+</span><span class="c1"># And we do the same for Gauteng</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">Gauteng</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">point.in.polygon</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Longitude</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="o">$</span><span class="n">Latitude</span><span class="p">,</span><span class="w"> </span><span class="n">gauteng</span><span class="o">$</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">gauteng</span><span class="o">$</span><span class="n">lat</span><span class="p">)</span><span class="w">
+</span><span class="n">df</span><span class="o">$</span><span class="n">Gauteng</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">df</span><span class="o">$</span><span class="n">Gauteng</span><span class="p">)</span></code></pre></figure>
+
+<p>After running this the df should look something like this</p>
+
+<figure class="highlight"><pre><code class="language-csv" data-lang="csv">Date     ;Event          ;Latitude  ;Longitude  ;Height(m) ;Highveld;Gauteng
+2014/2/3 ;Rain/flooding  ;-26.12    ;28.02      ;1749      ;1     ;1
+2014/2/3 ;Rain/flooding  ;-26.14    ;26.15      ;1646      ;1     ;0
+2014/2/3 ;Rain/flooding  ;-26.20    ;27.51      ;1574      ;1     ;1
+2014/2/3 ;Rain/flooding  ;-26.00    ;28.12      ;16        ;1     ;1
+2014/2/3 ;Rain/flooding  ;-25.56    ;28.08      ;1539      ;0     ;1
+2014/2/3 ;Rain/flooding  ;-25.51    ;28.11      ;1432      ;0     ;1
+2014/2/3 ;Rain/flooding  ;-26.08    ;27.59      ;1603      ;1     ;1
+2014/2/3 ;Rain/flooding  ;-26.07    ;27.54      ;1747      ;1     ;1
+2014/2/3 ;Rain/flooding  ;-26.06    ;28.05      ;1546      ;1     ;1
+2014/2/3 ;Rain/flooding  ;-26.07    ;27.54      ;1727      ;1     ;1
+2014/2/3 ;Rain/flooding  ;-23.02    ;29.54      ;950       ;0     ;0
+2014/2/3 ;Rain/flooding  ;-22.52    ;30.28      ;741       ;0     ;0
+2014/2/3 ;Rain/flooding  ;-26.41    ;25.27      ;1349      ;0     ;0
+2014/2/3 ;Rain/flooding  ;-26.48    ;26.00      ;1504      ;1     ;0
+2014/2/3 ;Rain/flooding  ;-26.57    ;24.43      ;1199      ;0     ;0
+2014/2/3 ;Rain/flooding  ;-27.12    ;25.58      ;1356      ;1     ;0
+2014/2/3 ;Rain/flooding  ;-26.39    ;25.46      ;1405      ;1     ;0
+2010/2/3 ;Other          ;-26.00    ;27.55      ;1480      ;0     ;1
+2014/2/3 ;Other          ;-25.26    ;27.55      ;1362      ;0     ;0</code></pre></figure>
+
+<p>Now we can create a new dataframe to work with that only contains the data that
+falls within the polygons of interest</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">df_hv</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">Highveld</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">df_gp</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">filter</span><span class="p">(</span><span class="n">Gauteng</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">)</span></code></pre></figure>
+

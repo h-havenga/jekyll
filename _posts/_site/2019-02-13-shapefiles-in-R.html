@@ -1,0 +1,82 @@
+<p>I’ve been using R in my daily doings more and more and as a student in the
+<em>geo-sciences</em> making maps is pretty important. My first love is still GMT, but
+R is proving useful and this is just a brief note on how to make a very simple
+map using R and ggplot2.</p>
+
+<p>Get the shapefile:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://biogeo.ucdavis.edu/data/gadm2.8/shp/ZAF_adm_shp.zip
+unzip ZAF_adm_shp.zip</code></pre></figure>
+
+<p>Install these packages (I’m lazy, so I just use the wildcard)</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install r-base-core libgdal<span class="se">\*</span> libproj<span class="se">\*</span> libgeos<span class="se">\*</span> </code></pre></figure>
+
+<p>Open R and first do:</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">install.packages</span><span class="p">(</span><span class="w">
+</span><span class="nf">c</span><span class="p">(</span><span class="s2">"ggplot2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"rgdal"</span><span class="p">,</span><span class="s2">"rgeos"</span><span class="p">,</span><span class="s2">"maps"</span><span class="p">,</span><span class="s2">"sp"</span><span class="p">)</span><span class="w">
+</span><span class="p">)</span></code></pre></figure>
+
+<p>The needed packages should be installed. Load the libraries and read the
+shapefiles. In this case <em>ZAF_adm1</em> is South-Africa’s provincial demarcations.</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">library</span><span class="p">(</span><span class="n">ggplot2</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rgeos</span><span class="p">)</span><span class="w">
+</span><span class="n">theme_set</span><span class="p">(</span><span class="n">theme_classic</span><span class="p">(</span><span class="n">base_size</span><span class="o">=</span><span class="m">22</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#Define the basemap as basemap, where dsn == the directory where the shapefile</span><span class="w">
+</span><span class="c1">#is located</span><span class="w">
+
+</span><span class="n">basemap</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">map_data</span><span class="p">(</span><span class="n">readOGR</span><span class="p">(</span><span class="n">dsn</span><span class="o">=</span><span class="s2">"southafrica"</span><span class="p">,</span><span class="w"> </span><span class="n">layer</span><span class="o">=</span><span class="s2">"ZAF_adm1"</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#We can get some stats on the basemap to set our boundaries</span><span class="w">
+</span><span class="c1">#summary(basemap)</span><span class="w">
+</span><span class="c1">#      long            lat             group           order       </span><span class="w">
+</span><span class="c1"># Min.   :16.45   Min.   :-34.84   Min.   : 1.00   Min.   :     1  </span><span class="w">
+</span><span class="c1"># 1st Qu.:20.82   1st Qu.:-31.34   1st Qu.:10.00   1st Qu.: 90332  </span><span class="w">
+</span><span class="c1"># Median :27.00   Median :-29.93   Median :18.00   Median :180662  </span><span class="w">
+</span><span class="c1"># Mean   :25.51   Mean   :-29.54   Mean   :23.19   Mean   :180667  </span><span class="w">
+</span><span class="c1"># 3rd Qu.:29.48   3rd Qu.:-27.31   3rd Qu.:29.00   3rd Qu.:270994  </span><span class="w">
+</span><span class="c1"># Max.   :32.89   Max.   :-22.13   Max.   :55.00   Max.   :361342  </span><span class="w">
+</span><span class="c1">#    region           subregion        </span><span class="w">
+</span><span class="c1"># Length:361288      Length:361288     </span><span class="w">
+</span><span class="c1"># Class :character   Class :character  </span><span class="w">
+</span><span class="c1"># Mode  :character   Mode  :character  </span><span class="w">
+
+</span><span class="n">plt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">geom_path</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">basemap</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">coord_map</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-22</span><span class="p">,</span><span class="m">-35</span><span class="p">),</span><span class="w"> </span><span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="m">33</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"South-Africa"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Latitude"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Longitude"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#To see the map</span><span class="w">
+</span><span class="n">plt</span><span class="w">
+
+</span><span class="c1">#To save the map</span><span class="w">
+</span><span class="n">png</span><span class="p">(</span><span class="s2">"SA_Map"</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">500</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">300</span><span class="p">)</span><span class="w">
+</span><span class="n">plt</span><span class="w">
+</span><span class="n">dev.off</span><span class="p">()</span></code></pre></figure>
+
+<p>And tada, a map of South-Africa
+<img src="http://localhost:4000/assets/images/maps/BaseMap_R.png" alt="gmtmap" /></p>
+
+<p>To add points in the map you can do</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="n">plt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">plt</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">annotate</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">28.3</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">-25.5</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"PTA"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">annotate</span><span class="p">(</span><span class="s2">"point"</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">28.2293</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="m">-25.7479</span><span class="p">,</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"red"</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.5</span><span class="p">)</span></code></pre></figure>
+
+<p>or if you have a file with a ton of lat/lon points</p>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#Assuming they are in a csv file (NAME,LAT,LON)</span><span class="w">
+</span><span class="n">df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read.csv</span><span class="p">(</span><span class="s2">"cities.csv"</span><span class="p">,</span><span class="w"> </span><span class="n">sep</span><span class="o">=</span><span class="s2">","</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">plt</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ggplot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">geom_path</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">basemap</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">long</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">lat</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="n">group</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">geom_point</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span><span class="w"> </span><span class="n">aes</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">LON</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">=</span><span class="n">LAT</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">coord_map</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-22</span><span class="p">,</span><span class="m">-35</span><span class="p">),</span><span class="w"> </span><span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="m">33</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">ggtitle</span><span class="p">(</span><span class="s2">"South-Africa"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w">
+</span><span class="n">ylab</span><span class="p">(</span><span class="s2">"Latitude"</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">xlab</span><span class="p">(</span><span class="s2">"Longitude"</span><span class="p">)</span></code></pre></figure>
+
