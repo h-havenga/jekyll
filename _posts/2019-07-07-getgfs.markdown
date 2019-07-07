@@ -83,9 +83,3 @@ I don't do forecasts more than an 100 hours out and the script does not allow
 for that, it's an easy fix nevertheless. I've had some issues where it seems
 like the data was somehow corrupted when trying to convert to netcdf format,
 but then I just manually inspect it.
-
-Most recently I've experience intermittent issues with the following error when running cdo
-{% highlight text %}
-
-{% endhighlight %}
-
