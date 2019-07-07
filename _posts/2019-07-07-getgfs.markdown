@@ -1,0 +1,91 @@
+---
+layout: post
+title:  "CLI program to download GFS data"
+date:   2019-07-06 09:40:29 +0200
+categories: R  
+---
+
+I wrote a basic program to quickly get GFS data through the command-line.
+I had a standard script I always used, but it was cumbersome to continuously
+find it, copy it and run it. I just needed a _command-line-like_ utility to
+ease my life. 
+
+The most important functions I needed were:
++ access from anywhere on my laptop
++ can specify which model run I needed
++ can specify and download more than one forecast for a model run
+
+The program relies on wget and climate data operators (CDO). If you do not have
+these do:
+
+{% highlight bash %}
+sudo apt install cdo wget
+{% endhighlight %}
+
+Create a **~/bin** directory to store the script in. Basically
+I did the following:
+
+{% highlight bash %}
+cd ~ && mkdir bin && touch getGFS
+{% endhighlight %}
+
+Now there's a getGFS file which you can edit and add the following
+
+{% highlight bash %}
+#!/bin/bash
+gfs=http://www.ftp.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs
+
+echo "
+#######################################################################
+A simple command line utility to download GFS forecast data using wget.
+It's not really usefull to download historical data with.
+#######################################################################"
+
+echo
+
+# Define what data you need
+echo -n "Enter date in the following format %Y%m%d (e.g. 20191231) [ENTER]: "
+read date
+
+echo -n "Enter model runtime, e.g. 06, will give you the GFS 06UTC model run [ENTER]: "
+read initial
+
+echo -n "Enter forecast times you want separated by a space (typically 00 06) [ENTER]: "
+read forecast 
+
+# Loop through the specified forecast times wanted and grab GFS data
+for i in $forecast
+do
+    wget $gfs.$date/$initial/gfs.t$initial\z.pgrb2.0p25.f0$i
+done
+
+echo "
+#######################################################################
+                                Done
+#######################################################################"
+{% endhighlight %}
+
+Change the permissions of the getGFS file
+
+{% highlight bash %}
+chmod +x getGFS
+{% endhighlight %}
+
+Append the following line to your .bashrc file
+
+{% highlight bash %}
+export PATH=$PATH:~/bin
+{% endhighlight %}
+
+And it should work after closing and opening your terminal by typing in
+**getGFS**. This is just a quick download utility so there's minor issues.
+I don't do forecasts more than an 100 hours out and the script does not allow
+for that, it's an easy fix nevertheless. I've had some issues where it seems
+like the data was somehow corrupted when trying to convert to netcdf format,
+but then I just manually inspect it.
+
+Most recently I've experience intermittent issues with the following error when running cdo
+{% highlight text %}
+
+{% endhighlight %}
+

@@ -1,5 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-07T10:07:37-05:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
-</subtitle><entry><title type="html">Shapefiles in R - extracting data in a spesific polygon</title><link href="http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html" rel="alternate" type="text/html" title="Shapefiles in R - extracting data in a spesific polygon" /><published>2019-02-24T01:40:29-06:00</published><updated>2019-02-24T01:40:29-06:00</updated><id>http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons</id><content type="html" xml:base="http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html">&lt;p&gt;I encountered an issue where I wanted to extract points located within
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.6.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-07T10:59:07-05:00</updated><id>http://localhost:4000/</id><title type="html">Howzit, I’m Henno</title><subtitle>Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover.  I'm navigating this strange new world of programming, blogging and sharing. Bare with me. 
+</subtitle><entry><title type="html">CLI program to download GFS data</title><link href="http://localhost:4000/r/2019/07/06/getgfs.html" rel="alternate" type="text/html" title="CLI program to download GFS data" /><published>2019-07-06T02:40:29-05:00</published><updated>2019-07-06T02:40:29-05:00</updated><id>http://localhost:4000/r/2019/07/06/getgfs</id><content type="html" xml:base="http://localhost:4000/r/2019/07/06/getgfs.html">&lt;p&gt;I wrote a basic program to quickly get GFS data through the command-line.
+I had a standard script I always used, but it was cumbersome to continuously
+find it, copy it and run it. I just needed a &lt;em&gt;command-line-like&lt;/em&gt; utility to
+ease my life.&lt;/p&gt;
+
+&lt;p&gt;The most important functions I needed were:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;access from anywhere on my laptop&lt;/li&gt;
+  &lt;li&gt;can specify which model run I needed&lt;/li&gt;
+  &lt;li&gt;can specify and download more than one forecast for a model run&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The program relies on wget and climate data operators (CDO). If you do not have
+these do:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt install cdo wget&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Create a &lt;strong&gt;~/bin&lt;/strong&gt; directory to store the script in. Basically
+I did the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~ &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mkdir bin &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch getGFS&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Now there’s a getGFS file which you can edit and add the following&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;gfs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://www.ftp.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;
+#######################################################################
+A simple command line utility to download GFS forecast data using wget.
+It's not really usefull to download historical data with.
+#######################################################################&quot;&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt;
+
+&lt;span class=&quot;c&quot;&gt;# Define what data you need&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter date in the following format %Y%m%d (e.g. 20191231) [ENTER]: &quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;date
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter model runtime, e.g. 06, will give you the GFS 06UTC model run [ENTER]: &quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;initial
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Enter forecast times you want separated by a space (typically 00 06) [ENTER]: &quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;read &lt;/span&gt;forecast 
+
+&lt;span class=&quot;c&quot;&gt;# Loop through the specified forecast times wanted and grab GFS data&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$forecast&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;do
+    &lt;/span&gt;wget &lt;span class=&quot;nv&quot;&gt;$gfs&lt;/span&gt;.&lt;span class=&quot;nv&quot;&gt;$date&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$initial&lt;/span&gt;/gfs.t&lt;span class=&quot;nv&quot;&gt;$initial&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\z&lt;/span&gt;.pgrb2.0p25.f0&lt;span class=&quot;nv&quot;&gt;$i&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done
+
+&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;
+#######################################################################
+                                Done
+#######################################################################&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Change the permissions of the getGFS file&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;chmod +x getGFS&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Append the following line to your .bashrc file&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PATH&lt;/span&gt;:~/bin&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And it should work after closing and opening your terminal by typing in
+&lt;strong&gt;getGFS&lt;/strong&gt;. This is just a quick download utility so there’s minor issues.
+I don’t do forecasts more than an 100 hours out and the script does not allow
+for that, it’s an easy fix nevertheless. I’ve had some issues where it seems
+like the data was somehow corrupted when trying to convert to netcdf format,
+but then I just manually inspect it.&lt;/p&gt;
+
+&lt;p&gt;Most recently I’ve experience intermittent issues with the following error when running cdo&lt;/p&gt;</content><author><name></name></author><summary type="html">I wrote a basic program to quickly get GFS data through the command-line. I had a standard script I always used, but it was cumbersome to continuously find it, copy it and run it. I just needed a command-line-like utility to ease my life.</summary></entry><entry><title type="html">Shapefiles in R - extracting data in a spesific polygon</title><link href="http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html" rel="alternate" type="text/html" title="Shapefiles in R - extracting data in a spesific polygon" /><published>2019-02-24T01:40:29-06:00</published><updated>2019-02-24T01:40:29-06:00</updated><id>http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons</id><content type="html" xml:base="http://localhost:4000/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html">&lt;p&gt;I encountered an issue where I wanted to extract points located within
 a specific shapefile, in this case the Highveld ecoregion and Gauteng.
 Instead of extracting the points in R I assign them a 1/0 (TRUE/FALSE) value in
 a new column using &lt;em&gt;point.in.polygon&lt;/em&gt;, following this I the &lt;em&gt;filter&lt;/em&gt; function
@@ -649,109 +720,4 @@ the location of the SAWS Irene Weather station. The circular lines indicate the 
 of from the radar site, which is a maximum of 200km due to various factors such as the
 curvature of the earth&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarAirports.png&quot; alt=&quot;radar_interference&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The North West University Potchefstroom has a pretty cool C-band radar currently under development. The radar, a WSR74-C radar, was previously located in Texas and after three decades it was redeployed to South-Africa for research purposes. The project was initiated before I started my graduate studies, but since 2016 we have slowly worked to get the radar operational. The site location and deployment of the radar was already completed in 2015 and since then most problems have been related to data transfer from the radar site to the university 30km away, we continue to have some troubles with interference on the radar frequency and unreliable power. Considering all this we managed to get the radar operational and running on a more permanent bases. We also designed a simple website using Jekyll which you can view on www.lekwenaradar.co.za.</summary></entry><entry><title type="html">Making a poster with LaTeX</title><link href="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html" rel="alternate" type="text/html" title="Making a poster with LaTeX" /><published>2018-02-22T04:43:29-06:00</published><updated>2018-02-22T04:43:29-06:00</updated><id>http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences</id><content type="html" xml:base="http://localhost:4000/latex/poster/2018/02/22/latex-poster-conviences.html">&lt;p&gt;LaTex is one of those cool things that suck you into the metaphorical rabbit
-hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out
-of my own initiative, my supervisor was using it but he recommended everyone
-against it and I would do the same, it’s just not that efficient and you can’t
-hide behind Microsoft Office’s fancy spelling/grammar checks and it lacks some
-support, our University’s writing department did not even know what LaTex is,
-this might be the case at other institutions to.&lt;/p&gt;
-
-&lt;p&gt;Making a poster in LaTeX was an surprisingly enjoyable exercise. After finding
-the the right combination of packages and experimenting with the layout the
-setup below best suited me. I’ll start off with the packages in the preamble.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[a1,final]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;a0poster&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;graphicx&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[absolute,overlay]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;textpos&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[colorgrid,texcoord]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;eso-pic&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPHorizModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPVertModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.ctan.org/pkg/a0poster&quot;&gt;&lt;em&gt;documentclass{a0poster}&lt;/em&gt;&lt;/a&gt; conveniently sorts out
-the formatting problems related to the poster size, things like fonts and
-formulas. The &lt;a href=&quot;http://www.ctan.org/pkg/textpos&quot;&gt;&lt;em&gt;textpos&lt;/em&gt;&lt;/a&gt; allows you to specify the
-exact position of text boxes, or figures, in the posters as an x,y point and we
-can see this x,y grid by using the &lt;a href=&quot;http://www.ctan.org/pkg/eso-pic&quot;&gt;&lt;em&gt;eso-pic&lt;/em&gt;&lt;/a&gt; package.
-The textpos documentation tells us that both &lt;em&gt;TPHoriz&lt;/em&gt; and &lt;em&gt;TPVert&lt;/em&gt; refer to
-the x,y size parameters of the of the text block environment. You can also
-change the layout to portrait (default is landscape) by doing
-&lt;em&gt;/documentclass[portrait,a0,final]&lt;/em&gt; and change the aX to 0 or 1 depending on
-your desired size&lt;/p&gt;
-
-&lt;p&gt;Try this out to get a feel:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;c&quot;&gt;% The preamble &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[a1,final]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;a0poster&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;graphicx&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[absolute,overlay]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;textpos&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[colorgrid,texcoord]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;eso-pic&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPHorizModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPVertModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Begin&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Title&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;26&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(2, 2)
-&lt;span class=&quot;k&quot;&gt;\VeryHuge&lt;/span&gt; Poster Making 101
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;You should get this output:
-&lt;img src=&quot;http://localhost:4000/assets/images/random/poster_basic.png&quot; alt=&quot;basic_poster&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Adding and positioning blocks of text is pretty easy. I’m going to use the
-&lt;em&gt;\lipsum&lt;/em&gt; package to avoid writing my own stuff :).&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-latex&quot; data-lang=&quot;latex&quot;&gt;&lt;span class=&quot;c&quot;&gt;% The preamble &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\documentclass&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[a1,final]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;a0poster&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;graphicx&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[absolute,overlay]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;textpos&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[colorgrid,texcoord]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;eso-pic&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPHorizModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\setlength&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;\TPVertModule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}{&lt;/span&gt;10mm&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\usepackage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;lipsum&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Begin&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{document}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Title&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;26&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(2, 2)
-&lt;span class=&quot;k&quot;&gt;\VeryHuge&lt;/span&gt; Poster Making 101 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Text Box 1&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;50&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(2, 6)
-&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\lipsum&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[60]&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Text Box 2&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;30&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(53, 6)
-&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\lipsum&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[80]&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% Text Box 3&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;15&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(68, 27)
-&lt;span class=&quot;k&quot;&gt;\large&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;\lipsum&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;[40]&lt;/span&gt; 
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;% A Fancy Picture made with GMT of course&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\begin{textblock}&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;(0, 10)
-&lt;span class=&quot;nt&quot;&gt;\begin{figure}&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;\includegraphics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;hail&lt;span class=&quot;p&quot;&gt;_&lt;/span&gt;composite&lt;span class=&quot;p&quot;&gt;_&lt;/span&gt;globe.pdf&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\end{figure}&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;\end{textblock}&lt;/span&gt;
-
-&lt;span class=&quot;nt&quot;&gt;\end{document}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;And then you a very nice layout a1, landscape poster.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/random/poster_not_so_basic.png&quot; alt=&quot;basic_final&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;To remove the grids, uncomment \usepackage[colorgrid,texcoord]{eso-pic} and to
-remove the boxes around the text (altough it might be good to keep them) remove
-&lt;em&gt;showboxes&lt;/em&gt; in the &lt;em&gt;eso-pic&lt;/em&gt; package.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/assets/images/random/poster_no_grid.png&quot; alt=&quot;basic_final&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">LaTex is one of those cool things that suck you into the metaphorical rabbit hole. I hesitantly started writing my thesis in it somewhere in 2016 mostly out of my own initiative, my supervisor was using it but he recommended everyone against it and I would do the same, it’s just not that efficient and you can’t hide behind Microsoft Office’s fancy spelling/grammar checks and it lacks some support, our University’s writing department did not even know what LaTex is, this might be the case at other institutions to.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/assets/images/radar/RadarAirports.png&quot; alt=&quot;radar_interference&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The North West University Potchefstroom has a pretty cool C-band radar currently under development. The radar, a WSR74-C radar, was previously located in Texas and after three decades it was redeployed to South-Africa for research purposes. The project was initiated before I started my graduate studies, but since 2016 we have slowly worked to get the radar operational. The site location and deployment of the radar was already completed in 2015 and since then most problems have been related to data transfer from the radar site to the university 30km away, we continue to have some troubles with interference on the radar frequency and unreliable power. Considering all this we managed to get the radar operational and running on a more permanent bases. We also designed a simple website using Jekyll which you can view on www.lekwenaradar.co.za.</summary></entry></feed>

@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Writings</title>
-  <meta name="description" content="Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover. I&#39;m navigating this strange new world of program...">
+  <title>CLI program to download GFS data</title>
+  <meta name="description" content="I wrote a basic program to quickly get GFS data through the command-line. I had a standard script I always used, but it was cumbersome to continuously find i...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/writings/">
+  <link rel="canonical" href="http://localhost:4000/r/2019/07/06/getgfs.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
    
   
@@ -96,244 +96,99 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <article class="post">
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script><article class="post" itemscope itemtype="https://schema.org/BlogPosting">
 
-  <div class="post-content">
-    <center> Assume TL;DR for all posts </center>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">CLI program to download GFS data</h1>
+    <p class="post-meta">
+      <time datetime="2019-07-06T02:40:29-05:00" itemprop="datePublished">
+        
+        Jul 6, 2019
+      </time>
+      </p>
+  </header>
 
+  <div class="post-content" itemprop="articleBody">
+    <p>I wrote a basic program to quickly get GFS data through the command-line.
+I had a standard script I always used, but it was cumbersome to continuously
+find it, copy it and run it. I just needed a <em>command-line-like</em> utility to
+ease my life.</p>
+
+<p>The most important functions I needed were:</p>
 <ul>
-
-  
-  
-    
-    <h1 id="y2019">July 2019</h1>
-    <ul>
-    
-  
-     <li>
-     <span>6 Jul 2019 &gt; </span>      
-	 <a href="/r/2019/07/06/getgfs.html">CLI program to download GFS data</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2019">February 2019</h1>
-    <ul>
-    
-  
-     <li>
-     <span>24 Feb 2019 &gt; </span>      
-	 <a href="/r/2019/02/24/shapefiles-in-R-pointsInpolygons.html">Shapefiles in R - extracting data in a spesific polygon</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>19 Feb 2019 &gt; </span>      
-	 <a href="/r/2019/02/19/excel-mulitsheet-in-R.html">Multisheet spreadsheets in R</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>17 Feb 2019 &gt; </span>      
-	 <a href="/r/2019/02/17/shapefiles-in-R-2.html">Shapefiles in R - extracting polygons</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>13 Feb 2019 &gt; </span>      
-	 <a href="/writing/2019/02/13/shapefiles-in-R.html">Shapefiles in R - making a basic map</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>9 Feb 2019 &gt; </span>      
-	 <a href="/writing/2019/02/09/writing-is-hard.html">Writing is hard</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>9 Feb 2019 &gt; </span>      
-	 <a href="/things/linux/2019/02/09/useless-things-learn-during-the-day.html">Usefull, useless things</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2018">April 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>14 Apr 2018 &gt; </span>      
-	 <a href="/visualizations/gfs/weather/2018/04/14/getting-point-data-from-gfs.html">Retriving point values from GFS data</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>8 Apr 2018 &gt; </span>      
-	 <a href="/radar/weather/2018/04/08/Interactive-radar-map-with-gdal.html">Making an interactive radar map with GDAL</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2018">March 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>25 Mar 2018 &gt; </span>      
-	 <a href="/radar/weather/jekyll/2018/03/25/NWU-Lekwena-Radar.html">Launching the NWU-Lekwena radar</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2018">February 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>22 Feb 2018 &gt; </span>      
-	 <a href="/latex/poster/2018/02/22/latex-poster-conviences.html">Making a poster with LaTeX</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2018">January 2018</h1>
-    <ul>
-    
-  
-     <li>
-     <span>28 Jan 2018 &gt; </span>      
-	 <a href="/weather/bash/gmt/2018/01/28/forecasting-weather-with-bash-and-other-linux-tools.html">A weather forecast with bash and other command line tools</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>14 Jan 2018 &gt; </span>      
-	 <a href="/bash/automatization/2018/01/14/simple-bash-srcipt-copy-photos-from-camera.html">Automating some tasks with bash: coping photos from camera</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2017">December 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>26 Dec 2017 &gt; </span>      
-	 <a href="/firefox/security/2017/12/26/browser-privacy.html">Browsing: attempting to balance useablity with privacy</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2017">November 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>25 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/25/using-generic-mapping-tools_netcdf.html">GMT Part 3: Working with NetCDF data by creating a synoptic weather map</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>22 Nov 2017 &gt; </span>      
-	 <a href="/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html">How I made the travel maps in this site</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>20 Nov 2017 &gt; </span>      
-	 <a href="/linux/network/bash/2017/11/20/script-to-change-macadress.html">Setting a random mac address for a specific network</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>1 Nov 2017 &gt; </span>      
-	 <a href="/maps/data/2017/11/01/using-generic-mapping-tools_topo.html">GMT Part 2: A topographical map of South-Africa</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2017">October 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/linux/github/2017/10/29/auto-git-push.html">Automatically push my updated site to Github</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>29 Oct 2017 &gt; </span>      
-	 <a href="/jekyll/blog/2017/10/29/genesis.html">Genesis of this site</a>
-     </li>
-  
-
-  
-  
-     <li>
-     <span>19 Oct 2017 &gt; </span>      
-	 <a href="/maps/data/2017/10/19/using-generic-mapping-tools.html">GMT Part 1: A basic map of South-Africa</a>
-     </li>
-  
-
-  
-  
-    </ul>
-    <h1 id="y2017">September 2017</h1>
-    <ul>
-    
-  
-     <li>
-     <span>20 Sep 2017 &gt; </span>      
-	 <a href="/wrf/era-interim/climate/2017/09/20/wrf-and-era.html">Getting WRF to work with ERA-Interim data</a>
-     </li>
-  </ul>
-
+  <li>access from anywhere on my laptop</li>
+  <li>can specify which model run I needed</li>
+  <li>can specify and download more than one forecast for a model run</li>
 </ul>
+
+<p>The program relies on wget and climate data operators (CDO). If you do not have
+these do:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt install cdo wget</code></pre></figure>
+
+<p>Create a <strong>~/bin</strong> directory to store the script in. Basically
+I did the following:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~ <span class="o">&amp;&amp;</span> mkdir bin <span class="o">&amp;&amp;</span> touch getGFS</code></pre></figure>
+
+<p>Now there’s a getGFS file which you can edit and add the following</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+<span class="nv">gfs</span><span class="o">=</span>http://www.ftp.ncep.noaa.gov/data/nccf/com/gfs/prod/gfs
+
+<span class="nb">echo</span> <span class="s2">"
+#######################################################################
+A simple command line utility to download GFS forecast data using wget.
+It's not really usefull to download historical data with.
+#######################################################################"</span>
+
+<span class="nb">echo</span>
+
+<span class="c"># Define what data you need</span>
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"Enter date in the following format %Y%m%d (e.g. 20191231) [ENTER]: "</span>
+<span class="nb">read </span>date
+
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"Enter model runtime, e.g. 06, will give you the GFS 06UTC model run [ENTER]: "</span>
+<span class="nb">read </span>initial
+
+<span class="nb">echo</span> <span class="nt">-n</span> <span class="s2">"Enter forecast times you want separated by a space (typically 00 06) [ENTER]: "</span>
+<span class="nb">read </span>forecast 
+
+<span class="c"># Loop through the specified forecast times wanted and grab GFS data</span>
+<span class="k">for </span>i <span class="k">in</span> <span class="nv">$forecast</span>
+<span class="k">do
+    </span>wget <span class="nv">$gfs</span>.<span class="nv">$date</span>/<span class="nv">$initial</span>/gfs.t<span class="nv">$initial</span><span class="se">\z</span>.pgrb2.0p25.f0<span class="nv">$i</span>
+<span class="k">done
+
+</span><span class="nb">echo</span> <span class="s2">"
+#######################################################################
+                                Done
+#######################################################################"</span></code></pre></figure>
+
+<p>Change the permissions of the getGFS file</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">chmod +x getGFS</code></pre></figure>
+
+<p>Append the following line to your .bashrc file</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/bin</code></pre></figure>
+
+<p>And it should work after closing and opening your terminal by typing in
+<strong>getGFS</strong>. This is just a quick download utility so there’s minor issues.
+I don’t do forecasts more than an 100 hours out and the script does not allow
+for that, it’s an easy fix nevertheless. I’ve had some issues where it seems
+like the data was somehow corrupted when trying to convert to netcdf format,
+but then I just manually inspect it.</p>
+
+<p>Most recently I’ve experience intermittent issues with the following error when running cdo</p>
+
 
   </div>
 
 </article>
+
+
 
       </div>
     </main>
