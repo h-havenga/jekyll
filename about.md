@@ -27,11 +27,10 @@ Dissertation: The numerical simulation of the 28 November 2013 extreme hail even
 NWU Potchefstroom, 2018  
 Concentration: Remote Sensing, Numerical Weather Prediction, Synoptic Climatology  
 Dissertation: Characteristics of hailstorms over the South-African Highveld  
-Supervisors: Dr. Roelof Burger (Atmospheric Scientist), Prof. Stuart Piketh  
-(Atmospheric Chemist), Dr. Cindy Bruyere (NCAR - Mesoscale and Microscale  
-Meteorology Laboratory)  
+Supervisors: Dr. Roelof Burger, Prof. Stuart Piketh &
+Dr. Cindy Bruyere  
 
 **Current: Phd. Environmental Science**  
 Concentration: Numerical Weather Prediction, Cloud Microphysics, Cloud Dynamics, Anthropogenic Air Pollution  
 Dissertation: Anthropogenic Impacts on Severe Convective Events over the South-African Highveld  
-Supervisors: Dr. Roelof Burger (Atmospheric Scientist) & Prof. Stuart Piketh (Atmospheric Chemist)  
+Supervisors: Dr. Roelof Burger & Prof. Stuart Piketh  
