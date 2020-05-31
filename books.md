@@ -5,6 +5,7 @@ permalink: /books/
 ---
 
 #### Read * : 
+Kennis Van Die Aand, _André P. Brink_ | Letters to a Young Scientist, *Edward O. Wilson* |
 Fear and Loathing in Las Vegas: A Savage Journey to the Heart of the American
 Dream, *Hunter S. Thompson* | The Storytelling Animal: How Stories Make Us
 Human, _Jonathan Gottschall_ | The Outsider, _Albert Camus_ | Pot-Pourri,
@@ -23,6 +24,6 @@ Slow, _Daniel Kahneman_ | When to Rob a Bank, _Steven D. Levitt and Stephen
 J. Dubner_ | War of the Encyclopaedists, _Christopher Robinson and Gavin
 Kovite_ | Metamorphosis and other short stories, _Franz Kafka_ | The Power
 of Habit, _Charles Duhigg_ | The Hitchhiker's Guide to the Galaxy, _Douglas
-Adams_ |
+Adams_ | Something Happenend, _Joseph Heller_
  
 <sub> * Since I started this list, more or less </sub> 

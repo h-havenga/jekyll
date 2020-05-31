@@ -46,9 +46,6 @@ meant used as a severe weather alert system I wrote a short description of how
 users should view the image above. I wrote this for the website and I'll copy
 it here. Below is a real-time image of the radar if it's running smoothly.
 
-![radar_real]({{ "http://143.160.8.22/cappi.gif" | absolute_url }}) <sub>NWU
-Lekwena Radar, almost realtime if running correctly </sub>
-
 # How to interpret the radar image
 
 ### Time

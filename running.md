@@ -34,3 +34,7 @@ BoekelderCross 15km: 1st, 55:23 | Zurich Málaga Maratón: 16th, 2:39:45
 Marathon: 10km, 34:16 No official result, no chip | Om Die Dam: 21.1km, 5th,
 1:15:30 | Vienna City Half Marathon, 16th, 1:13:53 | Two Oceans: 21.1km: 65th
 *ish*, 1:14:50 
+| Grand Forks Firecracker 10k: 36:15, 1st 
+
+<b> 2020 </b> Ottosdal Draf en Trap: 10km, 4th, 34:36 | Om Die Dam: 21.1km, 4th,
+1:17:08

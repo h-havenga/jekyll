@@ -6,11 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>How I made the travel maps in this site</title>
-  <meta name="description" content="This is a very hacked script I used to create my travel map">
+  <title>Howzit, I&#39;m Henno</title>
+  <meta name="description" content="Geo and spatial science graduate student, Debian GNU\Linux user, open-source advocate, runner and dog lover. I&#39;m navigating this strange new world of program...">
 
   <link rel="stylesheet" href="/assets/main.css">
-  <link rel="canonical" href="http://localhost:4000/gmt/map/travel/2017/11/22/travelmap-gmt-bash.html">
+  <link rel="canonical" href="http://localhost:4000/Cape.html">
   <link rel="alternate" type="application/rss+xml" title="Howzit, I&#39;m Henno" href="/feed.xml">
    
   
@@ -99,72 +99,50 @@
 
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
-<script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script><article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+        <article class="post">
 
-  <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">How I made the travel maps in this site</h1>
-    <p class="post-meta">
-      <time datetime="2017-11-22T14:43:28+02:00" itemprop="datePublished">
-        
-        Nov 22, 2017
-      </time>
-      </p>
-  </header>
+  <div class="post-content">
+    <h1>Convective Available Potential Energy (CAPE)</h1>
+<p>Drag the slider to change the time</p>
 
-  <div class="post-content" itemprop="articleBody">
-    <p>This is a very hacked script I used to create my travel map</p>
+<div class="slidecontainer">
+<input oninput='setImage(this)' class="slider" type="range" min="0" max="19" value="0" step="1" />
+<img id='img'/>
+</div>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="c">#Use ISO2 country codes</span>
-<span class="nv">visited</span><span class="o">=</span><span class="s2">"ZA,BW,NA,GB,ZM,MW,NL,CH,FR,FI,DE,BE,LU,CZ,US,RE,US,AT,LS,"</span>
-<span class="nv">usa</span><span class="o">=</span><span class="s2">"US.NC,US.SC,US.NY,US.VA,US.WY,US.MO,US.SD,US.TN,US.WV,US.KS,US.CO,US.MA,US.GA,US.MI,US.AZ,US.KY,US.NJ,US.PA,US.TX,US.DC,US.OR,US.ID,US.MS,US.CA,US.NE,US.NM,US.AL,US.IL,US.AL,US.LA,US.IA,US.MD"</span>
-
-<span class="c"># World</span>
-gmt pscoast <span class="nt">-Rd</span> <span class="nt">-JN0</span>/27.5 <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-Bg30</span>/g15 <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$visited</span>+p0.25p,black+g100/255/100 <span class="nt">-N1</span>/0.25p,black <span class="nt">-A1000</span> <span class="nt">-Glightgray</span> <span class="o">&gt;</span> travelmap_world.ps
-convert <span class="nt">-density</span> 300 travelmap_world.ps <span class="nt">-rotate</span> 90 travelmap_world.png 
-mogrify <span class="nt">-format</span> png <span class="nt">-gravity</span> south <span class="nt">-chop</span> 0x300 <span class="nt">-gravity</span> north <span class="nt">-chop</span> 0x300 travelmap_world.png
-
-<span class="c"># Africa</span>
-gmt pscoast <span class="nt">-R-20</span>/55/-38/40 <span class="nt">-JM17</span> <span class="nt">-P</span> <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-Ba60f30</span>/a30f15 <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$visited</span>+p0.25p,black+g100/255/100 <span class="nt">-A100</span> <span class="nt">-N1</span>/0.5p,black <span class="nt">-Glightgray</span> <span class="o">&gt;</span> travelmap_africa.ps
-convert <span class="nt">-density</span> 300 travelmap_africa.ps travelmap_africa.png 
-mogrify <span class="nt">-format</span> png <span class="nt">-gravity</span> south <span class="nt">-chop</span> 0x500 <span class="nt">-gravity</span> north <span class="nt">-chop</span> 0x500 travelmap_africa.png
-
-<span class="c"># Europe</span>
-gmt pscoast <span class="nt">-R-20</span>/50/35/72 <span class="nt">-JL15</span>/35/35/55/25c <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B10a0</span> <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$visited</span>+p0.25p,black+g100/255/100 <span class="nt">-Glightgrey</span> <span class="nt">-N1</span>/0.5p,black <span class="nt">-A100</span> <span class="o">&gt;</span> travelmap_europe.ps
-convert <span class="nt">-density</span> 300 travelmap_europe.ps <span class="nt">-rotate</span> 90 travelmap_europe.png 
-
-<span class="c"># North America</span>
-gmt pscoast <span class="nt">-R-130</span>/-70/24/52 <span class="nt">-JL-100</span>/35/33/45/25c <span class="nt">-Xc</span> <span class="nt">-Yc</span> <span class="nt">-B10a0</span> <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$usa</span>+p0.25p,black+g100/255/100 <span class="nt">-N1</span>/0.5p,black <span class="nt">-Glightgrey</span> <span class="o">&gt;</span> travelmap_na.ps
-convert <span class="nt">-density</span> 300 travelmap_na.ps <span class="nt">-rotate</span> 90 travelmap_na.png 
-mogrify <span class="nt">-format</span> png <span class="nt">-gravity</span> south <span class="nt">-chop</span> 0x300 <span class="nt">-gravity</span> north <span class="nt">-chop</span> 0x300 travelmap_na.png</code></pre></figure>
-
-<h1 id="update">Update</h1>
-<p>This is much more effcient, in the previous code I drew the maps individually and merged them in inkscape, here I draw it all in GMT.</p>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
-<span class="c"># Use ISO2 country codes</span>
-<span class="nv">visited</span><span class="o">=</span><span class="s2">"ZA,BW,NA,GB,ZM,MW,NL,CH,FR,FI,DE,BE,LU,CZ,US,RE,US,AT,ES"</span>
-<span class="nv">usa</span><span class="o">=</span><span class="s2">"US.NC,US.SC,US.NY,US.VA,US.WY,US.MO,US.SD,US.TN,US.WV,US.KS,US.CO,US.MA,US.GA,US.MI,US.AZ,US.KY,US.NJ,US.PA,US.TX,US.DC,US.OR,US.ID,US.MS,US.CA,US.NE,US.NM,US.AL,US.IL,US.AL,US.LA,US.IA,US.MD"</span>
-
-<span class="c"># World</span>
-gmt pscoast <span class="nt">-Rd</span> <span class="nt">-JN0</span>/24 <span class="nt">-Xc</span> <span class="nt">-Y33</span> <span class="nt">-Bg30</span>/g15 <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$visited</span>+p0.25p,black+g100/255/100 <span class="nt">-N1</span>/0.25p,black <span class="nt">-A1000</span> <span class="nt">-Glightgray</span> <span class="nt">--PS_MEDIA</span><span class="o">=</span>45.5cx30c <span class="nt">-K</span> <span class="o">&gt;</span> travelmap_world.ps
-
-<span class="c"># Africa</span>
-gmt pscoast <span class="nt">-R-20</span>/55/-38/40 <span class="nt">-JM12</span> <span class="nt">-X-1</span>.5 <span class="nt">-Y-15</span> <span class="nt">-Ba30f30</span>/a30f15 <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$visited</span>+p0.25p,black+g100/255/100 <span class="nt">-A100</span> <span class="nt">-N1</span>/0.5p,black <span class="nt">-Glightgray</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> travelmap_world.ps
-
-<span class="c"># Europe</span>
-gmt pscoast <span class="nt">-R-20</span>/50/35/72 <span class="nt">-JL15</span>/35/35/55/13c <span class="nt">-X14</span> <span class="nt">-Y1</span>.5 <span class="nt">-B10a0</span> <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$visited</span>+p0.25p,black+g100/255/100 <span class="nt">-Glightgrey</span> <span class="nt">-N1</span>/0.5p,black <span class="nt">-A100</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> travelmap_world.ps
-
-<span class="c"># North America</span>
-gmt pscoast <span class="nt">-R-130</span>/-70/24/52 <span class="nt">-JL-100</span>/35/33/45/24c <span class="nt">-X-12</span> <span class="nt">-Y-17</span> <span class="nt">-B10a0</span> <span class="nt">-Dh</span> <span class="nt">-E</span><span class="nv">$usa</span>+p0.25p,black+g100/255/100 <span class="nt">-N1</span>/0.5p,black <span class="nt">-Glightgrey</span> <span class="nt">-O</span> <span class="nt">-K</span> <span class="o">&gt;&gt;</span> travelmap_world.ps</code></pre></figure>
-
+<script>
+var img = document.getElementById('img');
+var img_array = ['/assets/images/synoptic_maps/cape_map06.png', 
+                 '/assets/images/synoptic_maps/cape_map08.png',
+                 '/assets/images/synoptic_maps/cape_map10.png',
+                 '/assets/images/synoptic_maps/cape_map12.png',
+                 '/assets/images/synoptic_maps/cape_map14.png',
+                 '/assets/images/synoptic_maps/cape_map16.png',
+                 '/assets/images/synoptic_maps/cape_map18.png',
+                 '/assets/images/synoptic_maps/cape_map20.png',
+                 '/assets/images/synoptic_maps/cape_map22.png',
+                 '/assets/images/synoptic_maps/cape_map24.png',
+                 '/assets/images/synoptic_maps/cape_map26.png',
+                 '/assets/images/synoptic_maps/cape_map28.png',
+                 '/assets/images/synoptic_maps/cape_map30.png',
+                 '/assets/images/synoptic_maps/cape_map32.png',
+                 '/assets/images/synoptic_maps/cape_map34.png',
+                 '/assets/images/synoptic_maps/cape_map36.png',
+                 '/assets/images/synoptic_maps/cape_map38.png',
+                 '/assets/images/synoptic_maps/cape_map40.png',
+                 '/assets/images/synoptic_maps/cape_map44.png',
+                 '/assets/images/synoptic_maps/cape_map48.png'];
+function setImage(obj)
+{
+        var value = obj.value;
+        img.src = img_array[value];
+    
+}
+</script>
 
   </div>
 
 </article>
-
-
 
       </div>
     </main>
