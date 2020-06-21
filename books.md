@@ -5,6 +5,7 @@ permalink: /books/
 ---
 
 #### Read * : 
+Die lang pad van Stoffel Mathysen, _Christiaan Mathys Bakkes_ |
 Kennis Van Die Aand, _André P. Brink_ | Letters to a Young Scientist, *Edward O. Wilson* |
 Fear and Loathing in Las Vegas: A Savage Journey to the Heart of the American
 Dream, *Hunter S. Thompson* | The Storytelling Animal: How Stories Make Us
