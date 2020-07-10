@@ -5,11 +5,12 @@ permalink: /books/
 ---
 
 #### Read * : 
+We Have No Idea: A Guide to the Unknown Universe, _Daniel Whiteson and Jorge Cham_ |
 Infinite Powers: How Calculus Reveals the Secrets of the Universe, _Steven Strogatz_ |
-Die lang pad van Stoffel Mathysen, _Christiaan Mathys Bakkes_ |
-Kennis Van Die Aand, _André P. Brink_ | Letters to a Young Scientist, *Edward O. Wilson* |
+Die Lang Pad van Stoffel Mathysen, _Christiaan Mathys Bakkes_ |
+Kennis Van Die Aand, _André P. Brink_ | Letters to a Young Scientist, _Edward O. Wilson_ |
 Fear and Loathing in Las Vegas: A Savage Journey to the Heart of the American
-Dream, *Hunter S. Thompson* | The Storytelling Animal: How Stories Make Us
+Dream, _Hunter S. Thompson_ | The Storytelling Animal: How Stories Make Us
 Human, _Jonathan Gottschall_ | The Outsider, _Albert Camus_ | Pot-Pourri,
 _André P. Brink_ | Because We Say So, _Noam Chomsky_ | Waking Up, _Sam Harris_
 | The Subtle Art of Not Giving a Fuck, _Mark Manson_ | Freedom and
