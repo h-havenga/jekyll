@@ -5,6 +5,8 @@ permalink: /books/
 ---
 
 #### Read * : 
+Land Rover: The Story of the Car that Conquered the World, _Ben Fogle_ |
+Life & Times of Micheal K., _J.M Coetzee_ |
 We Have No Idea: A Guide to the Unknown Universe, _Daniel Whiteson and Jorge Cham_ |
 Infinite Powers: How Calculus Reveals the Secrets of the Universe, _Steven Strogatz_ |
 Die Lang Pad van Stoffel Mathysen, _Christiaan Mathys Bakkes_ |
